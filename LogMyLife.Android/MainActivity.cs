@@ -9,6 +9,7 @@ using Android.OS;
 using System.Collections.Generic;
 using Android.Support.V4.Widget;
 using Android.Support.V4.App;
+using LogMyLife.Domain;
 
 namespace DrawerLayoutTutorial
 {
@@ -32,10 +33,15 @@ namespace DrawerLayoutTutorial
 
 			mLeftDrawer.Tag = 0;
 
+            foreach (var i in MainController.GetCategories())
+            {
+                mLeftItems.Add(i.Name);
+            }            
+                
             //TODO: Dynamically populate from list
-			mLeftItems.Add ("Books");
-			mLeftItems.Add ("Games");
-            mLeftItems.Add("Films");
+			//mLeftItems.Add ("Books");
+			//mLeftItems.Add ("Games");
+            //mLeftItems.Add("Films");
 
             mDrawerToggle = new MyActionBarDrawerToggle (this, mDrawerLayout, Resource.Drawable.ic_navigation_drawer, Resource.String.open_drawer, Resource.String.close_drawer);
 
