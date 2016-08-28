@@ -38,10 +38,6 @@ namespace DrawerLayoutTutorial
                 mLeftItems.Add(i.Name);
             }            
                 
-            //TODO: Dynamically populate from list
-			//mLeftItems.Add ("Books");
-			//mLeftItems.Add ("Games");
-            //mLeftItems.Add("Films");
 
             mDrawerToggle = new MyActionBarDrawerToggle (this, mDrawerLayout, Resource.Drawable.ic_navigation_drawer, Resource.String.open_drawer, Resource.String.close_drawer);
 
@@ -53,7 +49,13 @@ namespace DrawerLayoutTutorial
 			ActionBar.SetDisplayHomeAsUpEnabled (true);
 			ActionBar.SetHomeButtonEnabled (true);	
 			ActionBar.SetDisplayShowTitleEnabled (true);
-		}
+
+            //This is where the main content can be populated - make dynamic depending on what menu item clicked
+            TextView mainScreen;
+            mainScreen = FindViewById<TextView>(Resource.Id.tvText);
+            mainScreen.Text = "Hello, world, hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii";
+
+        }
 
 		protected override void OnPostCreate (Bundle savedInstanceState)
 		{
@@ -89,6 +91,9 @@ namespace DrawerLayoutTutorial
            
 
 		}
+
+        
+
 	}
 }
 
