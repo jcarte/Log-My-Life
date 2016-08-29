@@ -303,7 +303,15 @@ namespace LogMyLife.Domain.Data
 
         internal static Category GetCategory(int catID)
         {
-            return db.Get<Category>(catID);//TODO test what happens if doesn't exist
+            try
+            {
+                return db.Get<Category>(catID);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
 
@@ -319,7 +327,15 @@ namespace LogMyLife.Domain.Data
 
         internal static Column GetColumn(int colID)
         {
-            return db.Get<Column>(colID);
+            try
+            {
+                return db.Get<Column>(colID);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
 
@@ -331,7 +347,15 @@ namespace LogMyLife.Domain.Data
 
         internal static Record GetRecord(int recordID)
         {
-            return db.Get<Record>(recordID);
+            try
+            {
+                return db.Get<Record>(recordID);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
 
@@ -343,7 +367,15 @@ namespace LogMyLife.Domain.Data
 
         internal static Cell GetCell(int recordID, int columnID)
         {
-            return db.Get<Cell>(c=> c.RecordID == recordID && c.ColumnID == columnID);
+            try
+            {
+                return db.Get<Cell>(c => c.RecordID == recordID && c.ColumnID == columnID);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
         
     }

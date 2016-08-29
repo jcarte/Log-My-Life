@@ -24,6 +24,7 @@ namespace LogMyLife.Domain.Test
             ConsoleColor.White,
             ConsoleColor.Green,
             ConsoleColor.Blue,
+            ConsoleColor.Red,
             ConsoleColor.Cyan,
             ConsoleColor.Yellow
             };

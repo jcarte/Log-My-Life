@@ -19,11 +19,13 @@ namespace LogMyLife.Domain.Data
         /// <summary>
         /// The record this cell is contained in (the row)
         /// </summary>
+        [Indexed]
         public int RecordID { get; set; }
 
         /// <summary>
         /// The column this cell is contained within
         /// </summary>
+        [Indexed]
         public int ColumnID { get; set; }
 
         /// <summary>

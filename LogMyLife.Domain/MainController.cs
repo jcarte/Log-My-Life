@@ -12,58 +12,91 @@ namespace LogMyLife.Domain
 {
     public static class MainController//TODO better name
     {
-        //TODO remove for testing only
-        //public static void DestroyDatabase()
-        //{
-        //    d.DatabaseController.Destroy();
-        //}
 
+        static MainController()
+        {
+            //TODO check if db exists yet if it doesn't create and insert with default data
+        }
+
+
+
+
+        /// <summary>
+        /// Creates a new category and stores it in the database
+        /// </summary>
+        /// <param name="name">The name of the category</param>
+        /// <param name="type">The type of data held in the category</param>
+        /// <returns>The new category with generated ID</returns>
         public static m.Category CreateCategory(string name, CategoryType type)
         {
             d.Category dCat = new d.Category();
 
-            dCat.IsRecordDeleted = false;
             dCat.Name = name;
-            dCat.RecordCreated = DateTime.Now;
-            dCat.RecordModifed = DateTime.Now;
             dCat.Type = (int)type;
 
-            d.DatabaseController.Create(dCat);//TODO check doesn't need an out
+            Create(dCat);
 
             return ConvertCategoryToModel(dCat);
         }
 
+        /// <summary>
+        /// Get all categories
+        /// </summary>
+        /// <returns>List of all categories currently in database</returns>
         public static List<m.Category> GetCategories()
         {
-            //TODO Remove
-            //d.DatabaseController.Init();
-
-
             List<m.Category> lis = new List<Model.Category>();
             d.DatabaseController.GetCategories().ToList().ForEach(c => lis.Add(ConvertCategoryToModel(c)));
             return lis;
         }
 
-        public static void UpdateCategory(m.Category mCat)//TODO add protection - what if not in db
+        /// <summary>
+        /// Update a category
+        /// </summary>
+        /// <param name="cat">The category to be updated complete with updated values</param>
+        public static void UpdateCategory(m.Category cat)
         {
-            d.Category dCat = d.DatabaseController.GetCategory(mCat.CategoryID);//TODO should this get from db???Other way? hold the data obj inside the model?
+            if (cat == null)
+                throw new Exception($"Can't update Category because it is null");
 
-            dCat.Name = mCat.Name;
-            dCat.Type = (int)mCat.Type;
+            d.Category dCat = d.DatabaseController.GetCategory(cat.CategoryID);
+            if (dCat == null)
+                throw new Exception($"Can't update Category {cat.CategoryID} because it doesn't exist");
+
+            dCat.Name = cat.Name;
+            dCat.Type = (int)cat.Type;
 
             Update(dCat);
         }
 
-        //TODO IsRecordDeleted vs actual deletion
-        public static void DeleteCategory(m.Category mCat) => DeleteCategory(mCat.CategoryID);//TODO needed?
+        /// <summary>
+        /// Delete a category and all records inside it
+        /// </summary>
+        /// <param name="cat">The category to be deleted</param>
+        public static void DeleteCategory(m.Category cat)
+        {
+            if (cat == null)
+                throw new Exception($"Can't delete Category because it is null");
+            DeleteCategory(cat.CategoryID);
+        }
+        
+        /// <summary>
+        /// Delete a category and all records inside it
+        /// </summary>
+        /// <param name="catID">The CategoryID of the category to be deleted</param>
         public static void DeleteCategory(int catID)
         {
+            var c = d.DatabaseController.GetCategory(catID);
+            if (c == null)
+                throw new Exception($"Can't delete Category {catID} because it doesn't exist");
+
             //Manual cascading delete
             DeleteRange(d.DatabaseController.GetRecords(catID));
             DeleteRange(d.DatabaseController.GetColumns(catID));
             DeleteRange(d.DatabaseController.GetCells(catID));
-            Delete(d.DatabaseController.GetCategory(catID));
+            Delete(c);
         }
+
 
         private static m.Category ConvertCategoryToModel(d.Category dCat)
         {
@@ -72,13 +105,9 @@ namespace LogMyLife.Domain
             mCat.Name = dCat.Name;
 
             try
-            {
-                mCat.Type = (CategoryType)dCat.Type;
-            }
+            { mCat.Type = (CategoryType)dCat.Type; }
             catch (Exception)
-            {
-                mCat.Type = CategoryType.UserCreated;
-            }
+            { mCat.Type = CategoryType.UserCreated; }//unknown type, make a custom type
 
             return mCat;
         }
@@ -284,8 +313,10 @@ namespace LogMyLife.Domain
         private static void CreateRange(IEnumerable<d.IStorable> s) => s.ToList().ForEach(ss => Update(ss));
         private static void Create(d.IStorable s)
         {
+            s.IsRecordDeleted = false;
+            s.RecordCreated = DateTime.Now;
             s.RecordModifed = DateTime.Now;
-            d.DatabaseController.Update(s);
+            d.DatabaseController.Create(s);
         }
 
 
