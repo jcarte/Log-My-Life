@@ -12,16 +12,17 @@ namespace LogMyLife.Domain.Model
     {
         //TODO restrict set
 
-        /// <summary>
-        /// Unique Identifier for the category
-        /// </summary>
-        public int CategoryID { get; internal set; }
-
 
         /// <summary>
         /// Unique Identifier for the Entry
         /// </summary>
         public int EntryID { get; internal set; }
+
+        /// <summary>
+        /// Unique Identifier for the category
+        /// </summary>
+        public int CategoryID { get; internal set; }
+
 
         //TODO complete
         //public string DisplayValue1 { get; set; }

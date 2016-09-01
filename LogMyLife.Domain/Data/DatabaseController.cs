@@ -251,6 +251,7 @@ namespace LogMyLife.Domain.Data
                 RecordModifed = DateTime.Now
             });
 
+            CreateRange(cells);
 
             //TODO add more default records / refactor / Move this logic to the main controller
         }

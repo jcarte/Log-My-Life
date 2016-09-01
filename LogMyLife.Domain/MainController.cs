@@ -97,7 +97,6 @@ namespace LogMyLife.Domain
             Delete(c);
         }
 
-
         private static m.Category ConvertCategoryToModel(d.Category dCat)
         {
             m.Category mCat = new m.Category();
@@ -117,11 +116,35 @@ namespace LogMyLife.Domain
 
 
 
+        public static List<m.Column> GetAllColumns(int catID)
+        {
 
+        }
+        public static List<m.Column> GetVisibleColumns(int catID)
+        {
 
+        }
+        public static m.Column CreateColumn(string name, int catID, m.Column.ColumnType type)
+        {
 
+        }
+        public static void UpdateColumn(m.Column col)
+        {
 
+        }
+        public static void DeleteColumn(int colID)
+        {
 
+        }
+        public static void DeleteColumn(m.Column col)
+        {
+
+        }
+
+        private static m.Column ConvertColumnToModel(d.Column col)
+        {
+
+        }
 
 
 
@@ -130,7 +153,6 @@ namespace LogMyLife.Domain
 
         public static m.Entry CreateEntry(int catID)
         {
-
             d.Category cat = d.DatabaseController.GetCategory(catID);
 
             d.Record rec = new d.Record();
@@ -183,6 +205,7 @@ namespace LogMyLife.Domain
             {
                 List<d.Cell> cells = d.DatabaseController.GetCells(rec.RecordID).ToList();
                 m.Entry e = ConvertEntryToModel(cat, rec, cols, cells);
+                lis.Add(e);
             }
 
             return lis;
@@ -192,7 +215,7 @@ namespace LogMyLife.Domain
         public static void UpdateEntry(m.Entry ent)
         {
 
-            var cat = d.DatabaseController.GetCategory(ent.CategoryID);//Needed?
+            //var cat = d.DatabaseController.GetCategory(ent.CategoryID);//Needed?
             var rec = d.DatabaseController.GetRecord(ent.EntryID);
             var cols = d.DatabaseController.GetColumns(ent.CategoryID);
             var cells = d.DatabaseController.GetCells(ent.EntryID);
@@ -230,6 +253,10 @@ namespace LogMyLife.Domain
         private static m.Entry ConvertEntryToModel(d.Category cat, d.Record rec, List<d.Column> cols, List<d.Cell> cells)
         {
             m.Entry ent = new m.Entry();
+
+            ent.EntryID = rec.RecordID;
+            ent.CategoryID = cat.CategoryID;
+            ent.IsArchived = rec.IsArchived;
 
             var dic = new Dictionary<d.Column, string>();
 
