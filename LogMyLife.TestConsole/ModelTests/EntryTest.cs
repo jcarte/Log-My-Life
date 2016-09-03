@@ -36,6 +36,9 @@ namespace LogMyLife.TestConsole.ModelTests
             MainController.UpdateEntry(upd1);
             ListAll();
 
+            ////////////////////////
+            //TODO Finish these tests now have default data
+            ////////////////////////
         }
 
         private static void BasicAdd()
