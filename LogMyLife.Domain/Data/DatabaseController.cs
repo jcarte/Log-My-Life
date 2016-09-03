@@ -14,246 +14,41 @@ namespace LogMyLife.Domain.Data
     internal static class DatabaseController
     {
         private const string DB_FILE_NAME = "lmldb2.db3";//TODO change name
-        static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),DB_FILE_NAME);
+        private static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),DB_FILE_NAME);
         private static SQLiteConnection db;
 
+        public static bool HasDefaults {
+            get
+            {
+                FileInfo fi = new FileInfo(dbPath);
+                bool recentlyCreated = DateTime.Now - fi.CreationTime < new TimeSpan(0, 0, 10);//created in the last 10 secs
+                bool hasCategories = GetCategories().Count() > 0;
+                return recentlyCreated && hasCategories;
+            }
+        }
 
 
 
+        
 
-        //TODO Replace
-        static DatabaseController()
-        //public static void Init()
+
+        //static DatabaseController()
+        public static void Init()
         {
-            File.Delete(dbPath);//todo remove for testing only
+            //TODO remove for testing only
+            File.Delete(dbPath);
 
             //TODO setup for multi threading https://developer.xamarin.com/guides/cross-platform/application_fundamentals/data/part_3_using_sqlite_orm/ (bottom of page)
             //TODO need to install  Install-Package sqlite-net-pcl  to front end (better way)??
             db = new SQLiteConnection(dbPath);//TODO put in folder
-            
+
+            //Init all tables, doesn't do anything if they already exist
+            db.CreateTable<Category>();
             db.CreateTable<Category>();
             db.CreateTable<Column>();
             db.CreateTable<Record>();
             db.CreateTable<Cell>();
 
-            //UserCreated = 0,
-            //Music = 1,
-            //Film = 2,
-            //Book = 3,
-            //Wine = 4
-
-            List<Category> cats = new List<Category>();
-
-            cats.Add(new Category()
-            {
-                Name = "Music",
-                Type = 1,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-
-            cats.Add(new Category()
-            {
-                Name = "Film",
-                Type = 2,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-
-            cats.Add(new Category()
-            {
-                Name = "Book",
-                Type = 3,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-
-            cats.Add(new Category()
-            {
-                Name = "Wine",
-                Type = 4,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-
-            cats.Add(new Category()
-            {
-                Name = "Your List",
-                Type = 0,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-
-            CreateRange(cats);
-
-
-
-            //===Create cols====
-            Category musicCat = cats[0];
-
-            List<Column> cols = new List<Column>();
-            cols.Add(new Column()
-            {
-                Name = "Artist",
-                CategoryID = musicCat.CategoryID,
-                IsActive = true,
-                IsKey = true,
-                IsReview = false,
-                Order = 1,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-            cols.Add(new Column()
-            {
-                Name = "Album",
-                CategoryID = musicCat.CategoryID,
-                IsActive = true,
-                IsKey = true,
-                IsReview = false,
-                Order = 2,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-            cols.Add(new Column()
-            {
-                Name = "Track",
-                CategoryID = musicCat.CategoryID,
-                IsActive = true,
-                IsKey = true,
-                IsReview = false,
-                Order = 3,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-            cols.Add(new Column()
-            {
-                Name = "Star Rating",
-                CategoryID = musicCat.CategoryID,
-                IsActive = true,
-                IsKey = false,
-                IsReview = true,
-                Order = 4,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-            cols.Add(new Column()
-            {
-                Name = "Comment",
-                CategoryID = musicCat.CategoryID,
-                IsActive = true,
-                IsKey = false,
-                IsReview = true,
-                Order = 5,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-            cols.Add(new Column()
-            {
-                Name = "Would James Approve?",
-                CategoryID = musicCat.CategoryID,
-                IsActive = true,
-                IsKey = false,
-                IsReview = false,
-                Order = 6,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-
-            CreateRange(cols);
-
-            
-
-            
-            //====Create Record====
-
-            Record r1 = new Record()
-            {
-                CategoryID = musicCat.CategoryID,
-                IsArchived = false,
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            };
-
-            Create(r1);
-
-
-
-
-
-            //====Create Cells===
-
-            List<Cell> cells = new List<Cell>();
-
-            cells.Add(new Cell()
-            {
-                RecordID = r1.RecordID,
-                ColumnID = cols[0].ColumnID,//Artist
-                Data = "Black Sabbath",
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-            cells.Add(new Cell()
-            {
-                RecordID = r1.RecordID,
-                ColumnID = cols[1].ColumnID,//Album
-                Data = "Sabotage",
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-            cells.Add(new Cell()
-            {
-                RecordID = r1.RecordID,
-                ColumnID = cols[2].ColumnID,//Track
-                Data = "Hole in the Sky",
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-            cells.Add(new Cell()
-            {
-                RecordID = r1.RecordID,
-                ColumnID = cols[3].ColumnID,//Star Rating
-                Data = "10",
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-            cells.Add(new Cell()
-            {
-                RecordID = r1.RecordID,
-                ColumnID = cols[4].ColumnID,//Comment
-                Data = "Totally Badass",
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-            cells.Add(new Cell()
-            {
-                RecordID = r1.RecordID,
-                ColumnID = cols[5].ColumnID,//WJA
-                Data = "I think he might, yes",
-                IsRecordDeleted = false,
-                RecordCreated = DateTime.Now,
-                RecordModifed = DateTime.Now
-            });
-
-            CreateRange(cells);
-
-            //TODO add more default records / refactor / Move this logic to the main controller
         }
 
 

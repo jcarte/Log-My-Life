@@ -26,10 +26,14 @@ namespace LogMyLife.Domain.Model
         /// </summary>
         public int Order { get; set; }
         
-
+        /// <summary>
+        /// What type of column is it, what sort of information is held in it?
+        /// </summary>
         public ColumnType Type { get; set; }
 
-
+        /// <summary>
+        /// Is the column data hidden
+        /// </summary>
         public bool IsHidden { get; set; }
 
 

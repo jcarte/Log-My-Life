@@ -8,11 +8,12 @@ using d= LogMyLife.Domain.Data;
 
 namespace LogMyLife.Domain.Model
 {
+    /// <summary>
+    /// A single "Row" of data in a category, can we seen as a single object inside the category
+    /// holds data inside columns to describe the object.
+    /// </summary>
     public class Entry
     {
-        //TODO restrict set
-
-
         /// <summary>
         /// Unique Identifier for the Entry
         /// </summary>
@@ -23,82 +24,157 @@ namespace LogMyLife.Domain.Model
         /// </summary>
         public int CategoryID { get; internal set; }
 
+        /// <summary>
+        /// The first bit of data which describes the entry, used to summarise the entry
+        /// </summary>
+        public string DisplayValue1
+        {
+            get
+            {
+                if (TitleData.Count > 0)
+                    return TitleData.Values.Skip(0).First();
+                else
+                    return string.Empty;
+            }     
+            set
+            {
+                if (TitleData.Count > 0)
+                    EditColumnData(TitleData.Keys.Skip(0).First(),value);
+            }
+        }
 
-        //TODO complete
-        //public string DisplayValue1 { get; set; }
-        //public string DisplayValue2 { get; set; }
-        //public string DisplayValue3 { get; set; }
+        /// <summary>
+        /// The second bit of data which describes the entry, used to summarise the entry
+        /// </summary>
+        public string DisplayValue2
+        {
+            get
+            {
+                if (TitleData.Count > 1)
+                    return TitleData.Values.Skip(1).First();
+                else
+                    return string.Empty;
+            }
+            set
+            {
+                if (TitleData.Count > 1)
+                    EditColumnData(TitleData.Keys.Skip(1).First(), value);
+            }
+        }
 
-        //public Bitmap Image { get; set; }
+        /// <summary>
+        /// The third bit of data which descrubes the entry, used to summarise the entry
+        /// </summary>
+        public string DisplayValue3
+        {
+            get
+            {
+                if (TitleData.Count > 2)
+                    return TitleData.Values.Skip(2).First();
+                else
+                    return string.Empty;
+            }
+            set
+            {
+                if (TitleData.Count > 2)
+                    EditColumnData(TitleData.Keys.Skip(2).First(), value);
+            }
+        }
 
-        public int StarRating { get; internal set; }//TODO open up, special setter
+        /// <summary>
+        /// Rating that the user gave this entry between 0 and 10 inclusive
+        /// </summary>
+        public int StarRating
+        {
+            get
+            {
+                int star;
+                string colData = Data[GetColumn("Star Rating")];
+                if (!Int32.TryParse(colData, out star))
+                    throw new Exception($"Star Rating of {colData} could not be converted to a number");
+                return star;
+            }
+            set
+            {
+                if (value < 0 || value > 10)
+                    throw new Exception($"Star rating must be between 0 and 10 inclusive, {value} is not in that range");
+                EditColumnData("Star Rating", value.ToString());
+            }
+        }
 
-        //TODO how to handle updating?
-        public Dictionary<string,string> AllData { get; internal set; }
-        public Dictionary<string, string> KeyData { get; internal set; }
+        /// <summary>
+        /// Every column of data for this entry, given in form: (Column Name, Data Value)
+        /// </summary>
+        public Dictionary<string, string> AllData { get { return Data.ToDictionary(d => d.Key.Name, d => d.Value); } }
 
+        /// <summary>
+        /// Only columns which are not hidden, given in form: (Column Name, Data Value)
+        /// </summary>
+        public Dictionary<string, string> VisibleData { get { return Data.Where(da=>da.Key.IsHidden == false).ToDictionary(d => d.Key.Name, d => d.Value); } }
+        /// <summary>
+        /// Only hidden columns, given in form: (Column Name, Data Value)
+        /// </summary>
+        public Dictionary<string, string> HiddenData { get { return Data.Where(da => da.Key.IsHidden == true).ToDictionary(d => d.Key.Name, d => d.Value); } }
+
+        /// <summary>
+        /// All visible columns which are marked as "Title" columns, given in form: (Column Name, Data Value)
+        /// </summary>
+        public Dictionary<string, string> TitleData { get { return Data.Where(da => da.Key.IsHidden == false && da.Key.Type == Column.ColumnType.Title).ToDictionary(d => d.Key.Name, d => d.Value); } }
+        /// <summary>
+        /// All visible columns which are marked as "Review" columns, given in form: (Column Name, Data Value)
+        /// </summary>
+        public Dictionary<string, string> ReviewData { get { return Data.Where(da => da.Key.IsHidden == false && da.Key.Type == Column.ColumnType.Review).ToDictionary(d => d.Key.Name, d => d.Value); } }
+        /// <summary>
+        /// All visible columns which are not marked as either "Title" or "Review" columns, given in form: (Column Name, Data Value)
+        /// </summary>
+        public Dictionary<string, string> OtherData { get { return Data.Where(da => da.Key.IsHidden == false && da.Key.Type == Column.ColumnType.Normal).ToDictionary(d => d.Key.Name, d => d.Value); } }
+
+        /// <summary>
+        /// Has this entry been archived?
+        /// </summary>
         public bool IsArchived { get; set; }
 
 
+        /// <summary>
+        /// Edit the data held in columns, throws column not found exception if invalid column name supplied.
+        /// </summary>
+        /// <param name="colName">Name of the column to change the data of</param>
+        /// <param name="data">The data to store in that column</param>
         public void EditColumnData(string colName, string data)
         {
-            if(AllData.ContainsKey(colName))
-                AllData[colName] = data;
-            else
-            {
-                //TODO throw error as doesn't exist or return bool
-            }
-
-            if (KeyData.ContainsKey(colName))
-                KeyData[colName] = data;
+            Data[GetColumn(colName)] = data;
         }
 
-        //public Entry(d.Category cat, d.Record rec, List<d.Column> cols, List<d.Cell> cells)
-        //{
-        //    var dic = new Dictionary<d.Column, string>();
 
-        //    foreach (d.Column col in cols.OrderBy(c => c.Order))
-        //    {
-        //        //TODO test if cell doesn't exist for this column
-        //        string data = cells.FirstOrDefault(c => c.ColumnID == col.ColumnID)?.Data ?? string.Empty;
-        //        dic.Add(col, data);
-        //    }
+        //Column retriever convenience method, throws not found exception
+        private Column GetColumn(string colName)
+        {
+            Column col = Data.Keys.FirstOrDefault(c => c.Name == colName);
 
-        //    AllData = dic.ToDictionary(d => d.Key.Name, d => d.Value);
-        //    KeyData = dic.Where(k => k.Key.IsKey).ToDictionary(d => d.Key.Name, d => d.Value);
-        //    //TODO fill out the rest of these if it works
+            if (col == null)
+                throw new Exception($"Column {colName} could not be found in the column list for this entry.");
 
+            return col;
+        }
 
-        //    if (KeyData.Count >= 1)
-        //        DisplayValue1 = KeyData.ToList()[0].Value;
-        //    if (KeyData.Count >= 2)
-        //        DisplayValue2 = KeyData.ToList()[1].Value;
-        //    if (KeyData.Count >= 3)
-        //        DisplayValue3 = KeyData.ToList()[2].Value;
+        /// <summary>
+        /// Main data storage for the entry, all getters and setters reference this
+        /// </summary>
+        internal Dictionary<Column, string> Data { get; set; }
 
-        //    //Try to get the star rating column, then try to convert the string into an int, assign the int if between 0 and 10
-        //    int srInt;
-        //    string srStr;
-        //    if (!AllData.TryGetValue("Star Rating", out srStr) || !Int32.TryParse(srStr, out srInt) || srInt < 0 || srInt > 10)//TODO Test
-        //        StarRating = 0;
-        //    else
-        //        StarRating = srInt;
-        //}
-
-
-
-
-
+        /// <summary>
+        /// For interal creation
+        /// </summary>
         internal Entry()
         {
-
         }
 
 
         public override string ToString()
         {
             string st = $"ID = {EntryID}, CategoryID = {CategoryID}, IsArchived = {IsArchived}\nValues:";
-            AllData.ToList().ForEach(a => st += $"\n{a.Key} : {a.Value}");
+            //Data.ToList().ForEach(a => st += $"\n[{a.Key.Name}, {a.Value}]               {a.Key.ToString()}");
+            Data.ToList().ForEach(a => st += $"[{a.Key.Name}, {a.Value}], ");
             return st;
         }
 

@@ -18,6 +18,13 @@ namespace LogMyLife.Domain.Test
             sw.Start();
         }
 
+        public static void LogTitle(string msg, int colourCode = 0)
+        {
+            Log($"\n\n\n==========================", colourCode);
+            Log($"=========={msg}===========",colourCode);
+            Log($"==========================", colourCode);
+        }
+
         public static void Log(string msg, int colourCode = 0)
         {
             ConsoleColor[] cols = new ConsoleColor[]{

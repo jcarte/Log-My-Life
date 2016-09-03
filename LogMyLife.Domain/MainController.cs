@@ -15,9 +15,104 @@ namespace LogMyLife.Domain
 
         static MainController()
         {
-            //TODO check if db exists yet if it doesn't create and insert with default data
+            d.DatabaseController.Init();
+            if (!d.DatabaseController.HasDefaults)//have the default records been created yet?
+                CreateDefaultTables();
         }
 
+        private static void CreateDefaultTables()
+        {
+            var musicCat = CreateCategory("Music", CategoryType.Music);
+            var bookCat = CreateCategory("Books", CategoryType.Book);
+            var filmCat = CreateCategory("Films", CategoryType.Film);
+            var wineCat = CreateCategory("Wine", CategoryType.Wine);
+
+
+
+            //MUSIC Columns = 3 title, 2 review, 2 normal (1 of which is hidden)
+            CreateColumn("Artist", musicCat.CategoryID, m.Column.ColumnType.Title);
+            CreateColumn("Album", musicCat.CategoryID, m.Column.ColumnType.Title);
+            CreateColumn("Track", musicCat.CategoryID, m.Column.ColumnType.Title);
+            CreateColumn("Star Rating", musicCat.CategoryID, m.Column.ColumnType.Review);
+            CreateColumn("Comment", musicCat.CategoryID, m.Column.ColumnType.Review);
+            CreateColumn("Year", musicCat.CategoryID, m.Column.ColumnType.Normal,true);
+
+            var hits = CreateEntry(musicCat.CategoryID);
+            hits.EditColumnData("Artist", "Black Sabbath");
+            hits.EditColumnData("Album", "Sabotage");
+            hits.EditColumnData("Track", "The Writ");
+            hits.EditColumnData("Star Rating", "10");
+            hits.EditColumnData("Comment", "This song is freaking awesome, actually I'm going to put it on right now");
+            hits.EditColumnData("Year", "1975 (I think)");
+            UpdateEntry(hits);
+
+            var cp = CreateEntry(musicCat.CategoryID);
+            cp.EditColumnData("Artist", "Coldplay");
+            cp.EditColumnData("Album", "I don't know, XY, is that an album?");
+            cp.EditColumnData("Track", "Clocks...pretty sure that's one of theirs");
+            cp.EditColumnData("Star Rating", "0");
+            cp.EditColumnData("Comment", "I'd barely call this music");
+            cp.EditColumnData("Year", "???");
+            UpdateEntry(cp);
+
+            var es = CreateEntry(musicCat.CategoryID);
+            es.EditColumnData("Artist", "Metallica");
+            es.EditColumnData("Album", "The Black Album");
+            es.EditColumnData("Track", "Enter Sandman");
+            es.EditColumnData("Star Rating", "8");
+            es.EditColumnData("Comment", "Pretty good");
+            es.EditColumnData("Year", "1990");
+            UpdateEntry(es);
+
+
+
+            //BOOK Columns = 2 title, 2 review, 1 normal (all hidden)
+            CreateColumn("Title", bookCat.CategoryID, Model.Column.ColumnType.Title,true);
+            CreateColumn("Author", bookCat.CategoryID, Model.Column.ColumnType.Title,true);
+            CreateColumn("Star Rating", bookCat.CategoryID, m.Column.ColumnType.Review,true);
+            CreateColumn("Comment", bookCat.CategoryID, m.Column.ColumnType.Review,true);
+            CreateColumn("Publisher", bookCat.CategoryID, m.Column.ColumnType.Normal,true);
+
+            var hp = CreateEntry(bookCat.CategoryID);
+            hp.EditColumnData("Title", "Harry Potter");
+            hp.EditColumnData("Author", "JK Rowling");
+            hp.EditColumnData("Star Rating", "7");
+            hp.EditColumnData("Comment", "Not bad from what I remember...wow I really don't know many books");
+            UpdateEntry(hp);
+
+            var oz = CreateEntry(bookCat.CategoryID);
+            oz.EditColumnData("Title", "Ozzys Autobiography");
+            oz.EditColumnData("Author", "Ozzys Ghost writer");
+            oz.EditColumnData("Star Rating", "8");
+            oz.EditColumnData("Comment", "Also pretty good");
+            UpdateEntry(oz);
+
+
+
+            //FILM Columns = 1 Title, 1 Review, 0 normal, no start rating
+            CreateColumn("Title", filmCat.CategoryID, Model.Column.ColumnType.Title);
+            CreateColumn("Comment", filmCat.CategoryID, Model.Column.ColumnType.Review);
+
+            var sf = CreateEntry(filmCat.CategoryID);
+            sf.EditColumnData("Title", "Scarface");
+            sf.EditColumnData("Comment", "Really awesome, need to see this again soon");
+            UpdateEntry(sf);
+
+            var bj = CreateEntry(filmCat.CategoryID);
+            bj.EditColumnData("Title", "Bridget Joan's Diary");
+            bj.EditColumnData("Comment", "Who would ever watch this???");
+            bj.IsArchived = true;
+            UpdateEntry(bj);
+
+
+
+            //WINE Columns = 0 ,0, 3 Normal
+            CreateColumn("Vintage", wineCat.CategoryID, Model.Column.ColumnType.Normal);
+            CreateColumn("Year", wineCat.CategoryID, Model.Column.ColumnType.Normal);
+            CreateColumn("Region", wineCat.CategoryID, Model.Column.ColumnType.Normal);
+
+
+        }
 
 
 
@@ -116,35 +211,10 @@ namespace LogMyLife.Domain
 
 
 
-        public static List<m.Column> GetAllColumns(int catID)
-        {
 
-        }
-        public static List<m.Column> GetVisibleColumns(int catID)
-        {
 
-        }
-        public static m.Column CreateColumn(string name, int catID, m.Column.ColumnType type)
-        {
 
-        }
-        public static void UpdateColumn(m.Column col)
-        {
 
-        }
-        public static void DeleteColumn(int colID)
-        {
-
-        }
-        public static void DeleteColumn(m.Column col)
-        {
-
-        }
-
-        private static m.Column ConvertColumnToModel(d.Column col)
-        {
-
-        }
 
 
 
@@ -155,10 +225,13 @@ namespace LogMyLife.Domain
         {
             d.Category cat = d.DatabaseController.GetCategory(catID);
 
+            if (cat == null)
+                throw new Exception($"Can't create entry because category ({catID}) doesn't exist");
+
             d.Record rec = new d.Record();
             rec.CategoryID = catID;
-            rec.IsArchived = false;
-            Create(rec);//TODO Needs out??
+            rec.IsArchived = false;//entrys are not archived when newly created
+            Create(rec);
 
             var cols = d.DatabaseController.GetColumns(catID).ToList();//get existing cols
 
@@ -174,21 +247,10 @@ namespace LogMyLife.Domain
                 cells.Add(cell);
             }
 
-            return ConvertEntryToModel(cat, rec, cols, cells);
-
-            //m.Entry ent = new m.Entry();
-            //ent.EntryID = rec.RecordID;
-            //ent.CategoryID = catID;
-            //ent.AllData = allData;
-            //ent.KeyData = keyData;
-            //ent.StarRating = starRating;
-
-            //return ent;
-
+            return ConvertEntryToModel(rec, cols, cells);
         }
 
 
-        //TODO Test
         public static List<m.Entry> GetEntries(int catID) => GetEntries(catID, true, true);
         public static List<m.Entry> GetCurrentEntries(int catID) => GetEntries(catID, true, false);
         public static List<m.Entry> GetArchivedEntries(int catID) => GetEntries(catID, false, true);
@@ -204,7 +266,7 @@ namespace LogMyLife.Domain
             foreach (d.Record rec in recs)
             {
                 List<d.Cell> cells = d.DatabaseController.GetCells(rec.RecordID).ToList();
-                m.Entry e = ConvertEntryToModel(cat, rec, cols, cells);
+                m.Entry e = ConvertEntryToModel(rec, cols, cells);
                 lis.Add(e);
             }
 
@@ -214,8 +276,9 @@ namespace LogMyLife.Domain
 
         public static void UpdateEntry(m.Entry ent)
         {
+            if (ent == null)
+                throw new Exception($"Can't update a null entry");
 
-            //var cat = d.DatabaseController.GetCategory(ent.CategoryID);//Needed?
             var rec = d.DatabaseController.GetRecord(ent.EntryID);
             var cols = d.DatabaseController.GetColumns(ent.CategoryID);
             var cells = d.DatabaseController.GetCells(ent.EntryID);
@@ -223,25 +286,27 @@ namespace LogMyLife.Domain
             rec.IsArchived = ent.IsArchived;
             Update(rec);//update modified date
 
-
             foreach (var col in cols)
             {
-                string tData;
-                if(ent.AllData.TryGetValue(col.Name,out tData))
-                {//could find col data in list, update cell
-                    var tCell = cells.FirstOrDefault(c => c.ColumnID == col.ColumnID);
-                    if(tCell != null)
+                m.Column mCol = ent.Data.Keys.FirstOrDefault(c => c.Name == col.Name);
+                if(mCol != null)//does the data col have a model col equivalent in the entry?
+                {
+                    d.Cell tCell = cells.FirstOrDefault(c => c.ColumnID == col.ColumnID);//get the data cell
+                    if (tCell != null)
                     {
-                        tCell.Data = tData;
-                        Update(tCell);
+                        tCell.Data = ent.Data[mCol];//fill the cell with the new data from the model
+                        Update(tCell);//TODO conditional update only if changed?
                     }
-                        
                 }
             }
         }
 
-        //TODO IsRecordDeleted vs actual deletion
-        public static void DeleteEntry(m.Entry mEnt) => DeleteEntry(mEnt.EntryID);
+        public static void DeleteEntry(m.Entry mEnt)
+        {
+            if (mEnt == null)
+                throw new Exception($"Can't delete a null entry");
+            DeleteEntry(mEnt.EntryID);
+        } 
         public static void DeleteEntry(int entID)
         {
             DeleteRange(d.DatabaseController.GetCells(entID));
@@ -249,46 +314,22 @@ namespace LogMyLife.Domain
         }
 
 
-        //TODO messy as, clean up - is the old code
-        private static m.Entry ConvertEntryToModel(d.Category cat, d.Record rec, List<d.Column> cols, List<d.Cell> cells)
+        private static m.Entry ConvertEntryToModel(d.Record rec, List<d.Column> cols, List<d.Cell> cells)
         {
             m.Entry ent = new m.Entry();
 
             ent.EntryID = rec.RecordID;
-            ent.CategoryID = cat.CategoryID;
+            ent.CategoryID = rec.CategoryID;
             ent.IsArchived = rec.IsArchived;
 
-            var dic = new Dictionary<d.Column, string>();
-
+            //Create dictionary of columns and their value for the entry (pulled from the cell)
+            var dic = new Dictionary<m.Column, string>();
             foreach (d.Column col in cols.OrderBy(c => c.Order))
             {
-                //TODO test if cell doesn't exist for this column
-                string data = cells.FirstOrDefault(c => c.ColumnID == col.ColumnID)?.Data ?? string.Empty;
-                dic.Add(col, data);
+                string data = cells.FirstOrDefault(c => c.ColumnID == col.ColumnID)?.Data ?? string.Empty;//if no cell then empty string
+                dic.Add(ConvertColumnToModel(col), data);
             }
-
-            ent.AllData = dic.ToDictionary(d => d.Key.Name, d => d.Value);
-            ent.KeyData = dic.Where(k => k.Key.IsKey).ToDictionary(d => d.Key.Name, d => d.Value);
-            //TODO fill out the rest of these if it works
-
-
-            //TODO reinstate
-            //if (ent.KeyData.Count >= 1)
-            //    ent.DisplayValue1 = ent.KeyData.ToList()[0].Value;
-            //if (ent.KeyData.Count >= 2)
-            //    ent.DisplayValue2 = ent.KeyData.ToList()[1].Value;
-            //if (ent.KeyData.Count >= 3)
-            //    ent.DisplayValue3 = ent.KeyData.ToList()[2].Value;
-
-
-            //Try to get the star rating column, then try to convert the string into an int, assign the int if between 0 and 10
-            int srInt;
-            string srStr;
-            if (!ent.AllData.TryGetValue("Star Rating", out srStr) || !Int32.TryParse(srStr, out srInt) || srInt < 0 || srInt > 10)//TODO Test
-                ent.StarRating = 0;
-            else
-                ent.StarRating = srInt;
-
+            ent.Data = dic;
 
             return ent;
         }
@@ -299,6 +340,117 @@ namespace LogMyLife.Domain
 
 
 
+
+
+        //public static List<m.Column> GetAllColumns(int catID)
+        //{
+
+        //}
+        //public static List<m.Column> GetVisibleColumns(int catID)
+        //{
+
+        //}
+        public static m.Column CreateColumn(string name, int catID, m.Column.ColumnType type, bool isHidden = false)
+        {
+            d.Column dCol = new Data.Column();
+
+            d.Category cat = d.DatabaseController.GetCategory(catID);
+            if (cat == null)
+                throw new Exception($"Can't create entry because category ({catID}) doesn't exist");
+
+            dCol.CategoryID = catID;
+            dCol.Name = name;
+
+            //Column order is 1 if first to be created or one more than the greatest previous order otherwise
+            var existingCols = d.DatabaseController.GetColumns(catID);
+            if (existingCols.Count() == 0)
+                dCol.Order = 1;
+            else
+                dCol.Order = d.DatabaseController.GetColumns(catID).Max(c => c.Order) + 1;
+
+            switch (type)
+            {
+                case m.Column.ColumnType.Title:
+                    dCol.IsKey = true;
+                    dCol.IsReview = false;
+                    break;
+                case m.Column.ColumnType.Review:
+                    dCol.IsKey = false;
+                    dCol.IsReview = true;
+                    break;
+                case m.Column.ColumnType.Normal:
+                    dCol.IsKey = false;
+                    dCol.IsReview = false;
+                    break;
+            }
+
+            dCol.IsActive = !isHidden;
+
+            Create(dCol);
+
+            return ConvertColumnToModel(dCol);
+        }
+        public static void UpdateColumn(m.Column col)
+        {
+            if (col == null)
+                throw new Exception($"Can't update Column because it is null");
+
+            d.Column dCol = d.DatabaseController.GetColumn(col.ColumnID);
+            if (dCol == null)
+                throw new Exception($"Can't update Column {col.ColumnID} because it doesn't exist");
+
+            dCol.Name = col.Name;
+            dCol.Order = col.Order;//TODO what if order changes? knock on effect?
+
+            switch (col.Type)
+            {
+                case m.Column.ColumnType.Title:
+                    dCol.IsKey = true;
+                    dCol.IsReview = false;
+                    break;
+                case m.Column.ColumnType.Review:
+                    dCol.IsKey = false;
+                    dCol.IsReview = true;
+                    break;
+                case m.Column.ColumnType.Normal:
+                    dCol.IsKey = false;
+                    dCol.IsReview = false;
+                    break;
+            }
+
+            dCol.IsActive = !col.IsHidden;
+
+            Update(dCol);
+        }
+        //public static void DeleteColumn(int colID)
+        //{
+
+        //}
+        //public static void DeleteColumn(m.Column col)
+        //{
+
+        //}
+
+        private static m.Column ConvertColumnToModel(d.Column dCol)
+        {
+            m.Column mCol = new m.Column();
+
+            mCol.ColumnID = dCol.ColumnID;
+            mCol.CategoryID = dCol.ColumnID;
+            mCol.Name = dCol.Name;
+            mCol.Order = dCol.Order;
+
+            if (dCol.IsKey)
+                mCol.Type = m.Column.ColumnType.Title;
+            else if (dCol.IsReview)
+                mCol.Type = m.Column.ColumnType.Review;
+            else
+                mCol.Type = m.Column.ColumnType.Normal;
+
+            mCol.IsHidden = !dCol.IsActive;
+
+            return mCol;
+        }
 
 
 
@@ -352,13 +504,6 @@ namespace LogMyLife.Domain
 
 
 
-
-
-
-        //public static List<m.Column> GetColumns(int catID)
-        //{
-
-        //}
 
 
     }
