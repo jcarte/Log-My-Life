@@ -7,12 +7,15 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#C8E6C9">
         <TextView
             android:id="@+id/tvText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:text="Welcome to Log My Life"
+            />
     </FrameLayout>
 <!-- The left navigation drawer -->
     <ListView
@@ -21,8 +24,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:choiceMode="singleChoice"
-        android:divider="#ff99ff"
+        android:divider="#81C784"
+        android:textColor="#1B5E20"
         android:dividerHeight="2dp"
-        android:background="#ffccff" />
-
+        android:background="#66BB6A" />
 </android.support.v4.widget.DrawerLayout>

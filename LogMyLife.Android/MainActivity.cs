@@ -9,6 +9,7 @@ using Android.OS;
 using System.Collections.Generic;
 using Android.Support.V4.Widget;
 using Android.Support.V4.App;
+using LogMyLife.Domain;
 
 namespace DrawerLayoutTutorial
 {
@@ -32,10 +33,11 @@ namespace DrawerLayoutTutorial
 
 			mLeftDrawer.Tag = 0;
 
-            //TODO: Dynamically populate from list
-			mLeftItems.Add ("Books");
-			mLeftItems.Add ("Games");
-            mLeftItems.Add("Films");
+            foreach (var i in MainController.GetCategories())
+            {
+                mLeftItems.Add(i.Name);
+            }            
+                
 
             mDrawerToggle = new MyActionBarDrawerToggle (this, mDrawerLayout, Resource.Drawable.ic_navigation_drawer, Resource.String.open_drawer, Resource.String.close_drawer);
 
@@ -47,7 +49,13 @@ namespace DrawerLayoutTutorial
 			ActionBar.SetDisplayHomeAsUpEnabled (true);
 			ActionBar.SetHomeButtonEnabled (true);	
 			ActionBar.SetDisplayShowTitleEnabled (true);
-		}
+
+            //This is where the main content can be populated - make dynamic depending on what menu item clicked
+            TextView mainScreen;
+            mainScreen = FindViewById<TextView>(Resource.Id.tvText);
+            mainScreen.Text = "Hello, world, hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii";
+
+        }
 
 		protected override void OnPostCreate (Bundle savedInstanceState)
 		{
@@ -83,6 +91,9 @@ namespace DrawerLayoutTutorial
            
 
 		}
+
+        
+
 	}
 }
 

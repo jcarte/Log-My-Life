@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("DrawerLayoutTutorial.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("LogMyLife.Android.Resource", IsApplication=true)]
 
-namespace DrawerLayoutTutorial
+namespace LogMyLife.Android
 {
 	
 	
@@ -26,6 +26,8 @@ namespace DrawerLayoutTutorial
 		
 		public static void UpdateIdValues()
 		{
+			global::LogMyLife.Domain.Resource.String.ApplicationName = global::LogMyLife.Android.Resource.String.ApplicationName;
+			global::LogMyLife.Domain.Resource.String.Hello = global::LogMyLife.Android.Resource.String.Hello;
 		}
 		
 		public partial class Attribute
@@ -133,16 +135,22 @@ namespace DrawerLayoutTutorial
 		{
 			
 			// aapt resource value: 0x7f040001
-			public const int app_name = 2130968577;
-			
-			// aapt resource value: 0x7f040003
-			public const int close_drawer = 2130968579;
+			public const int ApplicationName = 2130968577;
 			
 			// aapt resource value: 0x7f040000
-			public const int hello = 2130968576;
+			public const int Hello = 2130968576;
+			
+			// aapt resource value: 0x7f040003
+			public const int app_name = 2130968579;
+			
+			// aapt resource value: 0x7f040005
+			public const int close_drawer = 2130968581;
 			
 			// aapt resource value: 0x7f040002
-			public const int open_drawer = 2130968578;
+			public const int hello = 2130968578;
+			
+			// aapt resource value: 0x7f040004
+			public const int open_drawer = 2130968580;
 			
 			static String()
 			{

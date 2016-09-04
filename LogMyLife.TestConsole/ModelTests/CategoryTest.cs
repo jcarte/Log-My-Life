@@ -59,22 +59,40 @@ namespace LogMyLife.Domain.Test.ModelTests
             ListAll();
 
 
-            //TODO doesn't work either add protection or remove the id accessor
-            //Log("\n\nDelete Item that doesn't exist (id 999)");
-            //MainController.DeleteCategory(999);
-            //ListAll();
+            Log("\n\nDelete Item that doesn't exist (id 999) *FAIL EXPECTED*");
+            try
+            {
+                MainController.DeleteCategory(999);
+            }
+            catch (Exception x)
+            {
+                Log($"[Exception] message: {x.Message}",3);
+            }
+            ListAll();
+
+
 
 
             Log("\n\nAdd a blank name");
             var i = MainController.CreateCategory("", Model.Category.CategoryType.UserCreated);
             ListAll();
 
-            //TODO broken, check if item was deleted before updating
-            //Log("\n\nDelete an item then update it");
-            //MainController.DeleteCategory(i.CategoryID);
-            //i.Name = "This has been deleted";
-            //MainController.UpdateCategory(i);
-            //ListAll();
+
+
+
+            Log("\n\nDelete an item then update it *FAIL EXPECTED*");
+            MainController.DeleteCategory(i.CategoryID);
+            i.Name = "This has been deleted";
+            try
+            {
+                MainController.UpdateCategory(i);
+            }
+            catch (Exception x)
+            {
+                Log($"[Exception] message: {x.Message}", 3);
+            }
+            ListAll();
+
 
 
 
@@ -99,12 +117,36 @@ namespace LogMyLife.Domain.Test.ModelTests
             ListAll();
 
 
-            //TODO currently broken
-            //Log("\n\nDelete an Item multiple times");
-            //var toDel = MainController.GetCategories()[0];
-            //MainController.DeleteCategory(toDel);
-            //MainController.DeleteCategory(toDel);
-            //MainController.DeleteCategory(toDel);
+
+
+            Log("\n\nDelete an Item multiple times *FAIL EXPECTED*");
+            var toDel = MainController.GetCategories()[0];
+            try
+            {
+                MainController.DeleteCategory(toDel);
+                MainController.DeleteCategory(toDel);
+                MainController.DeleteCategory(toDel);
+            }
+            catch (Exception x)
+            {
+                Log($"[Exception] message: {x.Message}", 3);
+            }
+            ListAll();
+
+
+
+            Log("\n\nUpdate a null *FAIL EXPECTED*");
+            try
+            {
+                MainController.UpdateCategory(null);
+            }
+            catch (Exception x)
+            {
+                Log($"[Exception] message: {x.Message}", 3);
+            }
+            ListAll();
+
+
 
         }
         private static void Add()
