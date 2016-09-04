@@ -17,101 +17,112 @@ namespace LogMyLife.Domain
         {
             d.DatabaseController.Init();
             if (!d.DatabaseController.HasDefaults)//have the default records been created yet?
-                CreateDefaultTables();
+                CreateDefaultTables(true,true);
         }
 
-        private static void CreateDefaultTables()
+        private static void CreateDefaultTables(bool createCols = true,bool createRecs = true)
         {
             var musicCat = CreateCategory("Music", CategoryType.Music);
             var bookCat = CreateCategory("Books", CategoryType.Book);
             var filmCat = CreateCategory("Films", CategoryType.Film);
             var wineCat = CreateCategory("Wine", CategoryType.Wine);
 
+            if (createCols)
+            {
+                //MUSIC Columns = 3 title, 2 review, 2 normal (1 of which is hidden)
+                CreateColumn("Artist", musicCat.CategoryID, m.Column.ColumnType.Title);
+                CreateColumn("Album", musicCat.CategoryID, m.Column.ColumnType.Title);
+                CreateColumn("Track", musicCat.CategoryID, m.Column.ColumnType.Title);
+                CreateColumn("Star Rating", musicCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", musicCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Year", musicCat.CategoryID, m.Column.ColumnType.Normal, true);
 
+                //BOOK Columns = 2 title, 2 review, 1 normal (all hidden)
+                CreateColumn("Title", bookCat.CategoryID, Model.Column.ColumnType.Title, true);
+                CreateColumn("Author", bookCat.CategoryID, Model.Column.ColumnType.Title, true);
+                CreateColumn("Star Rating", bookCat.CategoryID, m.Column.ColumnType.Review, true);
+                CreateColumn("Comment", bookCat.CategoryID, m.Column.ColumnType.Review, true);
+                CreateColumn("Publisher", bookCat.CategoryID, m.Column.ColumnType.Normal, true);
 
-            //MUSIC Columns = 3 title, 2 review, 2 normal (1 of which is hidden)
-            CreateColumn("Artist", musicCat.CategoryID, m.Column.ColumnType.Title);
-            CreateColumn("Album", musicCat.CategoryID, m.Column.ColumnType.Title);
-            CreateColumn("Track", musicCat.CategoryID, m.Column.ColumnType.Title);
-            CreateColumn("Star Rating", musicCat.CategoryID, m.Column.ColumnType.Review);
-            CreateColumn("Comment", musicCat.CategoryID, m.Column.ColumnType.Review);
-            CreateColumn("Year", musicCat.CategoryID, m.Column.ColumnType.Normal,true);
+                //FILM Columns = 1 Title, 1 Review, 0 normal, no start rating
+                CreateColumn("Title", filmCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Comment", filmCat.CategoryID, Model.Column.ColumnType.Review);
 
-            var hits = CreateEntry(musicCat.CategoryID);
-            hits.EditColumnData("Artist", "Black Sabbath");
-            hits.EditColumnData("Album", "Sabotage");
-            hits.EditColumnData("Track", "The Writ");
-            hits.EditColumnData("Star Rating", "10");
-            hits.EditColumnData("Comment", "This song is freaking awesome, actually I'm going to put it on right now");
-            hits.EditColumnData("Year", "1975 (I think)");
-            UpdateEntry(hits);
+                //WINE Columns = 0 ,0, 3 Normal
+                CreateColumn("Vintage", wineCat.CategoryID, Model.Column.ColumnType.Normal);
+                CreateColumn("Year", wineCat.CategoryID, Model.Column.ColumnType.Normal);
+                CreateColumn("Region", wineCat.CategoryID, Model.Column.ColumnType.Normal);
+            }
 
-            var cp = CreateEntry(musicCat.CategoryID);
-            cp.EditColumnData("Artist", "Coldplay");
-            cp.EditColumnData("Album", "I don't know, XY, is that an album?");
-            cp.EditColumnData("Track", "Clocks...pretty sure that's one of theirs");
-            cp.EditColumnData("Star Rating", "0");
-            cp.EditColumnData("Comment", "I'd barely call this music");
-            cp.EditColumnData("Year", "???");
-            UpdateEntry(cp);
+            if (createRecs)
+            {
+                //music records
+                var hits = CreateEntry(musicCat.CategoryID);
+                hits.EditColumnData("Artist", "Black Sabbath");
+                hits.EditColumnData("Album", "Sabotage");
+                hits.EditColumnData("Track", "The Writ");
+                hits.EditColumnData("Star Rating", "10");
+                hits.EditColumnData("Comment", "This song is freaking awesome, actually I'm going to put it on right now");
+                hits.EditColumnData("Year", "1975 (I think)");
+                UpdateEntry(hits);
 
-            var es = CreateEntry(musicCat.CategoryID);
-            es.EditColumnData("Artist", "Metallica");
-            es.EditColumnData("Album", "The Black Album");
-            es.EditColumnData("Track", "Enter Sandman");
-            es.EditColumnData("Star Rating", "8");
-            es.EditColumnData("Comment", "Pretty good");
-            es.EditColumnData("Year", "1990");
-            UpdateEntry(es);
+                var cp = CreateEntry(musicCat.CategoryID);
+                cp.EditColumnData("Artist", "Coldplay");
+                cp.EditColumnData("Album", "I don't know, XY, is that an album?");
+                cp.EditColumnData("Track", "Clocks...pretty sure that's one of theirs");
+                cp.EditColumnData("Star Rating", "0");
+                cp.EditColumnData("Comment", "I'd barely call this music");
+                cp.EditColumnData("Year", "???");
+                cp.IsArchived = true;
+                UpdateEntry(cp);
 
+                var es = CreateEntry(musicCat.CategoryID);
+                es.EditColumnData("Artist", "Metallica");
+                es.EditColumnData("Album", "The Black Album");
+                es.EditColumnData("Track", "Enter Sandman");
+                es.EditColumnData("Star Rating", "8");
+                es.EditColumnData("Comment", "Pretty good");
+                es.EditColumnData("Year", "1990");
+                UpdateEntry(es);
 
+                var im = CreateEntry(musicCat.CategoryID);
+                im.EditColumnData("Artist", "Iron Maiden");
+                im.EditColumnData("Album", "Triller");
+                im.EditColumnData("Track", "Prowler");
+                im.EditColumnData("Star Rating", "9");
+                im.EditColumnData("Comment", "Pretty damn good");
+                im.EditColumnData("Year", "1981");
+                im.IsArchived = true;
+                UpdateEntry(im);
 
-            //BOOK Columns = 2 title, 2 review, 1 normal (all hidden)
-            CreateColumn("Title", bookCat.CategoryID, Model.Column.ColumnType.Title,true);
-            CreateColumn("Author", bookCat.CategoryID, Model.Column.ColumnType.Title,true);
-            CreateColumn("Star Rating", bookCat.CategoryID, m.Column.ColumnType.Review,true);
-            CreateColumn("Comment", bookCat.CategoryID, m.Column.ColumnType.Review,true);
-            CreateColumn("Publisher", bookCat.CategoryID, m.Column.ColumnType.Normal,true);
+                //book records
+                var hp = CreateEntry(bookCat.CategoryID);
+                hp.EditColumnData("Title", "Harry Potter");
+                hp.EditColumnData("Author", "JK Rowling");
+                hp.EditColumnData("Star Rating", "7");
+                hp.EditColumnData("Comment", "Not bad from what I remember...wow I really don't know many books");
+                UpdateEntry(hp);
 
-            var hp = CreateEntry(bookCat.CategoryID);
-            hp.EditColumnData("Title", "Harry Potter");
-            hp.EditColumnData("Author", "JK Rowling");
-            hp.EditColumnData("Star Rating", "7");
-            hp.EditColumnData("Comment", "Not bad from what I remember...wow I really don't know many books");
-            UpdateEntry(hp);
+                var oz = CreateEntry(bookCat.CategoryID);
+                oz.EditColumnData("Title", "Ozzys Autobiography");
+                oz.EditColumnData("Author", "Ozzys Ghost writer");
+                oz.EditColumnData("Star Rating", "8");
+                oz.EditColumnData("Comment", "Also pretty good");
+                UpdateEntry(oz);
 
-            var oz = CreateEntry(bookCat.CategoryID);
-            oz.EditColumnData("Title", "Ozzys Autobiography");
-            oz.EditColumnData("Author", "Ozzys Ghost writer");
-            oz.EditColumnData("Star Rating", "8");
-            oz.EditColumnData("Comment", "Also pretty good");
-            UpdateEntry(oz);
+                //Film records
+                var sf = CreateEntry(filmCat.CategoryID);
+                sf.EditColumnData("Title", "Scarface");
+                sf.EditColumnData("Comment", "Really awesome, need to see this again soon");
+                sf.IsArchived = true;
+                UpdateEntry(sf);
 
-
-
-            //FILM Columns = 1 Title, 1 Review, 0 normal, no start rating
-            CreateColumn("Title", filmCat.CategoryID, Model.Column.ColumnType.Title);
-            CreateColumn("Comment", filmCat.CategoryID, Model.Column.ColumnType.Review);
-
-            var sf = CreateEntry(filmCat.CategoryID);
-            sf.EditColumnData("Title", "Scarface");
-            sf.EditColumnData("Comment", "Really awesome, need to see this again soon");
-            UpdateEntry(sf);
-
-            var bj = CreateEntry(filmCat.CategoryID);
-            bj.EditColumnData("Title", "Bridget Joan's Diary");
-            bj.EditColumnData("Comment", "Who would ever watch this???");
-            bj.IsArchived = true;
-            UpdateEntry(bj);
-
-
-
-            //WINE Columns = 0 ,0, 3 Normal
-            CreateColumn("Vintage", wineCat.CategoryID, Model.Column.ColumnType.Normal);
-            CreateColumn("Year", wineCat.CategoryID, Model.Column.ColumnType.Normal);
-            CreateColumn("Region", wineCat.CategoryID, Model.Column.ColumnType.Normal);
-
-
+                var bj = CreateEntry(filmCat.CategoryID);
+                bj.EditColumnData("Title", "Bridget Joan's Diary");
+                bj.EditColumnData("Comment", "Who would ever watch this???");
+                bj.IsArchived = true;
+                UpdateEntry(bj);
+            }
         }
 
 
@@ -192,6 +203,11 @@ namespace LogMyLife.Domain
             Delete(c);
         }
 
+        /// <summary>
+        /// Convert from a category data object (ORM) to category model
+        /// </summary>
+        /// <param name="dCat">Data Object</param>
+        /// <returns>Category Model</returns>
         private static m.Category ConvertCategoryToModel(d.Category dCat)
         {
             m.Category mCat = new m.Category();
@@ -220,7 +236,11 @@ namespace LogMyLife.Domain
 
 
 
-
+        /// <summary>
+        /// Create a new entry and store it in the database
+        /// </summary>
+        /// <param name="catID">ID of the category to create the new entry in</param>
+        /// <returns>Newly created Entry Model</returns>
         public static m.Entry CreateEntry(int catID)
         {
             d.Category cat = d.DatabaseController.GetCategory(catID);
@@ -233,7 +253,7 @@ namespace LogMyLife.Domain
             rec.IsArchived = false;//entrys are not archived when newly created
             Create(rec);
 
-            var cols = d.DatabaseController.GetColumns(catID).ToList();//get existing cols
+            var cols = d.DatabaseController.GetColumns(catID).ToList();//get existing cols for category
 
             var cells = new List<d.Cell>();
 
@@ -251,19 +271,43 @@ namespace LogMyLife.Domain
         }
 
 
+        /// <summary>
+        /// Get all entries for a category (both current and archived)
+        /// </summary>
+        /// <param name="catID">ID of the category to get the entries from</param>
+        /// <returns>List of all entries in the category</returns>
         public static List<m.Entry> GetEntries(int catID) => GetEntries(catID, true, true);
+
+        /// <summary>
+        /// Get all non archived (i.e. current) entries in a category
+        /// </summary>
+        /// <param name="catID">ID of the category to get the entries from</param>
+        /// <returns>List of all non archived entries in categroy</returns>
         public static List<m.Entry> GetCurrentEntries(int catID) => GetEntries(catID, true, false);
+
+        /// <summary>
+        /// Get all archived (i.e. not current) entries in a category
+        /// </summary>
+        /// <param name="catID">ID of the category to get the entries from</param>
+        /// <returns>List of all archived entries in categroy</returns>
         public static List<m.Entry> GetArchivedEntries(int catID) => GetEntries(catID, false, true);
 
+        /// <summary>
+        /// Get list of entries from a category
+        /// </summary>
+        /// <param name="catID">ID of the category to get the entries from</param>
+        /// <param name="getCurrent">Should items that are not currently archived be returned?</param>
+        /// <param name="getArchived">Should archived items be returned?</param>
+        /// <returns>List of all entries matching given params</returns>
         private static List<m.Entry> GetEntries(int catID, bool getCurrent, bool getArchived)
         {
-            List<m.Entry> lis = new List<Model.Entry>();//to return
+            List<m.Entry> lis = new List<Model.Entry>();//obj to return
 
             d.Category cat = d.DatabaseController.GetCategory(catID);
-            List<d.Column> cols = d.DatabaseController.GetColumns(catID).ToList();
-            List<d.Record> recs = d.DatabaseController.GetRecords(catID).Where(r => (getCurrent && !r.IsArchived) || (getArchived && r.IsArchived)).ToList();
+            List<d.Column> cols = d.DatabaseController.GetColumns(catID).ToList();//get columns in category
+            List<d.Record> recs = d.DatabaseController.GetRecords(catID).Where(r => (getCurrent && !r.IsArchived) || (getArchived && r.IsArchived)).ToList();//get records which match params
 
-            foreach (d.Record rec in recs)
+            foreach (d.Record rec in recs)//for all records returned, get all of their cells and convert the lot to a entry model, add to running list
             {
                 List<d.Cell> cells = d.DatabaseController.GetCells(rec.RecordID).ToList();
                 m.Entry e = ConvertEntryToModel(rec, cols, cells);
@@ -273,20 +317,26 @@ namespace LogMyLife.Domain
             return lis;
         }
 
-
+        /// <summary>
+        /// Update an entry in the database
+        /// </summary>
+        /// <param name="ent">The entry to be updated with updated values</param>
         public static void UpdateEntry(m.Entry ent)
         {
             if (ent == null)
                 throw new Exception($"Can't update a null entry");
 
             var rec = d.DatabaseController.GetRecord(ent.EntryID);
+            if (rec == null)
+                throw new Exception($"Can't update Entry {ent.EntryID} because it doesn't exist");
+            
             var cols = d.DatabaseController.GetColumns(ent.CategoryID);
             var cells = d.DatabaseController.GetCells(ent.EntryID);
 
             rec.IsArchived = ent.IsArchived;
             Update(rec);//update modified date
 
-            foreach (var col in cols)
+            foreach (var col in cols)//for each col in db, find its equivalent in model and map over to cells for updating
             {
                 m.Column mCol = ent.Data.Keys.FirstOrDefault(c => c.Name == col.Name);
                 if(mCol != null)//does the data col have a model col equivalent in the entry?
@@ -301,19 +351,39 @@ namespace LogMyLife.Domain
             }
         }
 
+        /// <summary>
+        /// Delete an entry in the database
+        /// </summary>
+        /// <param name="mEnt">The entry to be deleted</param>
         public static void DeleteEntry(m.Entry mEnt)
         {
             if (mEnt == null)
                 throw new Exception($"Can't delete a null entry");
             DeleteEntry(mEnt.EntryID);
         } 
+
+        /// <summary>
+        /// Delete an entry in the database
+        /// </summary>
+        /// <param name="entID">The ID of the entry to delete in the database</param>
         public static void DeleteEntry(int entID)
         {
+            var r = d.DatabaseController.GetRecord(entID);
+            if (r == null)
+                throw new Exception($"Can't delete Entry {entID} because it doesn't exist");
+            
+            //Manual Cascading Delete
             DeleteRange(d.DatabaseController.GetCells(entID));
             Delete(d.DatabaseController.GetRecord(entID));
         }
 
-
+        /// <summary>
+        /// Converts a series of data objects (ORMs) into a single Entry Model object
+        /// </summary>
+        /// <param name="rec">The data record object</param>
+        /// <param name="cols">A list of column data objects</param>
+        /// <param name="cells">A list of cell data objects</param>
+        /// <returns>Single Entry model</returns>
         private static m.Entry ConvertEntryToModel(d.Record rec, List<d.Column> cols, List<d.Cell> cells)
         {
             m.Entry ent = new m.Entry();
@@ -341,7 +411,7 @@ namespace LogMyLife.Domain
 
 
 
-
+        //TODO complete Column CRUD operations
         //public static List<m.Column> GetAllColumns(int catID)
         //{
 

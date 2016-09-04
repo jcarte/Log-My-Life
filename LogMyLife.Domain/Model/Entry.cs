@@ -90,6 +90,8 @@ namespace LogMyLife.Domain.Model
             {
                 int star;
                 string colData = Data[GetColumn("Star Rating")];
+                if (colData == string.Empty)
+                    return 0;//not yet set
                 if (!Int32.TryParse(colData, out star))
                     throw new Exception($"Star Rating of {colData} could not be converted to a number");
                 return star;
