@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("DrawerLayoutTutorial.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("LogMyLife.Android.Resource", IsApplication=true)]
 
-namespace DrawerLayoutTutorial
+namespace LogMyLife.Android
 {
 	
 	
