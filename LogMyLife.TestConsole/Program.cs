@@ -1,4 +1,5 @@
 ﻿using LogMyLife.Domain.Test.ModelTests;
+using LogMyLife.TestConsole.ModelTests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace LogMyLife.TestConsole
     {
         static void Main(string[] args)
         {
-            CategoryTest.RunTest();
+            //CategoryTest.RunTest();
+            EntryTest.RunTest();
             Console.WriteLine("Done");
             Console.Read();
         }

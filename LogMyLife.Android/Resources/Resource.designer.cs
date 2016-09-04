@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("DrawerLayoutTutorial.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("LogMyLife.Android.Resource", IsApplication=true)]
 
-namespace DrawerLayoutTutorial
+namespace LogMyLife.Android
 {
 	
 	
@@ -26,8 +26,8 @@ namespace DrawerLayoutTutorial
 		
 		public static void UpdateIdValues()
 		{
-			global::LogMyLife.Domain.Resource.String.ApplicationName = global::DrawerLayoutTutorial.Resource.String.ApplicationName;
-			global::LogMyLife.Domain.Resource.String.Hello = global::DrawerLayoutTutorial.Resource.String.Hello;
+			global::LogMyLife.Domain.Resource.String.ApplicationName = global::LogMyLife.Android.Resource.String.ApplicationName;
+			global::LogMyLife.Domain.Resource.String.Hello = global::LogMyLife.Android.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

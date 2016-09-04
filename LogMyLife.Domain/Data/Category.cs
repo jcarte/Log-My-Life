@@ -1,18 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using SQLite;
-//using SQLite.Extensions;
-//using SQLite.Net;
-
-
-//using SQLiteNetExtensions;
-//using SQLiteNetExtensions.Attributes;
-//using SQLiteNetExtensions.Exceptions;
-//using SQLiteNetExtensions.Extensions;
 
 
 namespace LogMyLife.Domain.Data
@@ -23,18 +10,22 @@ namespace LogMyLife.Domain.Data
     /// </summary>
     public class Category: IStorable
     {
+        /// <summary>
+        /// The unique identifier for the category
+        /// </summary>
         [PrimaryKey,AutoIncrement]   
         public int CategoryID { get; set; }
 
+        /// <summary>
+        /// Description of the category
+        /// </summary>
         [MaxLength(255)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Numerical representation of the type
+        /// </summary>
         public int Type { get; set; }
-
-        //TODO adding in objects doesn't work, when tested FK, make these work too, check documentation
-        //[OneToMany(CascadeOperations = CascadeOperation.All)]
-        //public List<Column> Columns { get; set; }
-
 
         /// <summary>
         /// Reserved DB audit field - is this object flagged as deleted? Allows items to not be removed
