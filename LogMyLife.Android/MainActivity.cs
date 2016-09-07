@@ -10,8 +10,9 @@ using System.Collections.Generic;
 using Android.Support.V4.Widget;
 using Android.Support.V4.App;
 using LogMyLife.Domain;
+using a = Android;
 
-namespace DrawerLayoutTutorial
+namespace LogMyLife.Android
 {
 	[Activity (Label = "Log My Life", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/CustomActionBarTheme")]
 	public class MainActivity : Activity
@@ -22,7 +23,12 @@ namespace DrawerLayoutTutorial
 		ListView mLeftDrawer;
 		ActionBarDrawerToggle mDrawerToggle;
 
-		protected override void OnCreate (Bundle bundle)
+        private List<string> cItems;
+        private List<string> aItems;
+        private ListView lvMainScreen;
+        private ListView lvMainScreenLower;
+
+        protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
@@ -41,7 +47,7 @@ namespace DrawerLayoutTutorial
 
             mDrawerToggle = new MyActionBarDrawerToggle (this, mDrawerLayout, Resource.Drawable.ic_navigation_drawer, Resource.String.open_drawer, Resource.String.close_drawer);
 
-			mLeftAdapter = new ArrayAdapter (this, Android.Resource.Layout.SimpleListItem1, mLeftItems);
+			mLeftAdapter = new ArrayAdapter (this, a.Resource.Layout.SimpleListItem1, mLeftItems);
 			mLeftDrawer.Adapter = mLeftAdapter;
 
 
@@ -51,9 +57,34 @@ namespace DrawerLayoutTutorial
 			ActionBar.SetDisplayShowTitleEnabled (true);
 
             //This is where the main content can be populated - make dynamic depending on what menu item clicked
-            TextView mainScreen;
-            mainScreen = FindViewById<TextView>(Resource.Id.tvText);
-            mainScreen.Text = "Hello, world, hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii";
+            TextView mainScreenTop;
+            mainScreenTop = FindViewById<TextView>(Resource.Id.clText);
+            mainScreenTop.Text = "CURRENT BOOKS";
+            TextView mainScreenLower;
+            mainScreenLower = FindViewById<TextView>(Resource.Id.alText);
+            mainScreenLower.Text = "ARCHIVED BOOKS";
+
+
+            //test list
+            cItems = new List<string>();
+            cItems.Add("BookA");
+            cItems.Add("Bookb");
+            cItems.Add("Bookc");
+            cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd");
+
+            lvMainScreen = FindViewById<ListView>(Resource.Id.lvMainScreen);
+            ArrayAdapter<string> adpater = new ArrayAdapter<string>(this, a.Resource.Layout.SimpleListItem1, cItems);
+            lvMainScreen.Adapter = adpater;
+
+            aItems = new List<string>();
+            aItems.Add("Book1");
+            aItems.Add("Book2");
+            aItems.Add("Book3");
+            aItems.Add("Book4");
+
+            lvMainScreenLower = FindViewById<ListView>(Resource.Id.lvMainScreenLower);
+            ArrayAdapter<string> adpaterL = new ArrayAdapter<string>(this, a.Resource.Layout.SimpleListItem1, aItems);
+            lvMainScreenLower.Adapter = adpaterL;
 
         }
 
@@ -63,7 +94,7 @@ namespace DrawerLayoutTutorial
 			mDrawerToggle.SyncState ();
 		}
 
-		public override void OnConfigurationChanged (Android.Content.Res.Configuration newConfig)
+		public override void OnConfigurationChanged (a.Content.Res.Configuration newConfig)
 		{
 			base.OnConfigurationChanged (newConfig);
 			mDrawerToggle.OnConfigurationChanged (newConfig);
