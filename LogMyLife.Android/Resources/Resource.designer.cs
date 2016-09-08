@@ -74,8 +74,8 @@ namespace LogMyLife.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070004
-			public const int alText = 2131165188;
+			// aapt resource value: 0x7f070003
+			public const int alText = 2131165187;
 			
 			// aapt resource value: 0x7f070002
 			public const int clText = 2131165186;
@@ -89,8 +89,8 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070006
 			public const int leftListView = 2131165190;
 			
-			// aapt resource value: 0x7f070003
-			public const int lvMainScreen = 2131165187;
+			// aapt resource value: 0x7f070004
+			public const int lvMainScreen = 2131165188;
 			
 			// aapt resource value: 0x7f070005
 			public const int lvMainScreenLower = 2131165189;

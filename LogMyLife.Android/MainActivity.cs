@@ -66,6 +66,7 @@ namespace LogMyLife.Android
 
 
             //test list
+            //List<Entry> currentEnts = MainController.GetCurrentEntries(cat.CategoryID);
             cItems = new List<string>();
             cItems.Add("BookA");
             cItems.Add("Bookb");
@@ -76,6 +77,7 @@ namespace LogMyLife.Android
             ArrayAdapter<string> adpater = new ArrayAdapter<string>(this, a.Resource.Layout.SimpleListItem1, cItems);
             lvMainScreen.Adapter = adpater;
 
+            //List<Entry> archivedEnts = MainController.GetArchivedEntries(cat.CategoryID);
             aItems = new List<string>();
             aItems.Add("Book1");
             aItems.Add("Book2");
