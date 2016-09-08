@@ -11,6 +11,9 @@ using Android.Support.V4.Widget;
 using Android.Support.V4.App;
 using LogMyLife.Domain;
 using a = Android;
+using LogMyLife.Domain.Model;
+
+using System.Linq;
 
 namespace LogMyLife.Android
 {
@@ -56,33 +59,48 @@ namespace LogMyLife.Android
 			ActionBar.SetHomeButtonEnabled (true);	
 			ActionBar.SetDisplayShowTitleEnabled (true);
 
+
+
+
+
+
+
+            List<Category> cats = MainController.GetCategories();
+            Category currentCat = cats[0];
+
+            List<Entry> currentEnts = MainController.GetCurrentEntries(currentCat.CategoryID);
+            List<Entry> archivedEnts = MainController.GetArchivedEntries(currentCat.CategoryID);
+
+            cItems = currentEnts.Select(e => $"{e.DisplayValue1}, {e.DisplayValue2}, {e.DisplayValue3}").ToList();
+            aItems = archivedEnts.Select(e => $"{e.DisplayValue1}, {e.DisplayValue2}, {e.DisplayValue3}").ToList();
+
             //This is where the main content can be populated - make dynamic depending on what menu item clicked
             TextView mainScreenTop;
             mainScreenTop = FindViewById<TextView>(Resource.Id.clText);
-            mainScreenTop.Text = "CURRENT BOOKS";
+            mainScreenTop.Text = "CURRENT " + currentCat.Name.ToUpper();
             TextView mainScreenLower;
             mainScreenLower = FindViewById<TextView>(Resource.Id.alText);
-            mainScreenLower.Text = "ARCHIVED BOOKS";
+            mainScreenLower.Text = "ARCHIVED " + currentCat.Name.ToUpper();
 
 
             //test list
             //List<Entry> currentEnts = MainController.GetCurrentEntries(cat.CategoryID);
-            cItems = new List<string>();
-            cItems.Add("BookA");
-            cItems.Add("Bookb");
-            cItems.Add("Bookc");
-            cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd");
+            //cItems = new List<string>();
+            //cItems.Add("BookA");
+            //cItems.Add("Bookb");
+            //cItems.Add("Bookc");
+            //cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd"); cItems.Add("Bookd");
 
             lvMainScreen = FindViewById<ListView>(Resource.Id.lvMainScreen);
             ArrayAdapter<string> adpater = new ArrayAdapter<string>(this, a.Resource.Layout.SimpleListItem1, cItems);
             lvMainScreen.Adapter = adpater;
 
             //List<Entry> archivedEnts = MainController.GetArchivedEntries(cat.CategoryID);
-            aItems = new List<string>();
-            aItems.Add("Book1");
-            aItems.Add("Book2");
-            aItems.Add("Book3");
-            aItems.Add("Book4");
+            //aItems = new List<string>();
+            //aItems.Add("Book1");
+            //aItems.Add("Book2");
+            //aItems.Add("Book3");
+            //aItems.Add("Book4");
 
             lvMainScreenLower = FindViewById<ListView>(Resource.Id.lvMainScreenLower);
             ArrayAdapter<string> adpaterL = new ArrayAdapter<string>(this, a.Resource.Layout.SimpleListItem1, aItems);
