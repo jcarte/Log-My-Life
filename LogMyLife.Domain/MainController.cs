@@ -35,7 +35,7 @@ namespace LogMyLife.Domain
                 CreateColumn("Track", musicCat.CategoryID, m.Column.ColumnType.Title);
                 CreateColumn("Star Rating", musicCat.CategoryID, m.Column.ColumnType.Review);
                 CreateColumn("Comment", musicCat.CategoryID, m.Column.ColumnType.Review);
-                CreateColumn("Year", musicCat.CategoryID, m.Column.ColumnType.Normal, true);
+                CreateColumn("Year", musicCat.CategoryID, m.Column.ColumnType.Normal);
 
                 //BOOK Columns = 2 title, 2 review, 1 normal (all hidden)
                 CreateColumn("Title", bookCat.CategoryID, Model.Column.ColumnType.Title, true);
