@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using d= LogMyLife.Domain.Data;
-
-namespace LogMyLife.Domain.Model
+﻿namespace LogMyLife.Domain.Model
 {
+    /// <summary>
+    /// A list of items all with the same theme
+    /// </summary>
     public class Category
     {
         /// <summary>
@@ -20,8 +15,14 @@ namespace LogMyLife.Domain.Model
         /// </summary>
         public string Name { get; set; }
         
+        /// <summary>
+        /// The type of information held inside the category
+        /// </summary>
         public CategoryType Type { get; set; }
 
+        /// <summary>
+        /// Type of information held in a category
+        /// </summary>
         public enum CategoryType //TODO finalise
         {
             UserCreated = 0,
@@ -31,31 +32,12 @@ namespace LogMyLife.Domain.Model
             Wine = 4
         }
 
-        //can create new - how to handle PK?
-        internal Category()
-        {
-
-        }
-
-
-        //public Category(d.Category c)
-        //{
-
-        //    this.CategoryID = c.CategoryID;
-        //    this.Name = c.Name;
-
-        //    try
-        //    {
-        //        this.Type = (CategoryType)c.Type;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        this.Type = CategoryType.UserCreated;
-        //    }
-
-
-        //}
-
+        /// <summary>
+        /// Blank contructor, only this project can create
+        /// </summary>
+        internal Category()//TODO params to make sure cat is created properly?
+        {}
+        
         public override string ToString()
         {
             return $"ID = {CategoryID}, Name = {Name}, Type = {Type.ToString()}";

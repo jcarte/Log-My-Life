@@ -67,6 +67,7 @@
     <Compile Include="Data\Record.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Column.cs" />
     <Compile Include="Model\Entry.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
