@@ -61,7 +61,7 @@ namespace LogMyLife.Domain
                 hits.EditColumnData("Artist", "Black Sabbath");
                 hits.EditColumnData("Album", "Sabotage");
                 hits.EditColumnData("Track", "The Writ");
-                hits.EditColumnData("Star Rating", "10");
+                hits.EditColumnData("Star Rating", "5");
                 hits.EditColumnData("Comment", "This song is freaking awesome, actually I'm going to put it on right now");
                 hits.EditColumnData("Year", "1975 (I think)");
                 UpdateEntry(hits);
@@ -80,7 +80,7 @@ namespace LogMyLife.Domain
                 es.EditColumnData("Artist", "Metallica");
                 es.EditColumnData("Album", "The Black Album");
                 es.EditColumnData("Track", "Enter Sandman");
-                es.EditColumnData("Star Rating", "8");
+                es.EditColumnData("Star Rating", "4");
                 es.EditColumnData("Comment", "Pretty good");
                 es.EditColumnData("Year", "1990");
                 UpdateEntry(es);
@@ -89,7 +89,7 @@ namespace LogMyLife.Domain
                 im.EditColumnData("Artist", "Iron Maiden");
                 im.EditColumnData("Album", "Triller");
                 im.EditColumnData("Track", "Prowler");
-                im.EditColumnData("Star Rating", "9");
+                im.EditColumnData("Star Rating", "4.5");
                 im.EditColumnData("Comment", "Pretty damn good");
                 im.EditColumnData("Year", "1981");
                 im.IsArchived = true;
@@ -99,14 +99,14 @@ namespace LogMyLife.Domain
                 var hp = CreateEntry(bookCat.CategoryID);
                 hp.EditColumnData("Title", "Harry Potter");
                 hp.EditColumnData("Author", "JK Rowling");
-                hp.EditColumnData("Star Rating", "7");
+                hp.EditColumnData("Star Rating", "3.5");
                 hp.EditColumnData("Comment", "Not bad from what I remember...wow I really don't know many books");
                 UpdateEntry(hp);
 
                 var oz = CreateEntry(bookCat.CategoryID);
                 oz.EditColumnData("Title", "Ozzys Autobiography");
                 oz.EditColumnData("Author", "Ozzys Ghost writer");
-                oz.EditColumnData("Star Rating", "8");
+                oz.EditColumnData("Star Rating", "4");
                 oz.EditColumnData("Comment", "Also pretty good");
                 UpdateEntry(oz);
 
@@ -268,6 +268,21 @@ namespace LogMyLife.Domain
             }
 
             return ConvertEntryToModel(rec, cols, cells);
+        }
+
+
+
+        public static m.Entry GetEntry(int entryID)
+        {
+            d.Record rec = d.DatabaseController.GetRecord(entryID);
+
+            if (rec == null)
+                return null;
+
+            List<d.Column> cols = d.DatabaseController.GetColumns(rec.CategoryID).ToList();//get columns in category
+            List<d.Cell> cells = d.DatabaseController.GetCells(rec.RecordID).ToList();
+            m.Entry e = ConvertEntryToModel(rec, cols, cells);
+            return e;
         }
 
 

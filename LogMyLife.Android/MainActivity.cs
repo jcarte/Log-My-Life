@@ -79,14 +79,27 @@ namespace LogMyLife.Android
 
         private void CurrentEntryClicked(object sender, AdapterView.ItemClickEventArgs e)
         {
-            StartActivity(typeof(ItemViewActivity));//TODO feed in actual value with bundle
+            //StartActivity(typeof(ItemViewActivity));//TODO feed in actual value with bundle
+            OpenEntryDetail(currentEnts[e.Position]);
         }
         private void ArchiveEntryClicked(object sender, AdapterView.ItemClickEventArgs e)
         {
-            StartActivity(typeof(ItemViewActivity));//TODO feed in actual value with bundle
+            //StartActivity(typeof(ItemViewActivity));//TODO feed in actual value with bundle
+            OpenEntryDetail(archivedEnts[e.Position]);
         }
 
 
+
+        private void OpenEntryDetail(Entry e)
+        {
+            Intent i = new Intent(this, typeof(ItemViewActivity));
+            i.PutExtra("EntryID", e.EntryID);
+            StartActivity(i);
+
+            //Bundle b = new Bundle();
+            //b.PutInt("EntryID", e.EntryID);
+            //StartActivity(i,b);
+        }
 
 
         private void MLeftDrawer_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -129,14 +142,17 @@ namespace LogMyLife.Android
 
 		}
 
-       public void PopulateListScreen(Category cat)
+        List<Entry> currentEnts;
+        List<Entry> archivedEnts;
+
+        public void PopulateListScreen(Category cat)
         {
             //Set current category to be displayed - this will be "cat"
             //Category currentCat = cats[0];
 
             //Create list of current and archived items
-            List<Entry> currentEnts = MainController.GetCurrentEntries(cat.CategoryID);
-            List<Entry> archivedEnts = MainController.GetArchivedEntries(cat.CategoryID);
+            currentEnts = MainController.GetCurrentEntries(cat.CategoryID);
+            archivedEnts = MainController.GetArchivedEntries(cat.CategoryID);
             //Converts the entries into strings
             cItems = currentEnts.Select(ent => $"{ent.DisplayValue1}, {ent.DisplayValue2}, {ent.DisplayValue3}").ToList();
             aItems = archivedEnts.Select(e => $"{e.DisplayValue1}, {e.DisplayValue2}, {e.DisplayValue3}").ToList();
