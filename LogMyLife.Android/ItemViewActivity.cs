@@ -20,10 +20,13 @@ namespace LogMyLife.Android
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             SetContentView(Resource.Layout.Main2);
 
-            Entry ent = MainController.GetCurrentEntries(1)[0];
+            int entryID = Intent.GetIntExtra("EntryID", -1);//get entryid from intent
+            Entry ent = MainController.GetEntry(entryID);//get entry from DB
+
+            if (ent == null)//check that entry returned
+                throw new Exception($"Entry not found for EntryID = {entryID}");
 
             //populate titleFieldList
             ListView titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);

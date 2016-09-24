@@ -36,12 +36,8 @@ namespace LogMyLife.Android
 		{
 			base.OnCreate (bundle);
 
-            
-
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
-
-            
 
             mDrawerLayout = FindViewById<DrawerLayout> (Resource.Id.myDrawer);
 			mLeftDrawer = FindViewById<ListView> (Resource.Id.leftListView);
@@ -74,19 +70,25 @@ namespace LogMyLife.Android
             //Set mainscreen content based on first menu item for inital load
             PopulateListScreen(cats[0]);
 
-            //StartActivity(typeof(ItemViewActivity));
         }
 
         private void CurrentEntryClicked(object sender, AdapterView.ItemClickEventArgs e)
         {
-            StartActivity(typeof(ItemViewActivity));//TODO feed in actual value with bundle
+            OpenEntryDetail(currentEnts[e.Position]);
         }
         private void ArchiveEntryClicked(object sender, AdapterView.ItemClickEventArgs e)
         {
-            StartActivity(typeof(ItemViewActivity));//TODO feed in actual value with bundle
+            OpenEntryDetail(archivedEnts[e.Position]);
         }
 
 
+
+        private void OpenEntryDetail(Entry e)
+        {
+            Intent i = new Intent(this, typeof(ItemViewActivity));//Start a detail activity, push the entry ID into it
+            i.PutExtra("EntryID", e.EntryID);
+            StartActivity(i);
+        }
 
 
         private void MLeftDrawer_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -129,17 +131,20 @@ namespace LogMyLife.Android
 
 		}
 
-       public void PopulateListScreen(Category cat)
+        List<Entry> currentEnts;
+        List<Entry> archivedEnts;
+
+        public void PopulateListScreen(Category cat)
         {
             //Set current category to be displayed - this will be "cat"
             //Category currentCat = cats[0];
 
             //Create list of current and archived items
-            List<Entry> currentEnts = MainController.GetCurrentEntries(cat.CategoryID);
-            List<Entry> archivedEnts = MainController.GetArchivedEntries(cat.CategoryID);
+            currentEnts = MainController.GetCurrentEntries(cat.CategoryID);
+            archivedEnts = MainController.GetArchivedEntries(cat.CategoryID);
             //Converts the entries into strings
-            cItems = currentEnts.Select(ent => $"{ent.DisplayValue1}, {ent.DisplayValue2}, {ent.DisplayValue3}").ToList();
-            aItems = archivedEnts.Select(e => $"{e.DisplayValue1}, {e.DisplayValue2}, {e.DisplayValue3}").ToList();
+            cItems = currentEnts.Select(ent => string.Join(", ", ent.TitleData.Select(k => k.Value).ToArray())).ToList();
+            aItems = archivedEnts.Select(ent => string.Join(", ", ent.TitleData.Select(k => k.Value).ToArray())).ToList();
 
             //This is where the main content can be populated - make dynamic depending on what menu item clicked
             //Top half of screen - current items
