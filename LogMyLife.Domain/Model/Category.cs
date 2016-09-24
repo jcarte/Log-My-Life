@@ -29,7 +29,8 @@
             Music = 1,
             Film = 2,
             Book = 3,
-            Wine = 4
+            Wine = 4,
+            TV = 5
         }
 
         /// <summary>

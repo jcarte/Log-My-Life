@@ -26,6 +26,7 @@ namespace LogMyLife.Domain
             var bookCat = CreateCategory("Books", CategoryType.Book);
             var filmCat = CreateCategory("Films", CategoryType.Film);
             var wineCat = CreateCategory("Wine", CategoryType.Wine);
+            var tvCat = CreateCategory("TV", CategoryType.TV);
 
             if (createCols)
             {
@@ -52,6 +53,12 @@ namespace LogMyLife.Domain
                 CreateColumn("Vintage", wineCat.CategoryID, Model.Column.ColumnType.Normal);
                 CreateColumn("Year", wineCat.CategoryID, Model.Column.ColumnType.Normal);
                 CreateColumn("Region", wineCat.CategoryID, Model.Column.ColumnType.Normal);
+
+                //TV Columns = 1 ,2, 1 Normal
+                CreateColumn("Title", tvCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", tvCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", tvCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Year", tvCat.CategoryID, Model.Column.ColumnType.Normal);
             }
 
             if (createRecs)
@@ -122,6 +129,57 @@ namespace LogMyLife.Domain
                 bj.EditColumnData("Comment", "Who would ever watch this???");
                 bj.IsArchived = true;
                 UpdateEntry(bj);
+
+
+
+                //TV Records
+                var bb = CreateEntry(tvCat.CategoryID);
+                bb.EditColumnData("Title", "Breaking Bad");
+                bb.EditColumnData("Star Rating", "4.5");
+                bb.EditColumnData("Comment", "Properly Awesome");
+                bb.EditColumnData("Year", "2012");
+                bb.IsArchived = true;
+                UpdateEntry(bb);
+
+                var got = CreateEntry(tvCat.CategoryID);
+                got.EditColumnData("Title", "Game of Thrones");
+                got.EditColumnData("Star Rating", "5");
+                got.EditColumnData("Comment", "Long and awesome");
+                got.EditColumnData("Year", "2011");
+                got.IsArchived = false;
+                UpdateEntry(got);
+
+                var hoc = CreateEntry(tvCat.CategoryID);
+                hoc.EditColumnData("Title", "House of Cards");
+                hoc.EditColumnData("Star Rating", "4");
+                hoc.EditColumnData("Comment", "Spacey is a bit of a god");
+                hoc.EditColumnData("Year", "2012");
+                hoc.IsArchived = false;
+                UpdateEntry(hoc);
+
+                var na = CreateEntry(tvCat.CategoryID);
+                na.EditColumnData("Title", "Narcos");
+                na.EditColumnData("Star Rating", "3.5");
+                na.EditColumnData("Comment", "I wish I was pablo");
+                na.EditColumnData("Year", "2014");
+                na.IsArchived = false;
+                UpdateEntry(na);
+
+                var bh = CreateEntry(tvCat.CategoryID);
+                bh.EditColumnData("Title", "Bojack Horseman");
+                bh.EditColumnData("Star Rating", "4");
+                bh.EditColumnData("Comment", "I don't think this one is for ninks");
+                bh.EditColumnData("Year", "2014");
+                bh.IsArchived = false;
+                UpdateEntry(bh);
+
+                var xf = CreateEntry(tvCat.CategoryID);
+                xf.EditColumnData("Title", "X Factor");
+                xf.EditColumnData("Star Rating", "0");
+                xf.EditColumnData("Comment", "I do believe the x factor can do one...who would watch this?");
+                xf.EditColumnData("Year", "2009");
+                xf.IsArchived = true;
+                UpdateEntry(xf);
             }
         }
 
@@ -272,6 +330,13 @@ namespace LogMyLife.Domain
 
 
 
+
+
+        /// <summary>
+        /// Get a single entry from any category if the ID is known
+        /// </summary>
+        /// <param name="entryID">Unique ID of the entry</param>
+        /// <returns>Entry object, null if doesn't exist</returns>
         public static m.Entry GetEntry(int entryID)
         {
             d.Record rec = d.DatabaseController.GetRecord(entryID);
@@ -284,7 +349,6 @@ namespace LogMyLife.Domain
             m.Entry e = ConvertEntryToModel(rec, cols, cells);
             return e;
         }
-
 
         /// <summary>
         /// Get all entries for a category (both current and archived)
