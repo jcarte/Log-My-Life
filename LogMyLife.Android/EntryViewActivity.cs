@@ -35,7 +35,7 @@ namespace LogMyLife.Android
 
             //populate titleFieldList
             ListView titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);
-            EditFieldAdapter adpaterFL = new EditFieldAdapter(this, entry.TitleData );
+            EditFieldAdapter adpaterFL = new EditFieldAdapter(this, ent.TitleData, false );
             titleFieldList.Adapter = adpaterFL;
 
             //Set Comment Box Value
@@ -50,7 +50,7 @@ namespace LogMyLife.Android
 
             //populate otherFieldList
             ListView otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);
-            EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, entry.OtherData);
+            EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, ent.OtherData, false);
             otherFieldList.Adapter = adpaterOFL;
 
             Button btnEdit = FindViewById<Button>(Resource.Id.btnEdit_EV);

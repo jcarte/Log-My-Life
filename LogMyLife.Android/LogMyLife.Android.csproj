@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntryEditActivity.cs" />
     <Compile Include="EditEntryAdapter.cs" />
     <Compile Include="EntryViewActivity.cs" />
     <Compile Include="MainActivity.cs" />
@@ -85,6 +86,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\row.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EntryEdit.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\editrow.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
