@@ -49,7 +49,7 @@ namespace LogMyLife.Android
 
             if (_isEditable)
             {
-                view.FindViewById<EditText>(Resource.Id.left_ER).Text = item.Key;
+                view.FindViewById<TextView>(Resource.Id.left_ER).Text = item.Key;
                 view.FindViewById<EditText>(Resource.Id.right_ER).Text = item.Value;
             }
             else

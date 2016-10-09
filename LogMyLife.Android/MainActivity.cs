@@ -31,12 +31,14 @@ namespace LogMyLife.Android
         private List<string> aItems;
         private ListView lvMainScreen;
         private ListView lvMainScreenLower;
-
-
-
+        
+        Category currCat;
+        
         protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
+
+            currCat = cats[0];
 
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
@@ -68,9 +70,19 @@ namespace LogMyLife.Android
             lvMainScreen.ItemClick += CurrentEntryClicked;
             lvMainScreenLower.ItemClick += ArchiveEntryClicked;
 
-            
-            
 
+            Button addNew = FindViewById<Button>(Resource.Id.btnNew_MA);
+            addNew.Click += AddNewEntryClicked;
+
+        }
+
+        private void AddNewEntryClicked(object sender, EventArgs e)
+        {
+            Entry newE = MainController.CreateEntry(currCat.CategoryID);
+
+            Intent i = new Intent(this, typeof(EntryEditActivity));//Start a detail activity, push the entry ID into it
+            i.PutExtra("EntryID", newE.EntryID);
+            StartActivity(i);
         }
 
         private void CurrentEntryClicked(object sender, AdapterView.ItemClickEventArgs e)
@@ -140,7 +152,7 @@ namespace LogMyLife.Android
             base.OnResume();
 
             //Set mainscreen content based on first menu item for inital load
-            PopulateListScreen(cats[0]);
+            PopulateListScreen(currCat);
         }
 
         public void PopulateListScreen(Category cat)

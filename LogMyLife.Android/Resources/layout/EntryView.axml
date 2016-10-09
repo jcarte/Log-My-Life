@@ -28,7 +28,10 @@
         android:paddingLeft="14dp"
         android:paddingRight="14dp"
         android:textColor="#1B5E20"
-        android:textColorHint="#66BB6A" />
+        android:textColorHint="#66BB6A" 
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        />
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
