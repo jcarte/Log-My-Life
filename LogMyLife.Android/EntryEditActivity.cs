@@ -12,6 +12,7 @@ using Android.Widget;
 using LogMyLife.Domain;
 using LogMyLife.Domain.Model;
 using a = Android;
+using Android.Views.InputMethods;
 
 namespace LogMyLife.Android
 {
@@ -37,6 +38,7 @@ namespace LogMyLife.Android
             ListView titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);
             EditFieldAdapter adpaterFL = new EditFieldAdapter(this, entry.TitleData, true);
             titleFieldList.Adapter = adpaterFL;
+            adpaterFL.ItemUpdated += AdpaterItemUpdated;
 
             //Set Comment Box Value
             comment = FindViewById<EditText>(Resource.Id.commentTBox_EE);
@@ -49,38 +51,61 @@ namespace LogMyLife.Android
             float d = entry.StarRating;
             rating = FindViewById<RatingBar>(Resource.Id.ratingRBar);
             rating.Rating = d;
-            rating.RatingBarChange += RatingClicked; ;
+            rating.RatingBarChange += RatingClicked;
 
             //populate otherFieldList
-            ListView otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);
+            ListView otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);//TODO EditText fields aren't showing right,
             EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, entry.OtherData, true);
             otherFieldList.Adapter = adpaterOFL;
+            adpaterOFL.ItemUpdated += AdpaterItemUpdated;
 
             Button btnSave = FindViewById<Button>(Resource.Id.btnSave_EE);
             Button btnCancel = FindViewById<Button>(Resource.Id.btnCancel_EE);
 
             btnSave.Click += SaveClicked;
             btnCancel.Click += CancelClicked;
+
         }
 
-        private void CancelClicked(object sender, EventArgs e)
+        private void AdpaterItemUpdated(KeyValuePair<string, string> kvp)
         {
-            throw new NotImplementedException();
-        }
+            InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+            inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
-        private void SaveClicked(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            entry.EditColumnData(kvp.Key, kvp.Value);
+
+            Toast.MakeText(this, kvp.Key + ": " + kvp.Value, ToastLength.Short).Show();
         }
 
         private void RatingClicked(object sender, RatingBar.RatingBarChangeEventArgs e)
         {
-            throw new NotImplementedException();
+            entry.StarRating = rating.Rating;
+            Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
         }
 
         private void CommentFinishedEditing(object sender, TextView.EditorActionEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.ActionId == ImeAction.Done)
+            {
+                InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+                inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+
+                entry.Comment = comment.Text;
+                Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
+            }
         }
+
+        private void CancelClicked(object sender, EventArgs e)
+        {
+            base.OnBackPressed();
+        }
+
+        private void SaveClicked(object sender, EventArgs e)
+        {
+            base.OnBackPressed();
+            MainController.UpdateEntry(entry);
+            Toast.MakeText(this, "Saved", ToastLength.Short).Show();
+        }
+        
     }
 }

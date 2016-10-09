@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using LogMyLife.Domain.Model;
+using Android.Views.InputMethods;
 
 namespace LogMyLife.Android
 {
@@ -20,6 +21,10 @@ namespace LogMyLife.Android
         private readonly Context _context;
 
         private bool _isEditable;
+
+        public event Action<KeyValuePair<string, string>> ItemUpdated;
+
+
 
         public EditFieldAdapter(Context context, Dictionary<string,string> items, bool isEditable)
         {
@@ -47,19 +52,48 @@ namespace LogMyLife.Android
                     view = inflater.Inflate(Resource.Layout.row, parent, false);
             }
 
+
             if (_isEditable)
             {
-                view.FindViewById<TextView>(Resource.Id.left_ER).Text = item.Key;
-                view.FindViewById<EditText>(Resource.Id.right_ER).Text = item.Value;
+                var key = view.FindViewById<TextView>(Resource.Id.left_ER);
+                var value = view.FindViewById<EditText>(Resource.Id.right_ER);
+
+                key.Text = item.Key;
+                value.Text = item.Value;
+
+                value.EditorAction += OnEditorAction;
             }
             else
             {
-                view.FindViewById<TextView>(Resource.Id.left).Text = item.Key;
-                view.FindViewById<TextView>(Resource.Id.right).Text = item.Value;
+                var key = view.FindViewById<TextView>(Resource.Id.left);
+                var value = view.FindViewById<TextView>(Resource.Id.right);
+
+                key.Text = item.Key;
+                value.Text = item.Value;
             }
-
+            
             return view;
+            
+        }
 
+        KeyValuePair<string, string> lastKVP;//TODO find better way, so hacky
+
+        private void OnEditorAction(object sender, TextView.EditorActionEventArgs e)
+        {
+            if (e.ActionId == ImeAction.Done)
+            {
+                EditText val = sender as EditText;
+                TextView key = ((View)(val.Parent)).FindViewById<TextView>(Resource.Id.left_ER);
+                //KeyValuePair<string, string> kvp = _items.FirstOrDefault(k => k.Key == key.Text);
+                KeyValuePair<string, string> kvp = new KeyValuePair<string, string>(key.Text, val.Text);
+
+                if (!lastKVP.Equals(kvp))
+                {
+                    lastKVP = kvp;
+                    ItemUpdated?.Invoke(kvp);
+                }
+                    
+            }
         }
 
         public override int Count
@@ -72,5 +106,7 @@ namespace LogMyLife.Android
         {
             get{return _items[position];}
         }
+
+        
     }
 }

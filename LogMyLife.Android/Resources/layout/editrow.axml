@@ -19,5 +19,7 @@
         android:layout_weight="1"
         android:text="right"
         android:textSize="24sp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
         android:textColor="#1B5E20" />
 </LinearLayout>

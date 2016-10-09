@@ -77,6 +77,9 @@ namespace LogMyLife.Android
         {
             if(e.ActionId == ImeAction.Done)
             {
+                InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+                inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+                
                 entry.Comment = comment.Text;
                 MainController.UpdateEntry(entry);
                 Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
