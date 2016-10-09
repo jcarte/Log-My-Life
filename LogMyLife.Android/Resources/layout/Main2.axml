@@ -1,60 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#C8E6C9">
-
+    android:background="#A5D6A7">
   <ListView
-      android:id="@+id/titleFieldList"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" 
-            android:padding="16dp"         
-            android:background = "#66BB6A"/>
-
-  <EditText
-      android:id="@+id/commentTBox"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" 
-      android:text="HELLOOO FROM MAIN 2"
-      android:layout_below ="@id/titleFieldList"
-       android:textSize="24sp"
-            android:padding="16dp"         
-            android:background = "#66BB6A"/>
-  <LinearLayout
-    android:id="@+id/commentBoxParent"
+    android:id="@+id/titleFieldList"
     android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-    android:gravity ="center_horizontal"
-    android:padding="16dp"
-    android:layout_below ="@id/commentTBox"    
-            android:background = "#66BB6A">
+    android:layout_height="wrap_content"
+    android:background="#C8E6C9"
+    android:layout_marginBottom="4dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    android:dividerHeight="0dp"
+    android:divider="@null"/>
+  <EditText
+    android:id="@+id/commentTBox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#C8E6C9"
+    android:layout_marginBottom="4dp"
+    android:hint="Enter your comment..."
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    android:textColor="#1B5E20"
+    android:textColorHint="#66BB6A"/>
+  <LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#C8E6C9"
+    android:paddingTop="12dp"
+   >
     <RatingBar
-         android:id="@+id/ratingRBar"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:numStars="5"
-         android:stepSize="0.5"    
-         android:background = "#66BB6A"
-      />
+     android:id="@+id/ratingRBar"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:numStars="5"
+     android:stepSize="0.5"
+     
+     />
   </LinearLayout>
   <ListView
-      android:id="@+id/otherFieldList"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below ="@id/commentBoxParent"
-            android:padding="16dp"         
-            android:background = "#66BB6A"/>
-
+   android:id="@+id/otherFieldList"
+   android:layout_width="match_parent"
+   android:layout_height="0dp"
+   android:layout_weight="1"
+   android:background="#C8E6C9"
+   android:paddingTop="8dp"
+   android:paddingBottom="8dp"
+   android:paddingLeft="14dp"
+   android:paddingRight="14dp"
+   android:dividerHeight="0dp"
+   android:divider="@null"/>
   <Button
     android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-    android:layout_alignParentBottom ="true"
+    android:layout_height="wrap_content"
     android:text="Edit"
-     android:textSize="24sp"
-            android:padding="16dp"         
-            android:background = "#66BB6A"
-   />
-  
-</RelativeLayout>
+    android:textStyle="bold"
+    android:background="#1B5E20"
+    android:textColor="#C8E6C9"
+    android:textSize="20sp"/>  
+</LinearLayout>
+
