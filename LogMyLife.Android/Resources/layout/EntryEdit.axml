@@ -4,7 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#A5D6A7">
-
+  <ListView
+      android:id="@+id/titleFieldList"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#C8E6C9"
+      android:layout_marginBottom="4dp"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      android:paddingLeft="14dp"
+      android:paddingRight="14dp"
+      android:dividerHeight="0dp"
+      android:divider="@null" />
+  <EditText
+      android:id="@+id/commentTBox"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#C8E6C9"
+      android:layout_marginBottom="4dp"
+      android:hint="Enter your comment..."
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      android:paddingLeft="14dp"
+      android:paddingRight="14dp"
+      android:textColor="#1B5E20"
+      android:textColorHint="#66BB6A" />
   <LinearLayout
       android:layout_height="wrap_content"
       android:layout_width="fill_parent"
@@ -13,13 +37,24 @@
       android:background="#C8E6C9"
       android:paddingTop="12dp">
     <RatingBar
-        android:id="@+id/ratingRBar_EV"
+        android:id="@+id/ratingRBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numStars="5"
         android:stepSize="0.5" />
   </LinearLayout>
-
+  <ListView
+      android:id="@+id/otherFieldList"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:background="#C8E6C9"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      android:paddingLeft="14dp"
+      android:paddingRight="14dp"
+      android:dividerHeight="0dp"
+      android:divider="@null" />
   <LinearLayout
       android:orientation="horizontal"
       android:layout_width="match_parent"
@@ -30,7 +65,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Discard"
+        android:text="Edit"
         android:textStyle="bold"
         android:background="#1B5E20"
         android:textColor="#C8E6C9"
@@ -40,7 +75,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Save"
+        android:text="Archive"
         android:textStyle="bold"
         android:background="#1B5E20"
         android:textColor="#C8E6C9"

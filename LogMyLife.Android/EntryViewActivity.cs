@@ -30,7 +30,7 @@ namespace LogMyLife.Android
 
             //populate titleFieldList
             ListView titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);
-            EditFieldAdapter adpaterFL = new EditFieldAdapter(this, ent.TitleData );
+            EditFieldAdapter adpaterFL = new EditFieldAdapter(this, ent.TitleData, false );
             titleFieldList.Adapter = adpaterFL;
 
             //Set Rating bar star value
@@ -40,7 +40,7 @@ namespace LogMyLife.Android
 
             //populate otherFieldList
             ListView otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);
-            EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, ent.OtherData);
+            EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, ent.OtherData, false);
             otherFieldList.Adapter = adpaterOFL;
 
             

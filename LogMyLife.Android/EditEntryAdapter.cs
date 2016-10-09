@@ -19,10 +19,13 @@ namespace LogMyLife.Android
         private readonly IList<KeyValuePair<string,string>> _items;
         private readonly Context _context;
 
-        public EditFieldAdapter(Context context, Dictionary<string,string> items)
+        private bool _isEditable;
+
+        public EditFieldAdapter(Context context, Dictionary<string,string> items, bool isEditable)
         {
             _items = items.ToList();
             _context = context;
+            _isEditable = isEditable;
         }
 
         public override long GetItemId(int position)
@@ -38,12 +41,22 @@ namespace LogMyLife.Android
             if (view == null)
             {
                 var inflater = LayoutInflater.FromContext(_context);
-                view = inflater.Inflate(Resource.Layout.row, parent, false);
+                if(_isEditable)
+                    view = inflater.Inflate(Resource.Layout.editrow, parent, false);
+                else
+                    view = inflater.Inflate(Resource.Layout.row, parent, false);
             }
 
-            view.FindViewById<TextView>(Resource.Id.left).Text = item.Key;
-            view.FindViewById<TextView>(Resource.Id.right).Text = item.Value;
-
+            if (_isEditable)
+            {
+                view.FindViewById<EditText>(Resource.Id.left_ER).Text = item.Key;
+                view.FindViewById<EditText>(Resource.Id.right_ER).Text = item.Value;
+            }
+            else
+            {
+                view.FindViewById<TextView>(Resource.Id.left).Text = item.Key;
+                view.FindViewById<TextView>(Resource.Id.right).Text = item.Value;
+            }
 
             return view;
 
