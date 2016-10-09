@@ -2,8 +2,9 @@
 using Android.Support.V4.App;
 using Android.App;
 using Android.Support.V4.Widget;
+using a = Android;
 
-namespace DrawerLayoutTutorial
+namespace LogMyLife.Android
 {
 	public class MyActionBarDrawerToggle : ActionBarDrawerToggle
 	{
@@ -16,7 +17,7 @@ namespace DrawerLayoutTutorial
             
 		}
 
-		public override void OnDrawerOpened (Android.Views.View drawerView)
+		public override void OnDrawerOpened (a.Views.View drawerView)
 		{
 			int drawerType = (int)drawerView.Tag;
 
@@ -28,7 +29,7 @@ namespace DrawerLayoutTutorial
 			}
 		}
 
-		public override void OnDrawerClosed (Android.Views.View drawerView)
+		public override void OnDrawerClosed (a.Views.View drawerView)
 		{
 			int drawerType = (int)drawerView.Tag;
 
@@ -40,7 +41,7 @@ namespace DrawerLayoutTutorial
 			}
 		}
 
-		public override void OnDrawerSlide (Android.Views.View drawerView, float slideOffset)
+		public override void OnDrawerSlide (a.Views.View drawerView, float slideOffset)
 		{
 			int drawerType = (int)drawerView.Tag;
 

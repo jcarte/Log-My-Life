@@ -3,20 +3,59 @@
     android:id="@+id/myDrawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<!-- The main content view -->
-    <FrameLayout
+<!-- This is the main screen-->
+    <RelativeLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#C8E6C9">
+    <!-- Text box for Current List -->
         <TextView
-            android:id="@+id/tvText"
-            android:layout_width="wrap_content"
+            android:id="@+id/clText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Welcome to Log My Life"
-            />
-    </FrameLayout>
+            android:layout_centerHorizontal="true"
+            android:textSize="24sp"
+            android:padding="16dp"
+            android:background="#66BB6A" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/clText"
+            android:layout_above="@+id/alText"
+            android:orientation="vertical">
+        <!--List of Items for Current List-->
+            <ListView
+                android:id="@+id/lvMainScreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:smoothScrollbar="true" />
+        </LinearLayout>
+    <!-- Text box for Archived List-->
+        <TextView
+            android:id="@id/alText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:padding="16dp"
+            android:layout_centerInParent="true"
+            android:background="#66BB6A"
+            android:layout_below="@id/lvMainScreen" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/alText"
+            android:orientation="vertical">
+        <!--  List of Items for Archived List    -->
+            <ListView
+                android:id="@+id/lvMainScreenLower"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:smoothScrollbar="true" />
+        </LinearLayout>
+    </RelativeLayout>
 <!-- The left navigation drawer -->
     <ListView
         android:id="@+id/leftListView"

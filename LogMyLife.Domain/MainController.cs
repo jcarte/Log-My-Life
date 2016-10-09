@@ -26,6 +26,7 @@ namespace LogMyLife.Domain
             var bookCat = CreateCategory("Books", CategoryType.Book);
             var filmCat = CreateCategory("Films", CategoryType.Film);
             var wineCat = CreateCategory("Wine", CategoryType.Wine);
+            var tvCat = CreateCategory("TV", CategoryType.TV);
 
             if (createCols)
             {
@@ -35,7 +36,7 @@ namespace LogMyLife.Domain
                 CreateColumn("Track", musicCat.CategoryID, m.Column.ColumnType.Title);
                 CreateColumn("Star Rating", musicCat.CategoryID, m.Column.ColumnType.Review);
                 CreateColumn("Comment", musicCat.CategoryID, m.Column.ColumnType.Review);
-                CreateColumn("Year", musicCat.CategoryID, m.Column.ColumnType.Normal, true);
+                CreateColumn("Year", musicCat.CategoryID, m.Column.ColumnType.Normal);
 
                 //BOOK Columns = 2 title, 2 review, 1 normal (all hidden)
                 CreateColumn("Title", bookCat.CategoryID, Model.Column.ColumnType.Title, true);
@@ -52,6 +53,12 @@ namespace LogMyLife.Domain
                 CreateColumn("Vintage", wineCat.CategoryID, Model.Column.ColumnType.Normal);
                 CreateColumn("Year", wineCat.CategoryID, Model.Column.ColumnType.Normal);
                 CreateColumn("Region", wineCat.CategoryID, Model.Column.ColumnType.Normal);
+
+                //TV Columns = 1 ,2, 1 Normal
+                CreateColumn("Title", tvCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", tvCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", tvCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Year", tvCat.CategoryID, Model.Column.ColumnType.Normal);
             }
 
             if (createRecs)
@@ -61,7 +68,7 @@ namespace LogMyLife.Domain
                 hits.EditColumnData("Artist", "Black Sabbath");
                 hits.EditColumnData("Album", "Sabotage");
                 hits.EditColumnData("Track", "The Writ");
-                hits.EditColumnData("Star Rating", "10");
+                hits.EditColumnData("Star Rating", "5");
                 hits.EditColumnData("Comment", "This song is freaking awesome, actually I'm going to put it on right now");
                 hits.EditColumnData("Year", "1975 (I think)");
                 UpdateEntry(hits);
@@ -80,7 +87,7 @@ namespace LogMyLife.Domain
                 es.EditColumnData("Artist", "Metallica");
                 es.EditColumnData("Album", "The Black Album");
                 es.EditColumnData("Track", "Enter Sandman");
-                es.EditColumnData("Star Rating", "8");
+                es.EditColumnData("Star Rating", "4");
                 es.EditColumnData("Comment", "Pretty good");
                 es.EditColumnData("Year", "1990");
                 UpdateEntry(es);
@@ -89,7 +96,7 @@ namespace LogMyLife.Domain
                 im.EditColumnData("Artist", "Iron Maiden");
                 im.EditColumnData("Album", "Triller");
                 im.EditColumnData("Track", "Prowler");
-                im.EditColumnData("Star Rating", "9");
+                im.EditColumnData("Star Rating", "4.5");
                 im.EditColumnData("Comment", "Pretty damn good");
                 im.EditColumnData("Year", "1981");
                 im.IsArchived = true;
@@ -99,14 +106,14 @@ namespace LogMyLife.Domain
                 var hp = CreateEntry(bookCat.CategoryID);
                 hp.EditColumnData("Title", "Harry Potter");
                 hp.EditColumnData("Author", "JK Rowling");
-                hp.EditColumnData("Star Rating", "7");
+                hp.EditColumnData("Star Rating", "3.5");
                 hp.EditColumnData("Comment", "Not bad from what I remember...wow I really don't know many books");
                 UpdateEntry(hp);
 
                 var oz = CreateEntry(bookCat.CategoryID);
                 oz.EditColumnData("Title", "Ozzys Autobiography");
                 oz.EditColumnData("Author", "Ozzys Ghost writer");
-                oz.EditColumnData("Star Rating", "8");
+                oz.EditColumnData("Star Rating", "4");
                 oz.EditColumnData("Comment", "Also pretty good");
                 UpdateEntry(oz);
 
@@ -122,6 +129,57 @@ namespace LogMyLife.Domain
                 bj.EditColumnData("Comment", "Who would ever watch this???");
                 bj.IsArchived = true;
                 UpdateEntry(bj);
+
+
+
+                //TV Records
+                var bb = CreateEntry(tvCat.CategoryID);
+                bb.EditColumnData("Title", "Breaking Bad");
+                bb.EditColumnData("Star Rating", "4.5");
+                bb.EditColumnData("Comment", "Properly Awesome");
+                bb.EditColumnData("Year", "2012");
+                bb.IsArchived = true;
+                UpdateEntry(bb);
+
+                var got = CreateEntry(tvCat.CategoryID);
+                got.EditColumnData("Title", "Game of Thrones");
+                got.EditColumnData("Star Rating", "5");
+                got.EditColumnData("Comment", "Long and awesome");
+                got.EditColumnData("Year", "2011");
+                got.IsArchived = false;
+                UpdateEntry(got);
+
+                var hoc = CreateEntry(tvCat.CategoryID);
+                hoc.EditColumnData("Title", "House of Cards");
+                hoc.EditColumnData("Star Rating", "4");
+                hoc.EditColumnData("Comment", "Spacey is a bit of a god");
+                hoc.EditColumnData("Year", "2012");
+                hoc.IsArchived = false;
+                UpdateEntry(hoc);
+
+                var na = CreateEntry(tvCat.CategoryID);
+                na.EditColumnData("Title", "Narcos");
+                na.EditColumnData("Star Rating", "3.5");
+                na.EditColumnData("Comment", "I wish I was pablo");
+                na.EditColumnData("Year", "2014");
+                na.IsArchived = false;
+                UpdateEntry(na);
+
+                var bh = CreateEntry(tvCat.CategoryID);
+                bh.EditColumnData("Title", "Bojack Horseman");
+                bh.EditColumnData("Star Rating", "4");
+                bh.EditColumnData("Comment", "I don't think this one is for ninks");
+                bh.EditColumnData("Year", "2014");
+                bh.IsArchived = false;
+                UpdateEntry(bh);
+
+                var xf = CreateEntry(tvCat.CategoryID);
+                xf.EditColumnData("Title", "X Factor");
+                xf.EditColumnData("Star Rating", "0");
+                xf.EditColumnData("Comment", "I do believe the x factor can do one...who would watch this?");
+                xf.EditColumnData("Year", "2009");
+                xf.IsArchived = true;
+                UpdateEntry(xf);
             }
         }
 
@@ -270,6 +328,27 @@ namespace LogMyLife.Domain
             return ConvertEntryToModel(rec, cols, cells);
         }
 
+
+
+
+
+        /// <summary>
+        /// Get a single entry from any category if the ID is known
+        /// </summary>
+        /// <param name="entryID">Unique ID of the entry</param>
+        /// <returns>Entry object, null if doesn't exist</returns>
+        public static m.Entry GetEntry(int entryID)
+        {
+            d.Record rec = d.DatabaseController.GetRecord(entryID);
+
+            if (rec == null)
+                return null;
+
+            List<d.Column> cols = d.DatabaseController.GetColumns(rec.CategoryID).ToList();//get columns in category
+            List<d.Cell> cells = d.DatabaseController.GetCells(rec.RecordID).ToList();
+            m.Entry e = ConvertEntryToModel(rec, cols, cells);
+            return e;
+        }
 
         /// <summary>
         /// Get all entries for a category (both current and archived)
