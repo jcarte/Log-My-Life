@@ -84,15 +84,15 @@ namespace LogMyLife.Domain.Model
         /// <summary>
         /// Rating that the user gave this entry between 0 and 10 inclusive
         /// </summary>
-        public double StarRating
+        public float StarRating
         {
             get
             {
-                double star;
+                float star;
                 string colData = Data[GetColumn("Star Rating")];
                 if (colData == string.Empty)
                     return 0;//not yet set
-                if (!double.TryParse(colData, out star))
+                if (!float.TryParse(colData, out star))
                     throw new Exception($"Star Rating of {colData} could not be converted to a number");
                 return star;
             }

@@ -86,9 +86,6 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070008
 			public const int clText = 2131165192;
 			
-			// aapt resource value: 0x7f070001
-			public const int commentTBox = 2131165185;
-			
 			// aapt resource value: 0x7f070007
 			public const int content_frame = 2131165191;
 			
@@ -114,13 +111,16 @@ namespace LogMyLife.Android
 			public const int otherFieldList = 2131165187;
 			
 			// aapt resource value: 0x7f070002
-			public const int ratingRBar = 2131165186;
+			public const int ratRratingBar_EV = 2131165186;
 			
 			// aapt resource value: 0x7f07000e
 			public const int right = 2131165198;
 			
 			// aapt resource value: 0x7f070000
 			public const int titleFieldList = 2131165184;
+			
+			// aapt resource value: 0x7f070001
+			public const int txtComment_EV = 2131165185;
 			
 			static Id()
 			{

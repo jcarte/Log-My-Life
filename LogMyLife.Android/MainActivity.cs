@@ -32,6 +32,8 @@ namespace LogMyLife.Android
         private ListView lvMainScreen;
         private ListView lvMainScreenLower;
 
+
+
         protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -66,9 +68,8 @@ namespace LogMyLife.Android
             lvMainScreen.ItemClick += CurrentEntryClicked;
             lvMainScreenLower.ItemClick += ArchiveEntryClicked;
 
-
-            //Set mainscreen content based on first menu item for inital load
-            PopulateListScreen(cats[0]);
+            
+            
 
         }
 
@@ -81,7 +82,7 @@ namespace LogMyLife.Android
             OpenEntryDetail(archivedEnts[e.Position]);
         }
 
-
+        
 
         private void OpenEntryDetail(Entry e)
         {
@@ -133,6 +134,14 @@ namespace LogMyLife.Android
 
         List<Entry> currentEnts;
         List<Entry> archivedEnts;
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            //Set mainscreen content based on first menu item for inital load
+            PopulateListScreen(cats[0]);
+        }
 
         public void PopulateListScreen(Category cat)
         {
