@@ -56,6 +56,7 @@ namespace LogMyLife.Android
             Button btnEdit = FindViewById<Button>(Resource.Id.btnEdit_EV);
             Button btnArchive = FindViewById<Button>(Resource.Id.btnArchive_EV);
 
+            //Set up click events for the buttons
             btnEdit.Click += EditClicked;
             btnArchive.Click += ArchiveClicked;
 
@@ -64,6 +65,7 @@ namespace LogMyLife.Android
             else
                 btnArchive.Text = "Archive";
 
+            
 
         }
 
@@ -76,7 +78,10 @@ namespace LogMyLife.Android
 
         private void EditClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();//TODO hook to new edit screen
+            Intent i = new Intent(this, typeof(EntryEditActivity));//Start a detail activity, push the entry ID into it
+            i.PutExtra("EntryID", entry.EntryID); //tells it which entry it is
+            StartActivity(i);
+
         }
 
         private void ArchiveClicked(object sender, EventArgs e)

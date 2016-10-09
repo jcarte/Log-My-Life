@@ -43,8 +43,11 @@ namespace LogMyLife.Android
             EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, ent.OtherData, true);
             otherFieldList.Adapter = adpaterOFL;
 
-
-            // Create your application here
+            // Populate button text
+            Button btnSave = FindViewById<Button>(Resource.Id.btnEdit_EV);
+            Button btnCancel = FindViewById<Button>(Resource.Id.btnArchive_EV);
+            btnSave.Text = "Save";
+            btnCancel.Text = "Cancel";
         }
     }
 }
