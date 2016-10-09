@@ -15,12 +15,12 @@ using LogMyLife.Domain.Model;
 namespace LogMyLife.Android
 {
     [Activity(Label = "", Icon = "@drawable/icon", Theme = "@style/CustomActionBarTheme")]
-    public class ItemViewActivity : Activity
+    public class EntryViewActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.Main2);
+            SetContentView(Resource.Layout.EntryView);
 
             int entryID = Intent.GetIntExtra("EntryID", -1);//get entryid from intent
             Entry ent = MainController.GetEntry(entryID);//get entry from DB
@@ -42,6 +42,8 @@ namespace LogMyLife.Android
             ListView otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);
             EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, ent.OtherData);
             otherFieldList.Adapter = adpaterOFL;
+
+            
         }
     }
 }

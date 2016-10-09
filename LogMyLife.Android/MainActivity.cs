@@ -85,7 +85,7 @@ namespace LogMyLife.Android
 
         private void OpenEntryDetail(Entry e)
         {
-            Intent i = new Intent(this, typeof(ItemViewActivity));//Start a detail activity, push the entry ID into it
+            Intent i = new Intent(this, typeof(EntryViewActivity));//Start a detail activity, push the entry ID into it
             i.PutExtra("EntryID", e.EntryID);
             StartActivity(i);
         }
