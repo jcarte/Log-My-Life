@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A5D6A7">
+
+  <LinearLayout
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:orientation="vertical"
+      android:gravity="center_horizontal"
+      android:background="#C8E6C9"
+      android:paddingTop="12dp">
+    <RatingBar
+        android:id="@+id/ratingRBar_EV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5" />
+  </LinearLayout>
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="bottom">
+    <Button
+        android:id="@+id/btnEdit_EV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Discard"
+        android:textStyle="bold"
+        android:background="#1B5E20"
+        android:textColor="#C8E6C9"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/btnArchive_EV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Save"
+        android:textStyle="bold"
+        android:background="#1B5E20"
+        android:textColor="#C8E6C9"
+        android:textSize="20sp" />
+  </LinearLayout>
+</LinearLayout>
