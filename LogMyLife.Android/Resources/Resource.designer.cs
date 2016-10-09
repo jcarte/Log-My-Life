@@ -77,6 +77,9 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070010
 			public const int alText = 2131165200;
 			
+			// aapt resource value: 0x7f070014
+			public const int btnAbout = 2131165204;
+			
 			// aapt resource value: 0x7f07000a
 			public const int btnArchive_EV = 2131165194;
 			
@@ -101,11 +104,11 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f07000c
 			public const int content_frame = 2131165196;
 			
-			// aapt resource value: 0x7f070016
-			public const int downloads = 2131165206;
+			// aapt resource value: 0x7f070017
+			public const int downloads = 2131165207;
 			
-			// aapt resource value: 0x7f070014
-			public const int left = 2131165204;
+			// aapt resource value: 0x7f070015
+			public const int left = 2131165205;
 			
 			// aapt resource value: 0x7f070013
 			public const int leftListView = 2131165203;
@@ -131,8 +134,8 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070004
 			public const int ratingRBar = 2131165188;
 			
-			// aapt resource value: 0x7f070015
-			public const int right = 2131165205;
+			// aapt resource value: 0x7f070016
+			public const int right = 2131165206;
 			
 			// aapt resource value: 0x7f070001
 			public const int right_ER = 2131165185;

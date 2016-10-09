@@ -59,9 +59,8 @@ namespace LogMyLife.Android
             Button btnSave = FindViewById<Button>(Resource.Id.btnSave_EE);
             Button btnCancel = FindViewById<Button>(Resource.Id.btnCancel_EE);
 
-            btnSave.Click += SaveClicked; ;
-            btnCancel.Click += CancelClicked; ;
-
+            btnSave.Click += SaveClicked;
+            btnCancel.Click += CancelClicked;
         }
 
         private void CancelClicked(object sender, EventArgs e)
