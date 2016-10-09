@@ -10,31 +10,29 @@
         android:layout_height="match_parent"
         android:background="#C8E6C9">
     <!-- Text box for Current List -->
-
-      <LinearLayout android:id="@+id/loCurrentListHeader"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:background="#66BB6A" 
-                    >
-        <TextView
-            android:id="@+id/clText"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <LinearLayout
+            android:id="@+id/loCurrentListHeader"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:padding="16dp"
-            android:background="#66BB6A" />
-        <Button
-          android:id="@+id/btnNew_MA"
-          android:layout_height="wrap_content"
-          android:layout_width="wrap_content"
-          android:text="+"
-          android:textStyle="bold"
-          android:background="#66BB6A"
-          android:textColor="#1B5E20"
-          android:textSize="25sp" />
-      </LinearLayout>
-        
+            android:layout_width="match_parent"
+            android:background="#66BB6A">
+            <TextView
+                android:id="@+id/clText"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:padding="16dp"
+                android:background="#66BB6A" />
+            <Button
+                android:id="@+id/btnNew_MA"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="+"
+                android:textStyle="bold"
+                android:background="#66BB6A"
+                android:textColor="#1B5E20"
+                android:textSize="25sp" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -71,8 +69,6 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:smoothScrollbar="true" />
-
-    
         </LinearLayout>
     </RelativeLayout>
 <!-- The left navigation drawer -->

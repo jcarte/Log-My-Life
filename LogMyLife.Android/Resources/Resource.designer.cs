@@ -74,8 +74,8 @@ namespace LogMyLife.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f07000d
-			public const int alText = 2131165197;
+			// aapt resource value: 0x7f07000e
+			public const int alText = 2131165198;
 			
 			// aapt resource value: 0x7f070007
 			public const int btnArchive_EV = 2131165191;
@@ -83,41 +83,41 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070006
 			public const int btnEdit_EV = 2131165190;
 			
-			// aapt resource value: 0x7f07000c
-			public const int btnNew_MA = 2131165196;
+			// aapt resource value: 0x7f07000d
+			public const int btnNew_MA = 2131165197;
 			
-			// aapt resource value: 0x7f07000b
-			public const int clText = 2131165195;
+			// aapt resource value: 0x7f07000c
+			public const int clText = 2131165196;
 			
 			// aapt resource value: 0x7f070003
 			public const int commentTBox = 2131165187;
 			
-			// aapt resource value: 0x7f070009
-			public const int content_frame = 2131165193;
+			// aapt resource value: 0x7f07000a
+			public const int content_frame = 2131165194;
 			
-			// aapt resource value: 0x7f070013
-			public const int downloads = 2131165203;
+			// aapt resource value: 0x7f070014
+			public const int downloads = 2131165204;
+			
+			// aapt resource value: 0x7f070012
+			public const int left = 2131165202;
 			
 			// aapt resource value: 0x7f070011
-			public const int left = 2131165201;
-			
-			// aapt resource value: 0x7f070010
-			public const int leftListView = 2131165200;
+			public const int leftListView = 2131165201;
 			
 			// aapt resource value: 0x7f070000
 			public const int left_ER = 2131165184;
 			
-			// aapt resource value: 0x7f07000a
-			public const int loCurrentListHeader = 2131165194;
-			
-			// aapt resource value: 0x7f07000e
-			public const int lvMainScreen = 2131165198;
+			// aapt resource value: 0x7f07000b
+			public const int loCurrentListHeader = 2131165195;
 			
 			// aapt resource value: 0x7f07000f
-			public const int lvMainScreenLower = 2131165199;
+			public const int lvMainScreen = 2131165199;
 			
-			// aapt resource value: 0x7f070008
-			public const int myDrawer = 2131165192;
+			// aapt resource value: 0x7f070010
+			public const int lvMainScreenLower = 2131165200;
+			
+			// aapt resource value: 0x7f070009
+			public const int myDrawer = 2131165193;
 			
 			// aapt resource value: 0x7f070005
 			public const int otherFieldList = 2131165189;
@@ -125,14 +125,17 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070004
 			public const int ratingRBar = 2131165188;
 			
-			// aapt resource value: 0x7f070012
-			public const int right = 2131165202;
+			// aapt resource value: 0x7f070013
+			public const int right = 2131165203;
 			
 			// aapt resource value: 0x7f070001
 			public const int right_ER = 2131165185;
 			
 			// aapt resource value: 0x7f070002
 			public const int titleFieldList = 2131165186;
+			
+			// aapt resource value: 0x7f070008
+			public const int txtComment_EV = 2131165192;
 			
 			static Id()
 			{

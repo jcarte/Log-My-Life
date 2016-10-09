@@ -91,21 +91,21 @@ namespace LogMyLife.TestConsole.ModelTests
             Log($"\n\nGet Star from int before update: {upd1.StarRating}");
 
             Log("\n\n1 rating through int");
-            upd1.StarRating = 1;
+            upd1.StarRating = 1f;
             MainController.UpdateEntry(upd1);
             ListAll(true);
             Log($"\n\nGet Star from int: {upd1.StarRating}");
 
 
             Log("\n\n2.75 rating through int");
-            upd1.StarRating = 2.75;
+            upd1.StarRating = 2.75f;
             MainController.UpdateEntry(upd1);
             ListAll(true);
             Log($"\n\nGet Star from int: {upd1.StarRating}");
 
 
             Log("\n\n0 rating through int");
-            upd1.StarRating = 0;
+            upd1.StarRating = 0f;
             MainController.UpdateEntry(upd1);
             ListAll(true);
             Log($"\n\nGet Star from int: {upd1.StarRating}");

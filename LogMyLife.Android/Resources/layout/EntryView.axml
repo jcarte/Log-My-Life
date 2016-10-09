@@ -37,7 +37,7 @@
         android:background="#C8E6C9"
         android:paddingTop="12dp">
         <RatingBar
-            android:id="@+id/ratRratingBar_EV"
+            android:id="@+id/ratingRBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"

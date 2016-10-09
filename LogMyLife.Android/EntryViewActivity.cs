@@ -35,22 +35,22 @@ namespace LogMyLife.Android
 
             //populate titleFieldList
             ListView titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);
-            EditFieldAdapter adpaterFL = new EditFieldAdapter(this, ent.TitleData, false );
+            EditFieldAdapter adpaterFL = new EditFieldAdapter(this, entry.TitleData, false );
             titleFieldList.Adapter = adpaterFL;
 
             //Set Comment Box Value
-            comment = (TextView)FindViewById(Resource.Id.ratRratingBar_EV);
+            //comment = (TextView)FindViewById(Resource.Id.ratingRBar);
             //comment.Text = entry.c//TODO add comment
 
             //Set Rating bar star value
             float d = entry.StarRating;
-            rating = (RatingBar)FindViewById(Resource.Id.ratRratingBar_EV);
+            rating = (RatingBar)FindViewById(Resource.Id.ratingRBar);
             rating.Rating = d;
             rating.RatingBarChange += RatingClicked;
 
             //populate otherFieldList
             ListView otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);
-            EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, ent.OtherData, false);
+            EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, entry.OtherData, false);
             otherFieldList.Adapter = adpaterOFL;
 
             Button btnEdit = FindViewById<Button>(Resource.Id.btnEdit_EV);
