@@ -49,8 +49,9 @@ namespace LogMyLife.Android
             foreach (var i in cats)
             {
                 mLeftItems.Add(i.Name);
-            }      
-                  
+            }
+            //mLeftItems.Add("About");
+
             mDrawerToggle = new MyActionBarDrawerToggle (this, mDrawerLayout, Resource.Drawable.ic_navigation_drawer, Resource.String.open_drawer, Resource.String.close_drawer);
 			mLeftAdapter = new ArrayAdapter (this, a.Resource.Layout.SimpleListItem1, mLeftItems);
 			mLeftDrawer.Adapter = mLeftAdapter;
@@ -68,8 +69,26 @@ namespace LogMyLife.Android
             lvMainScreen.ItemClick += CurrentEntryClicked;
             lvMainScreenLower.ItemClick += ArchiveEntryClicked;
 
+            //About button
+            Button about = FindViewById<Button>(Resource.Id.btnAbout);
+            about.Click += About_Click;
             
-            
+
+        }
+
+        private void About_Click(object sender, EventArgs e)
+        {
+            //set alert for executing the task
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("About Log my Life v0.1");
+            alert.SetMessage("Log my Life is a Jicola Production.  Version 0.1 is a beta version and there will be many great, new features coming soon, including customisable lists to give you control over your categories!");
+
+            alert.SetNegativeButton("Ok", (senderAlert, args) =>
+            {
+             });
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
 
         }
 
@@ -86,6 +105,7 @@ namespace LogMyLife.Android
 
         private void OpenEntryDetail(Entry e)
         {
+
             Intent i = new Intent(this, typeof(EntryViewActivity));//Start a detail activity, push the entry ID into it
             i.PutExtra("EntryID", e.EntryID);
             StartActivity(i);
