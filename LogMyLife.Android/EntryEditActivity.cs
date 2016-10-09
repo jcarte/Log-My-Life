@@ -11,10 +11,11 @@ using Android.Views;
 using Android.Widget;
 using LogMyLife.Domain;
 using LogMyLife.Domain.Model;
+using a = Android;
 
 namespace LogMyLife.Android
 {
-    [Activity(Label = "Edit")]
+    [Activity(ScreenOrientation = a.Content.PM.ScreenOrientation.Portrait, Label = "", Icon = "@drawable/icon", Theme = "@style/CustomActionBarTheme")]
     public class EntryEditActivity : Activity
     {
         Entry entry;

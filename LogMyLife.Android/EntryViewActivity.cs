@@ -11,11 +11,12 @@ using Android.Views;
 using Android.Widget;
 using LogMyLife.Domain;
 using LogMyLife.Domain.Model;
+using a = Android;
 using Android.Views.InputMethods;
 
 namespace LogMyLife.Android
 {
-    [Activity(Label = "", Icon = "@drawable/icon", Theme = "@style/CustomActionBarTheme")]
+    [Activity(ScreenOrientation = a.Content.PM.ScreenOrientation.Portrait, Label = "", Icon = "@drawable/icon", Theme = "@style/CustomActionBarTheme")]
     public class EntryViewActivity : Activity
     {
         Entry entry;
@@ -60,6 +61,7 @@ namespace LogMyLife.Android
             Button btnEdit = FindViewById<Button>(Resource.Id.btnEdit_EV);
             Button btnArchive = FindViewById<Button>(Resource.Id.btnArchive_EV);
 
+            //Set up click events for the buttons
             btnEdit.Click += EditClicked;
             btnArchive.Click += ArchiveClicked;
 
