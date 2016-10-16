@@ -3,20 +3,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A5D6A7">
+    android:background="#90CAF9">
+  
 
     <ListView
         android:id="@+id/titleFieldList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#C8E6C9"
-        android:layout_marginBottom="4dp"
+        android:background="#BBDEFB"
+        android:layout_marginBottom="0dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:paddingLeft="14dp"
         android:paddingRight="14dp"
         android:dividerHeight="0dp"
-        android:divider="@null" />
+        android:divider="@null"
+        android:scrollbars="none"/>
         <!--<EditText
         android:id="@+id/commentTBox_EE"
         android:layout_width="match_parent"
@@ -46,11 +48,12 @@
             android:numStars="5"
             android:stepSize="0.5" />
     </LinearLayout>-->
+  
     <ListView
         android:id="@+id/otherFieldList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#C8E6C9"
+        android:background="#BBDEFB"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:paddingLeft="14dp"
@@ -61,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#C8E6C9" />
+        android:background="#90CAF9" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -74,8 +77,8 @@
             android:layout_weight="1"
             android:text="Save"
             android:textStyle="bold"
-            android:background="#1B5E20"
-            android:textColor="#C8E6C9"
+            android:background="#0D47A1"
+            android:textColor="#BBDEFB"
             android:textSize="20sp" />
         <Button
             android:id="@+id/btnCancel_EE"
@@ -84,8 +87,8 @@
             android:layout_weight="1"
             android:text="Cancel"
             android:textStyle="bold"
-            android:background="#1B5E20"
-            android:textColor="#C8E6C9"
+            android:background="#0D47A1"
+            android:textColor="#BBDEFB"
             android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>
