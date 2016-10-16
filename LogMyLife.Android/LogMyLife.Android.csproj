@@ -134,4 +134,7 @@
   <ItemGroup>
     <None Include="Notes.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\LauncherIcon4.png" />
+  </ItemGroup>
 </Project>
