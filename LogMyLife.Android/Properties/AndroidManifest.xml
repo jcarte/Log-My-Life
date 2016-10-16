@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="LogMyLife.Android.LogMyLife.Android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="0.1" package="jicola.logmylife" android:installLocation="auto">
 	<uses-sdk android:targetSdkVersion="19" android:minSdkVersion="19" />
-	<application android:label="LogMyLife.Android"></application>
+	<application android:label="LogMyLife.Android" android:icon="@drawable/LauncherIcon4"></application>
 </manifest>

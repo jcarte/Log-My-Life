@@ -56,15 +56,15 @@ namespace LogMyLife.Domain
 
                 //FILM Columns = 1 Title, 1 Review, 0 normal, no start rating
                 CreateColumn("Title", filmCat.CategoryID, Model.Column.ColumnType.Title);
-                CreateColumn("Star Rating", bookCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Star Rating", filmCat.CategoryID, m.Column.ColumnType.Review);
                 CreateColumn("Comment", filmCat.CategoryID, Model.Column.ColumnType.Review);
 
                 //WINE Columns = 0 ,0, 3 Normal
                 CreateColumn("Vintage", wineCat.CategoryID, Model.Column.ColumnType.Title);
                 CreateColumn("Year", wineCat.CategoryID, Model.Column.ColumnType.Normal);
                 CreateColumn("Region", wineCat.CategoryID, Model.Column.ColumnType.Normal);
-                CreateColumn("Star Rating", bookCat.CategoryID, m.Column.ColumnType.Review);
-                CreateColumn("Comment", filmCat.CategoryID, Model.Column.ColumnType.Review);
+                CreateColumn("Star Rating", wineCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", wineCat.CategoryID, Model.Column.ColumnType.Review);
 
                 //TV Columns = 1 ,2, 1 Normal
                 CreateColumn("Title", tvCat.CategoryID, Model.Column.ColumnType.Title);

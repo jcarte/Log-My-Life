@@ -124,10 +124,8 @@ namespace LogMyLife.Android
 
         private void MLeftDrawer_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-                      
-                PopulateListScreen(cats[e.Position]);
-                mDrawerLayout.CloseDrawers();
-                        
+            PopulateListScreen(cats[e.Position]);
+            mDrawerLayout.CloseDrawers();
         }
 
         protected override void OnPostCreate (Bundle savedInstanceState)
@@ -178,7 +176,7 @@ namespace LogMyLife.Android
         public void PopulateListScreen(Category cat)
         {
             //Set current category to be displayed - this will be "cat"
-            //Category currentCat = cats[0];
+            currCat = cat;
 
             //Create list of current and archived items
             currentEnts = MainController.GetCurrentEntries(cat.CategoryID);
