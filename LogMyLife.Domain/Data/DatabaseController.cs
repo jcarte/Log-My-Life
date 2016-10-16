@@ -36,7 +36,7 @@ namespace LogMyLife.Domain.Data
         public static void Init()
         {
             //TODO remove for testing only
-            File.Delete(dbPath);
+            //File.Delete(dbPath);
 
             //TODO setup for multi threading https://developer.xamarin.com/guides/cross-platform/application_fundamentals/data/part_3_using_sqlite_orm/ (bottom of page)
             //TODO need to install  Install-Package sqlite-net-pcl  to front end (better way)??

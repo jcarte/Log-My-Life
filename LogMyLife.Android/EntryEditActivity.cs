@@ -21,6 +21,9 @@ namespace LogMyLife.Android
     {
         Entry entry;
 
+        ListView titleFieldList;
+        ListView otherFieldList;
+
         //TODO taked out comment and rating so that all fields fit on screen, if so many fields that they fall
         //below the keyboard then it doesn't work, don't know why
 
@@ -38,7 +41,7 @@ namespace LogMyLife.Android
                 throw new Exception($"Entry not found for EntryID = {entryID}");
 
             //populate titleFieldList
-            ListView titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);
+            titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);
             EditFieldAdapter adpaterFL = new EditFieldAdapter(this, entry.TitleData, true);
             titleFieldList.Adapter = adpaterFL;
             adpaterFL.ItemUpdated += AdpaterItemUpdated;
@@ -57,7 +60,7 @@ namespace LogMyLife.Android
             //rating.RatingBarChange += RatingClicked;
 
             //populate otherFieldList
-            ListView otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);//TODO EditText fields aren't showing right,
+            otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);//TODO EditText fields aren't showing right,
             EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, entry.OtherData, true);
             otherFieldList.Adapter = adpaterOFL;
             adpaterOFL.ItemUpdated += AdpaterItemUpdated;
@@ -106,9 +109,26 @@ namespace LogMyLife.Android
 
         private void SaveClicked(object sender, EventArgs e)
         {
-            base.OnBackPressed();
+            //TODO if start editing field then click save, doesn't update changes, below doesn't work because adapter doesn't update list
+            ////Check title fields are up to date
+            //foreach (var item in ((EditFieldAdapter)titleFieldList.Adapter)._items)
+            //{
+            //    string val;
+            //    if (entry.TitleData.TryGetValue(item.Key, out val) && val != item.Value)
+            //        entry.EditColumnData(item.Key, item.Value);
+            //}
+
+            ////Check other fields are up to date
+            //foreach (var item in ((EditFieldAdapter)otherFieldList.Adapter)._items)
+            //{
+            //    string val;
+            //    if (entry.OtherData.TryGetValue(item.Key, out val) && val != item.Value)
+            //        entry.EditColumnData(item.Key, item.Value);
+            //}
+
             MainController.UpdateEntry(entry);
             Toast.MakeText(this, "Saved", ToastLength.Short).Show();
+            base.OnBackPressed();
         }
         
     }

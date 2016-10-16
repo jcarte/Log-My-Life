@@ -17,7 +17,7 @@ namespace LogMyLife.Domain
         {
             d.DatabaseController.Init();
             if (!d.DatabaseController.HasDefaults)//have the default records been created yet?
-                CreateDefaultTables(true,true);
+                CreateDefaultTables(true,false);
         }
 
         private static void CreateDefaultTables(bool createCols = true,bool createRecs = true)
