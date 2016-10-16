@@ -1,31 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/myDrawer"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<!-- The main content view -->
-    <FrameLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+<!-- This is the main screen-->
+    <RelativeLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#C8E6C9">
-        <TextView
-            android:id="@+id/tvText"
-            android:layout_width="wrap_content"
+    <!-- Text box for Current List -->
+        <LinearLayout
+            android:id="@+id/loCurrentListHeader"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Welcome to Log My Life"
-            />
-    </FrameLayout>
+            android:layout_width="match_parent"
+            android:background="#66BB6A">
+            <TextView
+                android:id="@+id/clText"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:padding="16dp"
+                android:background="#66BB6A" />
+            <Button
+                android:id="@+id/btnNew_MA"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="+"
+                android:textStyle="bold"
+                android:background="#66BB6A"
+                android:textColor="#1B5E20"
+                android:textSize="25sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loCurrentListHeader"
+            android:layout_above="@+id/alText"
+            android:orientation="vertical">
+        <!--List of Items for Current List-->
+            <ListView
+                android:id="@+id/lvMainScreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:smoothScrollbar="true" />
+        </LinearLayout>
+    <!-- Text box for Archived List-->
+        <TextView
+            android:id="@id/alText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:padding="16dp"
+            android:layout_centerInParent="true"
+            android:background="#66BB6A"
+            android:layout_below="@id/lvMainScreen" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/alText"
+            android:orientation="vertical">
+        <!--  List of Items for Archived List    -->
+            <ListView
+                android:id="@+id/lvMainScreenLower"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:smoothScrollbar="true" />
+        </LinearLayout>
+    </RelativeLayout>
 <!-- The left navigation drawer -->
-    <ListView
-        android:id="@+id/leftListView"
-        android:layout_width="240dp"
+
+  <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:choiceMode="singleChoice"
-        android:divider="#81C784"
-        android:textColor="#1B5E20"
-        android:dividerHeight="2dp"
-        android:background="#66BB6A" />
+        android:clickable="true"
+        android:orientation="vertical">
+    
+    <ListView
+    android:id="@+id/leftListView"
+    android:layout_width="240dp"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_gravity="left"
+    android:choiceMode="singleChoice"
+    android:divider="#81C784"
+    android:textColor="#1B5E20"
+    android:dividerHeight="2dp"
+    android:background="#66BB6A" />
+    <Button
+      android:id="@+id/btnAbout"
+      android:layout_width="240dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="left"
+      android:text="About"
+      android:textColor="#1B5E20"
+      android:background="#66BB6A"
+     />
+    
+  </LinearLayout>
+
 </android.support.v4.widget.DrawerLayout>

@@ -1,0 +1,5 @@
+﻿Edit key fields only edits top
+Edit other fields doesn't work
+Only accept changes on click done, need lost focus
+Update default values
+Stop deleting db on load

@@ -84,24 +84,39 @@ namespace LogMyLife.Domain.Model
         /// <summary>
         /// Rating that the user gave this entry between 0 and 10 inclusive
         /// </summary>
-        public int StarRating
+        public float StarRating
         {
             get
             {
-                int star;
+                float star;
                 string colData = Data[GetColumn("Star Rating")];
                 if (colData == string.Empty)
                     return 0;//not yet set
-                if (!Int32.TryParse(colData, out star))
+                if (!float.TryParse(colData, out star))
                     throw new Exception($"Star Rating of {colData} could not be converted to a number");
                 return star;
             }
             set
             {
-                if (value < 0 || value > 10)
-                    throw new Exception($"Star rating must be between 0 and 10 inclusive, {value} is not in that range");
+                if (value < 0 || value > 5)
+                    throw new Exception($"Star rating must be between 0 and 5 inclusive, {value} is not in that range");
                 EditColumnData("Star Rating", value.ToString());
             }
+        }
+
+        /// <summary>
+        /// The user's notes about this entry
+        /// </summary>
+        public string Comment 
+        { 
+            get 
+            {
+                return Data[GetColumn("Comment")];
+            } 
+            set
+            {
+                EditColumnData("Comment", value);
+            } 
         }
 
         /// <summary>

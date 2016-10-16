@@ -17,11 +17,12 @@ namespace LogMyLife.TestConsole.ModelTests
 
 
             //BasicAdd();
-            //BasicGet();
+            //BasicGetEntries();
+            BasicGetEntry();
             //BasicUpdate();
             //KeyUpdate();
             //StarUpdate();
-            BasicDelete();
+            //BasicDelete();
         }
         private static void BasicDelete()
         {
@@ -90,10 +91,23 @@ namespace LogMyLife.TestConsole.ModelTests
             Log($"\n\nGet Star from int before update: {upd1.StarRating}");
 
             Log("\n\n1 rating through int");
-            upd1.StarRating = 1;
+            upd1.StarRating = 1f;
             MainController.UpdateEntry(upd1);
             ListAll(true);
+            Log($"\n\nGet Star from int: {upd1.StarRating}");
 
+
+            Log("\n\n2.75 rating through int");
+            upd1.StarRating = 2.75f;
+            MainController.UpdateEntry(upd1);
+            ListAll(true);
+            Log($"\n\nGet Star from int: {upd1.StarRating}");
+
+
+            Log("\n\n0 rating through int");
+            upd1.StarRating = 0f;
+            MainController.UpdateEntry(upd1);
+            ListAll(true);
             Log($"\n\nGet Star from int: {upd1.StarRating}");
 
 
@@ -174,7 +188,7 @@ namespace LogMyLife.TestConsole.ModelTests
             Log($"Get Star from int: {upd1.StarRating}");
             ListAll(true);
 
-            Log("\n\nTry put string -11 *FAIL EXPECTED*");
+            Log("\n\nTry put string -11");
             try
             {
                 upd1.EditColumnData("Star Rating", "-11");
@@ -187,7 +201,7 @@ namespace LogMyLife.TestConsole.ModelTests
             Log($"Get Star from int: {upd1.StarRating}");
             ListAll(true);
 
-            Log("\n\nTry put string 111 *FAIL EXPECTED*");
+            Log("\n\nTry put string 111");
             try
             {
                 upd1.EditColumnData("Star Rating", "111");
@@ -302,9 +316,9 @@ namespace LogMyLife.TestConsole.ModelTests
 
         }
 
-        private static void BasicGet()
+        private static void BasicGetEntries()
         {
-            LogTitle("Basic Get");
+            LogTitle("Basic Get Entries");
             ListAll();
 
             var all = MainController.GetEntries(1);
@@ -338,8 +352,39 @@ namespace LogMyLife.TestConsole.ModelTests
             Log("\nGet Current Entries for Cat 3");
             MainController.GetCurrentEntries(3).ForEach(e => Log(e.ToString(), 1));
 
+
+            Log("\n\nGet For Cat Which doesn't exist");
+            Log("\nGet All Entries for Cat 99");
+            MainController.GetEntries(99).ForEach(e => Log(e.ToString(), 1));
+            Log("\nGet Archived Entries for Cat 99");
+            MainController.GetArchivedEntries(99).ForEach(e => Log(e.ToString(), 1));
+            Log("\nGet Current Entries for Cat 99");
+            MainController.GetCurrentEntries(99).ForEach(e => Log(e.ToString(), 1));
+
+
         }
 
+
+        private static void BasicGetEntry()
+        {
+            LogTitle("Basic Get Entry");
+            ListAll();
+
+            Log("\n\nGet Entry 1");
+            Log(MainController.GetEntry(1).ToString(), 1);
+
+
+            Log("\n\nGet Entry 9998 (Doesn't exist) Null Expected");
+
+            Entry e = MainController.GetEntry(9998);
+            if (e == null)
+                Log("Success, Entry Null");
+            else
+                Log("Fail, Entry not Null: " + e.ToString());
+            
+
+
+        }
 
 
         private static void BasicAdd()
@@ -386,34 +431,34 @@ namespace LogMyLife.TestConsole.ModelTests
 
         private static void ListAll(bool showDictionaries = false)
         {
-            Log("\n==============================List All==");
-            foreach (var cat in MainController.GetCategories())
-            {
-                Log($"==CATEGORY {cat.ToString()}");
-                foreach (var ent in MainController.GetEntries(cat.CategoryID))
-                {
-                    Log("\n" + ent.ToString(), 5);
-                    if(showDictionaries)
-                    {
-                        StringBuilder sb = new StringBuilder();
+            //Log("\n==============================List All==");
+            //foreach (var cat in MainController.GetCategories())
+            //{
+            //    Log($"==CATEGORY {cat.ToString()}");
+            //    foreach (var ent in MainController.GetEntries(cat.CategoryID))
+            //    {
+            //        Log("\n" + ent.ToString(), 5);
+            //        if(showDictionaries)
+            //        {
+            //            StringBuilder sb = new StringBuilder();
                         
-                        sb.Append("Dictionary All Data: ");
-                        ent.AllData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
-                        sb.Append("\nDictionary Visible: ");
-                        ent.VisibleData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
-                        sb.Append("\nDictionary Hidden: ");
-                        ent.HiddenData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
-                        sb.Append("\nDictionary Title: ");
-                        ent.TitleData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
-                        sb.Append("\nDictionary Review: ");
-                        ent.ReviewData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
-                        sb.Append("\nDictionary Other: ");
-                        ent.OtherData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
-                        Log(sb.ToString(), 4);
-                    }
-                }
-            }
-            Log("================================End Listing==");
+            //            sb.Append("Dictionary All Data: ");
+            //            ent.AllData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
+            //            sb.Append("\nDictionary Visible: ");
+            //            ent.VisibleData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
+            //            sb.Append("\nDictionary Hidden: ");
+            //            ent.HiddenData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
+            //            sb.Append("\nDictionary Title: ");
+            //            ent.TitleData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
+            //            sb.Append("\nDictionary Review: ");
+            //            ent.ReviewData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
+            //            sb.Append("\nDictionary Other: ");
+            //            ent.OtherData.ToList().ForEach(kvp => sb.Append($"[{kvp.Key}, {kvp.Value}] "));
+            //            Log(sb.ToString(), 4);
+            //        }
+            //    }
+            //}
+            //Log("================================End Listing==");
 
         }
     }

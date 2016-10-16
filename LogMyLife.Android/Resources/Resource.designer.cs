@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("DrawerLayoutTutorial.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("LogMyLife.Android.Resource", IsApplication=true)]
 
-namespace DrawerLayoutTutorial
+namespace LogMyLife.Android
 {
 	
 	
@@ -26,8 +26,8 @@ namespace DrawerLayoutTutorial
 		
 		public static void UpdateIdValues()
 		{
-			global::LogMyLife.Domain.Resource.String.ApplicationName = global::DrawerLayoutTutorial.Resource.String.ApplicationName;
-			global::LogMyLife.Domain.Resource.String.Hello = global::DrawerLayoutTutorial.Resource.String.Hello;
+			global::LogMyLife.Domain.Resource.String.ApplicationName = global::LogMyLife.Android.Resource.String.ApplicationName;
+			global::LogMyLife.Domain.Resource.String.Hello = global::LogMyLife.Android.Resource.String.Hello;
 		}
 		
 		public partial class Attribute
@@ -74,20 +74,74 @@ namespace DrawerLayoutTutorial
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070001
-			public const int content_frame = 2131165185;
+			// aapt resource value: 0x7f07000f
+			public const int alText = 2131165199;
+			
+			// aapt resource value: 0x7f070013
+			public const int btnAbout = 2131165203;
+			
+			// aapt resource value: 0x7f070009
+			public const int btnArchive_EV = 2131165193;
+			
+			// aapt resource value: 0x7f070005
+			public const int btnCancel_EE = 2131165189;
+			
+			// aapt resource value: 0x7f070008
+			public const int btnEdit_EV = 2131165192;
+			
+			// aapt resource value: 0x7f07000e
+			public const int btnNew_MA = 2131165198;
 			
 			// aapt resource value: 0x7f070004
-			public const int downloads = 2131165188;
+			public const int btnSave_EE = 2131165188;
 			
-			// aapt resource value: 0x7f070003
-			public const int leftListView = 2131165187;
+			// aapt resource value: 0x7f07000d
+			public const int clText = 2131165197;
+			
+			// aapt resource value: 0x7f07000b
+			public const int content_frame = 2131165195;
+			
+			// aapt resource value: 0x7f070016
+			public const int downloads = 2131165206;
+			
+			// aapt resource value: 0x7f070014
+			public const int left = 2131165204;
+			
+			// aapt resource value: 0x7f070012
+			public const int leftListView = 2131165202;
 			
 			// aapt resource value: 0x7f070000
-			public const int myDrawer = 2131165184;
+			public const int left_ER = 2131165184;
+			
+			// aapt resource value: 0x7f07000c
+			public const int loCurrentListHeader = 2131165196;
+			
+			// aapt resource value: 0x7f070010
+			public const int lvMainScreen = 2131165200;
+			
+			// aapt resource value: 0x7f070011
+			public const int lvMainScreenLower = 2131165201;
+			
+			// aapt resource value: 0x7f07000a
+			public const int myDrawer = 2131165194;
+			
+			// aapt resource value: 0x7f070003
+			public const int otherFieldList = 2131165187;
+			
+			// aapt resource value: 0x7f070007
+			public const int ratingRBar = 2131165191;
+			
+			// aapt resource value: 0x7f070015
+			public const int right = 2131165205;
+			
+			// aapt resource value: 0x7f070001
+			public const int right_ER = 2131165185;
 			
 			// aapt resource value: 0x7f070002
-			public const int tvText = 2131165186;
+			public const int titleFieldList = 2131165186;
+			
+			// aapt resource value: 0x7f070006
+			public const int txtComment_EV = 2131165190;
 			
 			static Id()
 			{
@@ -103,7 +157,19 @@ namespace DrawerLayoutTutorial
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int editrow = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int EntryEdit = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int EntryView = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int Main = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int row = 2130903044;
 			
 			static Layout()
 			{
