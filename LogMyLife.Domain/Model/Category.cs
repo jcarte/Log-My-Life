@@ -30,7 +30,16 @@
             Film = 2,
             Book = 3,
             Wine = 4,
-            TV = 5
+            TV = 5,
+            Restaurant = 6,
+            Website = 7,
+            Apps = 8,
+            Product =  9,
+            Place = 10,
+            Shop = 11,
+            Gadget = 12,
+            YouTube = 13,
+            Other = 14
         }
 
         /// <summary>

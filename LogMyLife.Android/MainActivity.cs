@@ -52,7 +52,7 @@ namespace LogMyLife.Android
             {
                 mLeftItems.Add(i.Name);
             }
-            //mLeftItems.Add("About");
+            //mLeftItems.Add("+");
 
             mDrawerToggle = new MyActionBarDrawerToggle (this, mDrawerLayout, Resource.Drawable.ic_navigation_drawer, Resource.String.open_drawer, Resource.String.close_drawer);
 			mLeftAdapter = new ArrayAdapter (this, a.Resource.Layout.SimpleListItem1, mLeftItems);
@@ -124,8 +124,10 @@ namespace LogMyLife.Android
 
         private void MLeftDrawer_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            PopulateListScreen(cats[e.Position]);
-            mDrawerLayout.CloseDrawers();
+                      
+                PopulateListScreen(cats[e.Position]);
+                mDrawerLayout.CloseDrawers();
+                        
         }
 
         protected override void OnPostCreate (Bundle savedInstanceState)
@@ -182,8 +184,8 @@ namespace LogMyLife.Android
             currentEnts = MainController.GetCurrentEntries(cat.CategoryID);
             archivedEnts = MainController.GetArchivedEntries(cat.CategoryID);
             //Converts the entries into strings
-            cItems = currentEnts.Select(ent => string.Join(", ", ent.TitleData.Select(k => k.Value).ToArray())).ToList();
-            aItems = archivedEnts.Select(ent => string.Join(", ", ent.TitleData.Select(k => k.Value).ToArray())).ToList();
+            cItems = currentEnts.Select(ent => string.Join(", ", ent.TitleData.Where(s=>!string.IsNullOrEmpty(s.Value)).Select(k => k.Value).ToArray())).ToList();
+            aItems = archivedEnts.Select(ent => string.Join(", ", ent.TitleData.Where(s => !string.IsNullOrEmpty(s.Value)).Select(k => k.Value).ToArray())).ToList();
 
             //This is where the main content can be populated - make dynamic depending on what menu item clicked
             //Top half of screen - current items
