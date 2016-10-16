@@ -19,63 +19,87 @@ namespace LogMyLife.Android
     [Activity(ScreenOrientation = a.Content.PM.ScreenOrientation.Portrait, Label = "", Icon = "@drawable/icon", Theme = "@style/CustomActionBarTheme")]
     public class EntryViewActivity : Activity
     {
+        //Data objects
+        int entryID;
         Entry entry;
 
+        //Form components
+        ListView titleFieldList;
         RatingBar rating;
         EditText comment;
+        ListView otherFieldList;
+        Button btnEdit;
+        Button btnArchive;
+
+        bool isLoading = false;//so that on resume doesn't trigger updates
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.EntryView);
 
-            int entryID = Intent.GetIntExtra("EntryID", -1);//get entryid from intent
+            entryID = Intent.GetIntExtra("EntryID", -1);//get entryid from intent
+
+            //Setup lists
+            titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);
+            otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);
+
+            //Setup Comment Box 
+            comment = FindViewById<EditText>(Resource.Id.txtComment_EV);
+            comment.SetHorizontallyScrolling(false);
+            comment.SetLines(3);
+            comment.EditorAction += CommentFinishedEditing;
+
+            //Setup Rating
+            rating = FindViewById<RatingBar>(Resource.Id.ratingRBar);
+            rating.RatingBarChange += RatingClicked;
+
+            //Set up buttons
+            btnEdit = FindViewById<Button>(Resource.Id.btnEdit_EV);
+            btnArchive = FindViewById<Button>(Resource.Id.btnArchive_EV);
+            btnEdit.Click += EditClicked;
+            btnArchive.Click += ArchiveClicked;
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            
+            isLoading = true;
+
             entry = MainController.GetEntry(entryID);//get entry from DB
 
             if (entry == null)//check that entry returned
                 throw new Exception($"Entry not found for EntryID = {entryID}");
 
             //populate titleFieldList
-            ListView titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);
-            EditFieldAdapter adpaterFL = new EditFieldAdapter(this, entry.TitleData, false );
+            EditFieldAdapter adpaterFL = new EditFieldAdapter(this, entry.TitleData, false);
             titleFieldList.Adapter = adpaterFL;
 
-            //Set Comment Box Value
-            comment = (EditText)FindViewById(Resource.Id.txtComment_EV);
-            comment.SetHorizontallyScrolling(false);
-            comment.SetLines(3);
-            comment.Text = entry.Comment;
-            comment.EditorAction += CommentFinishedEditing;
-
-            //Set Rating bar star value
-            float d = entry.StarRating;
-            rating = (RatingBar)FindViewById(Resource.Id.ratingRBar);
-            rating.Rating = d;
-            rating.RatingBarChange += RatingClicked;
-
             //populate otherFieldList
-            ListView otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);
             EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, entry.OtherData, false);
             otherFieldList.Adapter = adpaterOFL;
 
-            Button btnEdit = FindViewById<Button>(Resource.Id.btnEdit_EV);
-            Button btnArchive = FindViewById<Button>(Resource.Id.btnArchive_EV);
+            //populate comment text
+            comment.Text = entry.Comment;
 
-            //Set up click events for the buttons
-            btnEdit.Click += EditClicked;
-            btnArchive.Click += ArchiveClicked;
-
+            //populate Rating bar star value
+            float d = entry.StarRating;
+            rating.Rating = d;
+            
+            //Archive button text
             if (entry.IsArchived)
                 btnArchive.Text = "Unarchive";
             else
                 btnArchive.Text = "Archive";
 
+            isLoading = false;
 
         }
 
         private void CommentFinishedEditing(object sender, TextView.EditorActionEventArgs e)
         {
-            if(e.ActionId == ImeAction.Done)
+            if(!isLoading && e.ActionId == ImeAction.Done)
             {
                 InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
                 inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
@@ -88,9 +112,12 @@ namespace LogMyLife.Android
 
         private void RatingClicked(object sender, EventArgs e)
         {
-            entry.StarRating = rating.Rating;
-            MainController.UpdateEntry(entry);
-            Toast.MakeText(this, "Rating Updated", ToastLength.Short).Show();
+            if(!isLoading)
+            {
+                entry.StarRating = rating.Rating;
+                MainController.UpdateEntry(entry);
+                Toast.MakeText(this, "Rating Updated", ToastLength.Short).Show();
+            }
         }
 
         private void EditClicked(object sender, EventArgs e)

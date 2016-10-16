@@ -131,4 +131,7 @@
       <Name>LogMyLife.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Notes.txt" />
+  </ItemGroup>
 </Project>

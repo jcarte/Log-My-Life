@@ -16,7 +16,7 @@ using Android.Views.InputMethods;
 
 namespace LogMyLife.Android
 {
-    [Activity(ScreenOrientation = a.Content.PM.ScreenOrientation.Portrait, Label = "", Icon = "@drawable/icon", Theme = "@style/CustomActionBarTheme")]
+    [Activity(ScreenOrientation = a.Content.PM.ScreenOrientation.Portrait, Label = "", Icon = "@drawable/icon", Theme = "@style/CustomActionBarTheme",WindowSoftInputMode = SoftInput.AdjustResize)]
     public class EntryEditActivity : Activity
     {
         Entry entry;
@@ -40,18 +40,18 @@ namespace LogMyLife.Android
             titleFieldList.Adapter = adpaterFL;
             adpaterFL.ItemUpdated += AdpaterItemUpdated;
 
-            //Set Comment Box Value
-            comment = FindViewById<EditText>(Resource.Id.commentTBox_EE);
-            comment.SetHorizontallyScrolling(false);
-            comment.SetLines(3);
-            comment.Text = entry.Comment;
-            comment.EditorAction += CommentFinishedEditing; ;
+            ////Set Comment Box Value
+            //comment = FindViewById<EditText>(Resource.Id.commentTBox_EE);
+            //comment.SetHorizontallyScrolling(false);
+            //comment.SetLines(3);
+            //comment.Text = entry.Comment;
+            //comment.EditorAction += CommentFinishedEditing; ;
 
-            //Set Rating bar star value
-            float d = entry.StarRating;
-            rating = FindViewById<RatingBar>(Resource.Id.ratingRBar);
-            rating.Rating = d;
-            rating.RatingBarChange += RatingClicked;
+            ////Set Rating bar star value
+            //float d = entry.StarRating;
+            //rating = FindViewById<RatingBar>(Resource.Id.ratingRBar);
+            //rating.Rating = d;
+            //rating.RatingBarChange += RatingClicked;
 
             //populate otherFieldList
             ListView otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);//TODO EditText fields aren't showing right,
@@ -69,31 +69,32 @@ namespace LogMyLife.Android
 
         private void AdpaterItemUpdated(KeyValuePair<string, string> kvp)
         {
-            InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
-            inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+            
+            //InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+            //inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
             entry.EditColumnData(kvp.Key, kvp.Value);
 
             Toast.MakeText(this, kvp.Key + ": " + kvp.Value, ToastLength.Short).Show();
         }
 
-        private void RatingClicked(object sender, RatingBar.RatingBarChangeEventArgs e)
-        {
-            entry.StarRating = rating.Rating;
-            Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
-        }
+        //private void RatingClicked(object sender, RatingBar.RatingBarChangeEventArgs e)
+        //{
+        //    entry.StarRating = rating.Rating;
+        //    Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
+        //}
 
-        private void CommentFinishedEditing(object sender, TextView.EditorActionEventArgs e)
-        {
-            if (e.ActionId == ImeAction.Done)
-            {
-                InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
-                inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+        //private void CommentFinishedEditing(object sender, TextView.EditorActionEventArgs e)
+        //{
+        //    if (e.ActionId == ImeAction.Done)
+        //    {
+        //        InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+        //        inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
-                entry.Comment = comment.Text;
-                Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
-            }
-        }
+        //        entry.Comment = comment.Text;
+        //        Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
+        //    }
+        //}
 
         private void CancelClicked(object sender, EventArgs e)
         {
