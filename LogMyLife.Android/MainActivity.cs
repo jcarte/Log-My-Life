@@ -31,12 +31,14 @@ namespace LogMyLife.Android
         private List<string> aItems;
         private ListView lvMainScreen;
         private ListView lvMainScreenLower;
-
-
-
+        
+        Category currCat;
+        
         protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
+
+            currCat = cats[0];
 
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
@@ -72,8 +74,10 @@ namespace LogMyLife.Android
             //About button
             Button about = FindViewById<Button>(Resource.Id.btnAbout);
             about.Click += About_Click;
-            
 
+            //Add New Entry
+            Button addNew = FindViewById<Button>(Resource.Id.btnNew_MA);
+            addNew.Click += AddNewEntryClicked;
         }
 
         private void About_Click(object sender, EventArgs e)
@@ -89,7 +93,14 @@ namespace LogMyLife.Android
 
             Dialog dialog = alert.Create();
             dialog.Show();
+        }
 
+        private void AddNewEntryClicked(object sender, EventArgs e)
+        {
+            Entry newE = MainController.CreateEntry(currCat.CategoryID);
+            Intent i = new Intent(this, typeof(EntryEditActivity));//Start a detail activity, push the entry ID into it
+            i.PutExtra("EntryID", newE.EntryID);
+            StartActivity(i);
         }
 
         private void CurrentEntryClicked(object sender, AdapterView.ItemClickEventArgs e)
@@ -105,7 +116,6 @@ namespace LogMyLife.Android
 
         private void OpenEntryDetail(Entry e)
         {
-
             Intent i = new Intent(this, typeof(EntryViewActivity));//Start a detail activity, push the entry ID into it
             i.PutExtra("EntryID", e.EntryID);
             StartActivity(i);
@@ -162,7 +172,7 @@ namespace LogMyLife.Android
             base.OnResume();
 
             //Set mainscreen content based on first menu item for inital load
-            PopulateListScreen(cats[0]);
+            PopulateListScreen(currCat);
         }
 
         public void PopulateListScreen(Category cat)

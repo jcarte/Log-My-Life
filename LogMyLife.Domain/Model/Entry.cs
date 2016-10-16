@@ -105,6 +105,21 @@ namespace LogMyLife.Domain.Model
         }
 
         /// <summary>
+        /// The user's notes about this entry
+        /// </summary>
+        public string Comment 
+        { 
+            get 
+            {
+                return Data[GetColumn("Comment")];
+            } 
+            set
+            {
+                EditColumnData("Comment", value);
+            } 
+        }
+
+        /// <summary>
         /// Every column of data for this entry, given in form: (Column Name, Data Value)
         /// </summary>
         public Dictionary<string, string> AllData { get { return Data.ToDictionary(d => d.Key.Name, d => d.Value); } }

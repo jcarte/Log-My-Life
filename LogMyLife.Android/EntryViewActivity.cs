@@ -12,6 +12,7 @@ using Android.Widget;
 using LogMyLife.Domain;
 using LogMyLife.Domain.Model;
 using a = Android;
+using Android.Views.InputMethods;
 
 namespace LogMyLife.Android
 {
@@ -21,7 +22,7 @@ namespace LogMyLife.Android
         Entry entry;
 
         RatingBar rating;
-        TextView comment;
+        EditText comment;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,8 +41,11 @@ namespace LogMyLife.Android
             titleFieldList.Adapter = adpaterFL;
 
             //Set Comment Box Value
-            //comment = (TextView)FindViewById(Resource.Id.ratingRBar);
-            //comment.Text = entry.c//TODO add comment
+            comment = (EditText)FindViewById(Resource.Id.txtComment_EV);
+            comment.SetHorizontallyScrolling(false);
+            comment.SetLines(3);
+            comment.Text = entry.Comment;
+            comment.EditorAction += CommentFinishedEditing;
 
             //Set Rating bar star value
             float d = entry.StarRating;
@@ -66,8 +70,20 @@ namespace LogMyLife.Android
             else
                 btnArchive.Text = "Archive";
 
-            
 
+        }
+
+        private void CommentFinishedEditing(object sender, TextView.EditorActionEventArgs e)
+        {
+            if(e.ActionId == ImeAction.Done)
+            {
+                InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+                inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+                
+                entry.Comment = comment.Text;
+                MainController.UpdateEntry(entry);
+                Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
+            }
         }
 
         private void RatingClicked(object sender, EventArgs e)
@@ -80,9 +96,8 @@ namespace LogMyLife.Android
         private void EditClicked(object sender, EventArgs e)
         {
             Intent i = new Intent(this, typeof(EntryEditActivity));//Start a detail activity, push the entry ID into it
-            i.PutExtra("EntryID", entry.EntryID); //tells it which entry it is
+            i.PutExtra("EntryID", entry.EntryID);
             StartActivity(i);
-
         }
 
         private void ArchiveClicked(object sender, EventArgs e)
