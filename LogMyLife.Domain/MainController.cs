@@ -27,6 +27,15 @@ namespace LogMyLife.Domain
             var filmCat = CreateCategory("Films", CategoryType.Film);
             var wineCat = CreateCategory("Wine", CategoryType.Wine);
             var tvCat = CreateCategory("TV", CategoryType.TV);
+            var restaurantCat = CreateCategory("Restaurants", CategoryType.Restaurant);
+            var websiteCat = CreateCategory("Websites", CategoryType.Website);
+            var appCat = CreateCategory("Apps", CategoryType.Apps);
+            var productCat = CreateCategory("Products", CategoryType.Product);
+            var placesCat = CreateCategory("Places", CategoryType.Place);
+            var shopCat = CreateCategory("Shops", CategoryType.Shop);
+            var gadgetCat = CreateCategory("Gadgets", CategoryType.Gadget);
+            var youtubeCat = CreateCategory("YouTube", CategoryType.YouTube);
+            var otherCat = CreateCategory("Other", CategoryType.Other);
 
             if (createCols)
             {
@@ -38,27 +47,78 @@ namespace LogMyLife.Domain
                 CreateColumn("Comment", musicCat.CategoryID, m.Column.ColumnType.Review);
                 CreateColumn("Year", musicCat.CategoryID, m.Column.ColumnType.Normal);
 
-                //BOOK Columns = 2 title, 2 review, 1 normal (all hidden)
-                CreateColumn("Title", bookCat.CategoryID, Model.Column.ColumnType.Title, true);
-                CreateColumn("Author", bookCat.CategoryID, Model.Column.ColumnType.Title, true);
-                CreateColumn("Star Rating", bookCat.CategoryID, m.Column.ColumnType.Review, true);
-                CreateColumn("Comment", bookCat.CategoryID, m.Column.ColumnType.Review, true);
-                CreateColumn("Publisher", bookCat.CategoryID, m.Column.ColumnType.Normal, true);
+                //BOOK Columns = 2 title, 2 review, 1 normal
+                CreateColumn("Title", bookCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Author", bookCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", bookCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", bookCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Publisher", bookCat.CategoryID, m.Column.ColumnType.Normal);
 
                 //FILM Columns = 1 Title, 1 Review, 0 normal, no start rating
                 CreateColumn("Title", filmCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", bookCat.CategoryID, m.Column.ColumnType.Review);
                 CreateColumn("Comment", filmCat.CategoryID, Model.Column.ColumnType.Review);
 
                 //WINE Columns = 0 ,0, 3 Normal
-                CreateColumn("Vintage", wineCat.CategoryID, Model.Column.ColumnType.Normal);
+                CreateColumn("Vintage", wineCat.CategoryID, Model.Column.ColumnType.Title);
                 CreateColumn("Year", wineCat.CategoryID, Model.Column.ColumnType.Normal);
                 CreateColumn("Region", wineCat.CategoryID, Model.Column.ColumnType.Normal);
+                CreateColumn("Star Rating", bookCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", filmCat.CategoryID, Model.Column.ColumnType.Review);
 
                 //TV Columns = 1 ,2, 1 Normal
                 CreateColumn("Title", tvCat.CategoryID, Model.Column.ColumnType.Title);
                 CreateColumn("Star Rating", tvCat.CategoryID, m.Column.ColumnType.Review);
                 CreateColumn("Comment", tvCat.CategoryID, m.Column.ColumnType.Review);
-                CreateColumn("Year", tvCat.CategoryID, Model.Column.ColumnType.Normal);
+                
+                //Restaurants Columns = 1 ,2, 1 Normal
+                CreateColumn("Name", restaurantCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Location", restaurantCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", restaurantCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", restaurantCat.CategoryID, m.Column.ColumnType.Review);
+
+                //Apps 
+                CreateColumn("Name", appCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", appCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", appCat.CategoryID, m.Column.ColumnType.Review);
+
+                //Gadgets 
+                CreateColumn("Name", gadgetCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", gadgetCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", gadgetCat.CategoryID, m.Column.ColumnType.Review);
+
+                //Websites 
+                CreateColumn("Name", websiteCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Link", websiteCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", websiteCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", websiteCat.CategoryID, m.Column.ColumnType.Review);
+
+                //Youtube 
+                CreateColumn("Video", youtubeCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Link", youtubeCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", youtubeCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", youtubeCat.CategoryID, m.Column.ColumnType.Review);
+
+                //Other 
+                CreateColumn("Title", otherCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", otherCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", otherCat.CategoryID, m.Column.ColumnType.Review);
+
+                //Places 
+                CreateColumn("Place", placesCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", placesCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", placesCat.CategoryID, m.Column.ColumnType.Review);
+
+                //Shops 
+                CreateColumn("Name", shopCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Location", shopCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", shopCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", shopCat.CategoryID, m.Column.ColumnType.Review);
+
+                //Products 
+                CreateColumn("Name", productCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", productCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", productCat.CategoryID, m.Column.ColumnType.Review);
             }
 
             if (createRecs)
@@ -69,17 +129,17 @@ namespace LogMyLife.Domain
                 hits.EditColumnData("Album", "Sabotage");
                 hits.EditColumnData("Track", "The Writ");
                 hits.EditColumnData("Star Rating", "5");
-                hits.EditColumnData("Comment", "This song is freaking awesome, actually I'm going to put it on right now");
+                hits.EditColumnData("Comment", "This song is freaking awesome!!");
                 hits.EditColumnData("Year", "1975 (I think)");
                 UpdateEntry(hits);
 
                 var cp = CreateEntry(musicCat.CategoryID);
-                cp.EditColumnData("Artist", "Coldplay");
-                cp.EditColumnData("Album", "I don't know, XY, is that an album?");
-                cp.EditColumnData("Track", "Clocks...pretty sure that's one of theirs");
-                cp.EditColumnData("Star Rating", "0");
-                cp.EditColumnData("Comment", "I'd barely call this music");
-                cp.EditColumnData("Year", "???");
+                cp.EditColumnData("Artist", "Pulp");
+                cp.EditColumnData("Album", "Different Class");
+                cp.EditColumnData("Track", "I Spy");
+                cp.EditColumnData("Star Rating", "4.5");
+                cp.EditColumnData("Comment", "Best on the album");
+                cp.EditColumnData("Year", "1995");
                 cp.IsArchived = true;
                 UpdateEntry(cp);
 
@@ -99,6 +159,16 @@ namespace LogMyLife.Domain
                 im.EditColumnData("Star Rating", "4.5");
                 im.EditColumnData("Comment", "Pretty damn good");
                 im.EditColumnData("Year", "1981");
+                im.IsArchived = true;
+                UpdateEntry(im);
+
+                var bk = CreateEntry(musicCat.CategoryID);
+                im.EditColumnData("Artist", "The Black Keys");
+                im.EditColumnData("Album", "El Camino");
+                im.EditColumnData("Track", "");
+                im.EditColumnData("Star Rating", "5");
+                im.EditColumnData("Comment", "So cool!");
+                im.EditColumnData("Year", "");
                 im.IsArchived = true;
                 UpdateEntry(im);
 
@@ -137,7 +207,6 @@ namespace LogMyLife.Domain
                 bb.EditColumnData("Title", "Breaking Bad");
                 bb.EditColumnData("Star Rating", "4.5");
                 bb.EditColumnData("Comment", "Properly Awesome");
-                bb.EditColumnData("Year", "2012");
                 bb.IsArchived = true;
                 UpdateEntry(bb);
 
@@ -145,7 +214,6 @@ namespace LogMyLife.Domain
                 got.EditColumnData("Title", "Game of Thrones");
                 got.EditColumnData("Star Rating", "5");
                 got.EditColumnData("Comment", "Long and awesome");
-                got.EditColumnData("Year", "2011");
                 got.IsArchived = false;
                 UpdateEntry(got);
 
@@ -153,7 +221,6 @@ namespace LogMyLife.Domain
                 hoc.EditColumnData("Title", "House of Cards");
                 hoc.EditColumnData("Star Rating", "4");
                 hoc.EditColumnData("Comment", "Spacey is a bit of a god");
-                hoc.EditColumnData("Year", "2012");
                 hoc.IsArchived = false;
                 UpdateEntry(hoc);
 
@@ -161,7 +228,6 @@ namespace LogMyLife.Domain
                 na.EditColumnData("Title", "Narcos");
                 na.EditColumnData("Star Rating", "3.5");
                 na.EditColumnData("Comment", "I wish I was pablo");
-                na.EditColumnData("Year", "2014");
                 na.IsArchived = false;
                 UpdateEntry(na);
 
@@ -169,7 +235,6 @@ namespace LogMyLife.Domain
                 bh.EditColumnData("Title", "Bojack Horseman");
                 bh.EditColumnData("Star Rating", "4");
                 bh.EditColumnData("Comment", "I don't think this one is for ninks");
-                bh.EditColumnData("Year", "2014");
                 bh.IsArchived = false;
                 UpdateEntry(bh);
 
@@ -177,7 +242,6 @@ namespace LogMyLife.Domain
                 xf.EditColumnData("Title", "X Factor");
                 xf.EditColumnData("Star Rating", "0");
                 xf.EditColumnData("Comment", "I do believe the x factor can do one...who would watch this?");
-                xf.EditColumnData("Year", "2009");
                 xf.IsArchived = true;
                 UpdateEntry(xf);
             }

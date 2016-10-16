@@ -3,12 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A5D6A7">
+    android:background="#90CAF9"
+    android:textColor="#0D47A1">
     <ListView
         android:id="@+id/titleFieldList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#C8E6C9"
+        android:background="#FFFFFF"
         android:layout_marginBottom="4dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
@@ -20,21 +21,21 @@
         android:id="@+id/txtComment_EV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#C8E6C9"
+        android:background="#FFFFFF"
         android:layout_marginBottom="4dp"
         android:hint="Enter your comment..."
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:paddingLeft="14dp"
         android:paddingRight="14dp"
-        android:textColor="#1B5E20"
-        android:textColorHint="#66BB6A" />
+        android:textColor="#0D47A1"
+        android:textColorHint="#42A5F5" />
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:background="#C8E6C9"
+        android:background="#FFFFFF"
         android:paddingTop="12dp">
         <RatingBar
             android:id="@+id/ratingRBar"
@@ -48,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#C8E6C9"
+        android:background="#FFFFFF"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:paddingLeft="14dp"
@@ -67,8 +68,8 @@
             android:layout_weight="1"
             android:text="Edit"
             android:textStyle="bold"
-            android:background="#1B5E20"
-            android:textColor="#C8E6C9"
+            android:background="#2962FF"
+            android:textColor="#FFFFFF"
             android:textSize="20sp" />
         <Button
             android:id="@+id/btnArchive_EV"
@@ -77,8 +78,8 @@
             android:layout_weight="1"
             android:text="Archive"
             android:textStyle="bold"
-            android:background="#1B5E20"
-            android:textColor="#C8E6C9"
+            android:background="#2962FF"
+            android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>
