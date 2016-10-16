@@ -21,8 +21,11 @@ namespace LogMyLife.Android
     {
         Entry entry;
 
-        EditText comment;
-        RatingBar rating;
+        //TODO taked out comment and rating so that all fields fit on screen, if so many fields that they fall
+        //below the keyboard then it doesn't work, don't know why
+
+        //EditText comment;
+        //RatingBar rating;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

@@ -50,7 +50,7 @@ namespace LogMyLife.Android
                 {
                     view = inflater.Inflate(Resource.Layout.editrow, parent, false);
                     var value = view.FindViewById<EditText>(Resource.Id.right_ER);
-                    //value.EditorAction += OnEditorAction;//TODO swap for focus change
+                    value.EditorAction += OnEditorAction;
                     value.FocusChange += OnFocusChange;
                 }
                 else
@@ -86,34 +86,28 @@ namespace LogMyLife.Android
             {
                 EditText val = sender as EditText;
                 TextView key = ((View)(val.Parent)).FindViewById<TextView>(Resource.Id.left_ER);
-                //KeyValuePair<string, string> kvp = _items.FirstOrDefault(k => k.Key == key.Text);
                 KeyValuePair<string, string> kvp = new KeyValuePair<string, string>(key.Text, val.Text);
 
-                ItemUpdated?.Invoke(kvp);
+                if (_items.Any(k => k.Key == kvp.Key) && _items.First(k => k.Key == kvp.Key).Value != kvp.Value)
+                    ItemUpdated?.Invoke(kvp);
             }
         }
 
-        //KeyValuePair<string, string> lastKVP;//TODO find better way, so hacky
+        private void OnEditorAction(object sender, TextView.EditorActionEventArgs e)
+        {
+            if (e.ActionId == ImeAction.Done)
+            {
+                InputMethodManager inputManager = (InputMethodManager)_context.GetSystemService(Context.InputMethodService);
+                inputManager.HideSoftInputFromWindow(((Activity)_context).CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
-        //private void OnEditorAction(object sender, TextView.EditorActionEventArgs e)
-        //{
-        //    if (e.ActionId == ImeAction.Done)
-        //    {
-        //        EditText val = sender as EditText;
-        //        TextView key = ((View)(val.Parent)).FindViewById<TextView>(Resource.Id.left_ER);
-        //        //KeyValuePair<string, string> kvp = _items.FirstOrDefault(k => k.Key == key.Text);
-        //        KeyValuePair<string, string> kvp = new KeyValuePair<string, string>(key.Text, val.Text);
+                EditText val = sender as EditText;
+                TextView key = ((View)(val.Parent)).FindViewById<TextView>(Resource.Id.left_ER);
+                KeyValuePair<string, string> kvp = new KeyValuePair<string, string>(key.Text, val.Text);
 
-        //        ItemUpdated?.Invoke(kvp);
-
-        //        //if (!lastKVP.Equals(kvp))
-        //        //{
-        //        //    lastKVP = kvp;
-        //        //    ItemUpdated?.Invoke(kvp);
-        //        //}
-                    
-        //    }
-        //}
+                if(_items.Any(k => k.Key == kvp.Key) && _items.First(k => k.Key == kvp.Key).Value != kvp.Value)
+                    ItemUpdated?.Invoke(kvp);
+            }
+        }
 
         public override int Count
         {

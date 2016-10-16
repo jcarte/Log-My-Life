@@ -48,7 +48,8 @@ namespace LogMyLife.Android
             comment = FindViewById<EditText>(Resource.Id.txtComment_EV);
             comment.SetHorizontallyScrolling(false);
             comment.SetLines(3);
-            comment.EditorAction += CommentFinishedEditing;
+            comment.EditorAction += Comment_EditorAction; ;
+            comment.FocusChange += Comment_FocusChange; ;
 
             //Setup Rating
             rating = FindViewById<RatingBar>(Resource.Id.ratingRBar);
@@ -60,6 +61,7 @@ namespace LogMyLife.Android
             btnEdit.Click += EditClicked;
             btnArchive.Click += ArchiveClicked;
         }
+        
 
         protected override void OnResume()
         {
@@ -97,18 +99,31 @@ namespace LogMyLife.Android
 
         }
 
-        private void CommentFinishedEditing(object sender, TextView.EditorActionEventArgs e)
+
+        private void Comment_EditorAction(object sender, TextView.EditorActionEventArgs e)
         {
-            if(!isLoading && e.ActionId == ImeAction.Done)
+            if (e.ActionId == ImeAction.Done)
             {
                 InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
                 inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
-                
-                entry.Comment = comment.Text;
-                MainController.UpdateEntry(entry);
-                Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
+
+                CommentFinishedEditing();
             }
         }
+
+        private void Comment_FocusChange(object sender, View.FocusChangeEventArgs e)
+        {
+            if (!e.HasFocus)
+                CommentFinishedEditing();
+        }
+
+        private void CommentFinishedEditing()
+        {
+            entry.Comment = comment.Text;
+            MainController.UpdateEntry(entry);
+            Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
+        }
+
 
         private void RatingClicked(object sender, EventArgs e)
         {

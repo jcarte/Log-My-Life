@@ -37,15 +37,6 @@ namespace LogMyLife.Domain
                 CreateColumn("Star Rating", musicCat.CategoryID, m.Column.ColumnType.Review);
                 CreateColumn("Comment", musicCat.CategoryID, m.Column.ColumnType.Review);
                 CreateColumn("Year", musicCat.CategoryID, m.Column.ColumnType.Normal);
-                CreateColumn("Yeara", musicCat.CategoryID, m.Column.ColumnType.Normal);
-                CreateColumn("Yearb", musicCat.CategoryID, m.Column.ColumnType.Normal);
-                CreateColumn("Yearc", musicCat.CategoryID, m.Column.ColumnType.Normal);
-                CreateColumn("Yeard", musicCat.CategoryID, m.Column.ColumnType.Normal);
-                CreateColumn("Yeare", musicCat.CategoryID, m.Column.ColumnType.Normal);
-                CreateColumn("Yearf", musicCat.CategoryID, m.Column.ColumnType.Normal);
-                CreateColumn("Yearg", musicCat.CategoryID, m.Column.ColumnType.Normal);
-                CreateColumn("Yearh", musicCat.CategoryID, m.Column.ColumnType.Normal);
-
 
                 //BOOK Columns = 2 title, 2 review, 1 normal (all hidden)
                 CreateColumn("Title", bookCat.CategoryID, Model.Column.ColumnType.Title, true);
