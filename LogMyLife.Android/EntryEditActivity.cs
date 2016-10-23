@@ -44,7 +44,7 @@ namespace LogMyLife.Android
             titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);
             EditFieldAdapter adpaterFL = new EditFieldAdapter(this, entry.TitleData, true);
             titleFieldList.Adapter = adpaterFL;
-            adpaterFL.ItemUpdated += AdpaterItemUpdated;
+            //adpaterFL.ItemUpdated += AdpaterItemUpdated;
 
             ////Set Comment Box Value
             //comment = FindViewById<EditText>(Resource.Id.commentTBox_EE);
@@ -63,7 +63,7 @@ namespace LogMyLife.Android
             otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);//TODO EditText fields aren't showing right,
             EditFieldAdapter adpaterOFL = new EditFieldAdapter(this, entry.OtherData, true);
             otherFieldList.Adapter = adpaterOFL;
-            adpaterOFL.ItemUpdated += AdpaterItemUpdated;
+            //adpaterOFL.ItemUpdated += AdpaterItemUpdated;
 
             Button btnSave = FindViewById<Button>(Resource.Id.btnSave_EE);
             Button btnCancel = FindViewById<Button>(Resource.Id.btnCancel_EE);
@@ -73,16 +73,16 @@ namespace LogMyLife.Android
 
         }
 
-        private void AdpaterItemUpdated(KeyValuePair<string, string> kvp)
-        {
+        //private void AdpaterItemUpdated(KeyValuePair<string, string> kvp)
+        //{
             
-            //InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
-            //inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+        //    //InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+        //    //inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
 
-            entry.EditColumnData(kvp.Key, kvp.Value);
+        //    entry.EditColumnData(kvp.Key, kvp.Value);
 
-            Toast.MakeText(this, kvp.Key + ": " + kvp.Value, ToastLength.Short).Show();
-        }
+        //    Toast.MakeText(this, kvp.Key + ": " + kvp.Value, ToastLength.Short).Show();
+        //}
 
         //private void RatingClicked(object sender, RatingBar.RatingBarChangeEventArgs e)
         //{
@@ -111,20 +111,20 @@ namespace LogMyLife.Android
         {
             //TODO if start editing field then click save, doesn't update changes, below doesn't work because adapter doesn't update list
             ////Check title fields are up to date
-            //foreach (var item in ((EditFieldAdapter)titleFieldList.Adapter)._items)
-            //{
-            //    string val;
-            //    if (entry.TitleData.TryGetValue(item.Key, out val) && val != item.Value)
-            //        entry.EditColumnData(item.Key, item.Value);
-            //}
+            foreach (var item in ((EditFieldAdapter)titleFieldList.Adapter).Items)
+            {
+                string val;
+                if (entry.TitleData.TryGetValue(item.Key, out val) && val != item.Value)
+                    entry.EditColumnData(item.Key, item.Value);
+            }
 
             ////Check other fields are up to date
-            //foreach (var item in ((EditFieldAdapter)otherFieldList.Adapter)._items)
-            //{
-            //    string val;
-            //    if (entry.OtherData.TryGetValue(item.Key, out val) && val != item.Value)
-            //        entry.EditColumnData(item.Key, item.Value);
-            //}
+            foreach (var item in ((EditFieldAdapter)otherFieldList.Adapter).Items)
+            {
+                string val;
+                if (entry.OtherData.TryGetValue(item.Key, out val) && val != item.Value)
+                    entry.EditColumnData(item.Key, item.Value);
+            }
 
             MainController.UpdateEntry(entry);
             Toast.MakeText(this, "Saved", ToastLength.Short).Show();
