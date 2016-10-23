@@ -30,6 +30,7 @@ namespace LogMyLife.Android
         ListView otherFieldList;
         Button btnEdit;
         Button btnArchive;
+        ImageButton btnDelete;
 
         bool isLoading = false;//so that on resume doesn't trigger updates
 
@@ -58,9 +59,13 @@ namespace LogMyLife.Android
             //Set up buttons
             btnEdit = FindViewById<Button>(Resource.Id.btnEdit_EV);
             btnArchive = FindViewById<Button>(Resource.Id.btnArchive_EV);
+            btnDelete = FindViewById<ImageButton>(Resource.Id.btnDelete_EV);
             btnEdit.Click += EditClicked;
             btnArchive.Click += ArchiveClicked;
+            btnDelete.Click += DeleteClicked;
+            
         }
+
         
 
         protected override void OnResume()
@@ -149,6 +154,13 @@ namespace LogMyLife.Android
             string tstmsg = "Entry " + (entry.IsArchived ? "Archived" : "Unarchived");
             base.OnBackPressed();
             Toast.MakeText(this, tstmsg, ToastLength.Short).Show();
+        }
+
+        private void DeleteClicked(object sender, EventArgs e)
+        {
+            MainController.DeleteEntry(entry);
+            base.OnBackPressed();
+            Toast.MakeText(this, "Deleted", ToastLength.Short).Show();
         }
     }
 }
