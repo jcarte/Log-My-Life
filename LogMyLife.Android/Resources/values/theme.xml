@@ -10,7 +10,7 @@
   <item name="android:displayOptions"></item>
   <item name="android:background">#2196F3</item>
   <item name ="android:textColor">#FFFFFF</item>
-  
+  <item name ="android:textSize">12sp</item>
 </style>
 
 

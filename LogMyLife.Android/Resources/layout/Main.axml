@@ -50,7 +50,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:smoothScrollbar="true" />
+                android:dividerHeight="0dp"
+                android:smoothScrollbar="true"
+                android:textSize="12dp"/>
         </LinearLayout>
     <!-- Text box for Archived List-->
         <TextView

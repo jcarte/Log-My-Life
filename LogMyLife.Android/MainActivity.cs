@@ -190,14 +190,14 @@ namespace LogMyLife.Android
             TextView mainScreenTop;
             mainScreenTop = FindViewById<TextView>(Resource.Id.clText);
             mainScreenTop.Text = "NEW " + cat.Name.ToUpper();
-            ArrayAdapter<string> adpater = new ArrayAdapter<string>(this, a.Resource.Layout.SimpleListItem1, cItems);
+            ArrayAdapter<string> adpater = new ArrayAdapter<string>(this, a.Resource.Layout.TestListItem, cItems);
             lvMainScreen.Adapter = adpater;
 
             //Lower half of screen - archived items
             TextView mainScreenLower;
             mainScreenLower = FindViewById<TextView>(Resource.Id.alText);
             mainScreenLower.Text = "COMPLETED " + cat.Name.ToUpper();
-            ArrayAdapter<string> adpaterL = new ArrayAdapter<string>(this, a.Resource.Layout.SimpleListItem1, aItems);
+            ArrayAdapter<string> adpaterL = new ArrayAdapter<string>(this, a.Resource.Layout.TestListItem, aItems);
             lvMainScreenLower.Adapter = adpaterL;
         } 
 

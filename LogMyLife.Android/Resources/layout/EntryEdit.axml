@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#90CAF9">
-  
-
     <ListView
         android:id="@+id/titleFieldList"
         android:layout_width="match_parent"
@@ -18,8 +16,8 @@
         android:paddingRight="14dp"
         android:dividerHeight="0dp"
         android:divider="@null"
-        android:scrollbars="none"/>
-        <!--<EditText
+        android:scrollbars="none" />
+<!--<EditText
         android:id="@+id/commentTBox_EE"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +46,6 @@
             android:numStars="5"
             android:stepSize="0.5" />
     </LinearLayout>-->
-  
     <ListView
         android:id="@+id/otherFieldList"
         android:layout_width="match_parent"
