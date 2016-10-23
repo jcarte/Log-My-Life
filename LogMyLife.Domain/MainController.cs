@@ -16,8 +16,8 @@ namespace LogMyLife.Domain
         static MainController()
         {
             d.DatabaseController.Init();
-            if (!d.DatabaseController.HasDefaults)//have the default records been created yet?
-                CreateDefaultTables(true,false);
+            if (!d.DatabaseController.HasRecords)//have the default records been created yet?
+                CreateDefaultTables(true,true);
         }
 
         private static void CreateDefaultTables(bool createCols = true,bool createRecs = true)
@@ -138,126 +138,144 @@ namespace LogMyLife.Domain
             if (createRecs)
             {
                 //music records
-                var hits = CreateEntry(musicCat.CategoryID);
-                hits.EditColumnData("Artist", "Black Sabbath");
-                hits.EditColumnData("Album", "Sabotage");
-                hits.EditColumnData("Track", "The Writ");
-                hits.EditColumnData("Star Rating", "5");
-                hits.EditColumnData("Comment", "This song is freaking awesome!!");
-                hits.EditColumnData("Year", "1975 (I think)");
-                UpdateEntry(hits);
+                var app0 = CreateEntry(appCat.CategoryID);
+                app0.EditColumnData("Name", "Waze");
+                UpdateEntry(app0);
 
-                var cp = CreateEntry(musicCat.CategoryID);
-                cp.EditColumnData("Artist", "Pulp");
-                cp.EditColumnData("Album", "Different Class");
-                cp.EditColumnData("Track", "I Spy");
-                cp.EditColumnData("Star Rating", "4.5");
-                cp.EditColumnData("Comment", "Best on the album");
-                cp.EditColumnData("Year", "1995");
-                cp.IsArchived = true;
-                UpdateEntry(cp);
+                var app1 = CreateEntry(appCat.CategoryID);
+                app1.EditColumnData("Name", "LastPass");
+                UpdateEntry(app1);
 
-                var es = CreateEntry(musicCat.CategoryID);
-                es.EditColumnData("Artist", "Metallica");
-                es.EditColumnData("Album", "The Black Album");
-                es.EditColumnData("Track", "Enter Sandman");
-                es.EditColumnData("Star Rating", "4");
-                es.EditColumnData("Comment", "Pretty good");
-                es.EditColumnData("Year", "1990");
-                UpdateEntry(es);
+                var app2 = CreateEntry(appCat.CategoryID);
+                app2.EditColumnData("Name", "SwiftKey");
+                UpdateEntry(app2);
 
-                var im = CreateEntry(musicCat.CategoryID);
-                im.EditColumnData("Artist", "Iron Maiden");
-                im.EditColumnData("Album", "Triller");
-                im.EditColumnData("Track", "Prowler");
-                im.EditColumnData("Star Rating", "4.5");
-                im.EditColumnData("Comment", "Pretty damn good");
-                im.EditColumnData("Year", "1981");
-                im.IsArchived = true;
-                UpdateEntry(im);
+                var app3 = CreateEntry(appCat.CategoryID);
+                app3.EditColumnData("Name", "Google Maps");
+                app3.IsArchived = true;
+                UpdateEntry(app3);
 
-                var bk = CreateEntry(musicCat.CategoryID);
-                im.EditColumnData("Artist", "The Black Keys");
-                im.EditColumnData("Album", "El Camino");
-                im.EditColumnData("Track", "");
-                im.EditColumnData("Star Rating", "5");
-                im.EditColumnData("Comment", "So cool!");
-                im.EditColumnData("Year", "");
-                im.IsArchived = true;
-                UpdateEntry(im);
+                ////music records
+                //var hits = CreateEntry(musicCat.CategoryID);
+                //hits.EditColumnData("Artist", "Black Sabbath");
+                //hits.EditColumnData("Album", "Sabotage");
+                //hits.EditColumnData("Track", "The Writ");
+                //hits.EditColumnData("Star Rating", "5");
+                //hits.EditColumnData("Comment", "This song is freaking awesome!!");
+                //hits.EditColumnData("Year", "1975 (I think)");
+                //UpdateEntry(hits);
 
-                //book records
-                var hp = CreateEntry(bookCat.CategoryID);
-                hp.EditColumnData("Title", "Harry Potter");
-                hp.EditColumnData("Author", "JK Rowling");
-                hp.EditColumnData("Star Rating", "3.5");
-                hp.EditColumnData("Comment", "Not bad from what I remember...wow I really don't know many books");
-                UpdateEntry(hp);
+                //var cp = CreateEntry(musicCat.CategoryID);
+                //cp.EditColumnData("Artist", "Pulp");
+                //cp.EditColumnData("Album", "Different Class");
+                //cp.EditColumnData("Track", "I Spy");
+                //cp.EditColumnData("Star Rating", "4.5");
+                //cp.EditColumnData("Comment", "Best on the album");
+                //cp.EditColumnData("Year", "1995");
+                //cp.IsArchived = true;
+                //UpdateEntry(cp);
 
-                var oz = CreateEntry(bookCat.CategoryID);
-                oz.EditColumnData("Title", "Ozzys Autobiography");
-                oz.EditColumnData("Author", "Ozzys Ghost writer");
-                oz.EditColumnData("Star Rating", "4");
-                oz.EditColumnData("Comment", "Also pretty good");
-                UpdateEntry(oz);
+                //var es = CreateEntry(musicCat.CategoryID);
+                //es.EditColumnData("Artist", "Metallica");
+                //es.EditColumnData("Album", "The Black Album");
+                //es.EditColumnData("Track", "Enter Sandman");
+                //es.EditColumnData("Star Rating", "4");
+                //es.EditColumnData("Comment", "Pretty good");
+                //es.EditColumnData("Year", "1990");
+                //UpdateEntry(es);
 
-                //Film records
-                var sf = CreateEntry(filmCat.CategoryID);
-                sf.EditColumnData("Title", "Scarface");
-                sf.EditColumnData("Comment", "Really awesome, need to see this again soon");
-                sf.IsArchived = true;
-                UpdateEntry(sf);
+                //var im = CreateEntry(musicCat.CategoryID);
+                //im.EditColumnData("Artist", "Iron Maiden");
+                //im.EditColumnData("Album", "Triller");
+                //im.EditColumnData("Track", "Prowler");
+                //im.EditColumnData("Star Rating", "4.5");
+                //im.EditColumnData("Comment", "Pretty damn good");
+                //im.EditColumnData("Year", "1981");
+                //im.IsArchived = true;
+                //UpdateEntry(im);
 
-                var bj = CreateEntry(filmCat.CategoryID);
-                bj.EditColumnData("Title", "Bridget Joan's Diary");
-                bj.EditColumnData("Comment", "Who would ever watch this???");
-                bj.IsArchived = true;
-                UpdateEntry(bj);
+                //var bk = CreateEntry(musicCat.CategoryID);
+                //im.EditColumnData("Artist", "The Black Keys");
+                //im.EditColumnData("Album", "El Camino");
+                //im.EditColumnData("Track", "");
+                //im.EditColumnData("Star Rating", "5");
+                //im.EditColumnData("Comment", "So cool!");
+                //im.EditColumnData("Year", "");
+                //im.IsArchived = true;
+                //UpdateEntry(im);
+
+                ////book records
+                //var hp = CreateEntry(bookCat.CategoryID);
+                //hp.EditColumnData("Title", "Harry Potter");
+                //hp.EditColumnData("Author", "JK Rowling");
+                //hp.EditColumnData("Star Rating", "3.5");
+                //hp.EditColumnData("Comment", "Not bad from what I remember...wow I really don't know many books");
+                //UpdateEntry(hp);
+
+                //var oz = CreateEntry(bookCat.CategoryID);
+                //oz.EditColumnData("Title", "Ozzys Autobiography");
+                //oz.EditColumnData("Author", "Ozzys Ghost writer");
+                //oz.EditColumnData("Star Rating", "4");
+                //oz.EditColumnData("Comment", "Also pretty good");
+                //UpdateEntry(oz);
+
+                ////Film records
+                //var sf = CreateEntry(filmCat.CategoryID);
+                //sf.EditColumnData("Title", "Scarface");
+                //sf.EditColumnData("Comment", "Really awesome, need to see this again soon");
+                //sf.IsArchived = true;
+                //UpdateEntry(sf);
+
+                //var bj = CreateEntry(filmCat.CategoryID);
+                //bj.EditColumnData("Title", "Bridget Joan's Diary");
+                //bj.EditColumnData("Comment", "Who would ever watch this???");
+                //bj.IsArchived = true;
+                //UpdateEntry(bj);
 
 
 
-                //TV Records
-                var bb = CreateEntry(tvCat.CategoryID);
-                bb.EditColumnData("Title", "Breaking Bad");
-                bb.EditColumnData("Star Rating", "4.5");
-                bb.EditColumnData("Comment", "Properly Awesome");
-                bb.IsArchived = true;
-                UpdateEntry(bb);
+                ////TV Records
+                //var bb = CreateEntry(tvCat.CategoryID);
+                //bb.EditColumnData("Title", "Breaking Bad");
+                //bb.EditColumnData("Star Rating", "4.5");
+                //bb.EditColumnData("Comment", "Properly Awesome");
+                //bb.IsArchived = true;
+                //UpdateEntry(bb);
 
-                var got = CreateEntry(tvCat.CategoryID);
-                got.EditColumnData("Title", "Game of Thrones");
-                got.EditColumnData("Star Rating", "5");
-                got.EditColumnData("Comment", "Long and awesome");
-                got.IsArchived = false;
-                UpdateEntry(got);
+                //var got = CreateEntry(tvCat.CategoryID);
+                //got.EditColumnData("Title", "Game of Thrones");
+                //got.EditColumnData("Star Rating", "5");
+                //got.EditColumnData("Comment", "Long and awesome");
+                //got.IsArchived = false;
+                //UpdateEntry(got);
 
-                var hoc = CreateEntry(tvCat.CategoryID);
-                hoc.EditColumnData("Title", "House of Cards");
-                hoc.EditColumnData("Star Rating", "4");
-                hoc.EditColumnData("Comment", "Spacey is a bit of a god");
-                hoc.IsArchived = false;
-                UpdateEntry(hoc);
+                //var hoc = CreateEntry(tvCat.CategoryID);
+                //hoc.EditColumnData("Title", "House of Cards");
+                //hoc.EditColumnData("Star Rating", "4");
+                //hoc.EditColumnData("Comment", "Spacey is a bit of a god");
+                //hoc.IsArchived = false;
+                //UpdateEntry(hoc);
 
-                var na = CreateEntry(tvCat.CategoryID);
-                na.EditColumnData("Title", "Narcos");
-                na.EditColumnData("Star Rating", "3.5");
-                na.EditColumnData("Comment", "I wish I was pablo");
-                na.IsArchived = false;
-                UpdateEntry(na);
+                //var na = CreateEntry(tvCat.CategoryID);
+                //na.EditColumnData("Title", "Narcos");
+                //na.EditColumnData("Star Rating", "3.5");
+                //na.EditColumnData("Comment", "I wish I was pablo");
+                //na.IsArchived = false;
+                //UpdateEntry(na);
 
-                var bh = CreateEntry(tvCat.CategoryID);
-                bh.EditColumnData("Title", "Bojack Horseman");
-                bh.EditColumnData("Star Rating", "4");
-                bh.EditColumnData("Comment", "I don't think this one is for ninks");
-                bh.IsArchived = false;
-                UpdateEntry(bh);
+                //var bh = CreateEntry(tvCat.CategoryID);
+                //bh.EditColumnData("Title", "Bojack Horseman");
+                //bh.EditColumnData("Star Rating", "4");
+                //bh.EditColumnData("Comment", "I don't think this one is for ninks");
+                //bh.IsArchived = false;
+                //UpdateEntry(bh);
 
-                var xf = CreateEntry(tvCat.CategoryID);
-                xf.EditColumnData("Title", "X Factor");
-                xf.EditColumnData("Star Rating", "0");
-                xf.EditColumnData("Comment", "I do believe the x factor can do one...who would watch this?");
-                xf.IsArchived = true;
-                UpdateEntry(xf);
+                //var xf = CreateEntry(tvCat.CategoryID);
+                //xf.EditColumnData("Title", "X Factor");
+                //xf.EditColumnData("Star Rating", "0");
+                //xf.EditColumnData("Comment", "I do believe the x factor can do one...who would watch this?");
+                //xf.IsArchived = true;
+                //UpdateEntry(xf);
             }
         }
 

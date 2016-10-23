@@ -14,16 +14,18 @@ namespace LogMyLife.Domain.Data
     internal static class DatabaseController
     {
         private const string DB_FILE_NAME = "lmldb2.db3";//TODO change name
-        private static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),DB_FILE_NAME);
+        private static string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),DB_FILE_NAME);
         private static SQLiteConnection db;
 
-        public static bool HasDefaults {
+        public static bool HasRecords {
             get
             {
-                FileInfo fi = new FileInfo(dbPath);
-                bool recentlyCreated = DateTime.Now - fi.CreationTime < new TimeSpan(0, 0, 10);//created in the last 10 secs
-                bool hasCategories = GetCategories().Count() > 0;
-                return recentlyCreated && hasCategories;
+                //Not sure what was trying to do here
+                //FileInfo fi = new FileInfo(dbPath);
+                //bool recentlyCreated = DateTime.Now - fi.CreationTime < new TimeSpan(0, 0, 10);//created in the last 10 secs
+                //bool hasCategories = GetCategories().Count() > 0;
+                //return recentlyCreated || hasCategories;
+                return GetCategories().Count() > 0;
             }
         }
 
