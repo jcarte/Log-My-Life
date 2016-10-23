@@ -4,89 +4,95 @@
     android:id="@+id/myDrawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    >
-<!-- This is the main screen-->
-    <RelativeLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF">
-    <!-- Text box for Current List -->
+    android:fitsSystemWindows="true">
+
+    <!-- This is the main screen-->
+    <LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+      
+    <!-- Layout for Current List -->
         <LinearLayout
+        android:id="@+id/loCurrentListHeader"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="3"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+          <LinearLayout
             android:id="@+id/loCurrentListHeader"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:background="#42A5F5"
-            >
+            android:orientation="horizontal">
             <TextView
-                android:id="@+id/clText"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:padding="8dp"
-                android:background="#42A5F5" />
-            <Button
-                android:id="@+id/btnNew_MA"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="+"
-                android:textStyle="bold"
-                android:background="#42A5F5"
-                android:textColor="#2962FF"
-                android:textSize="25sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/loCurrentListHeader"
-            android:layout_above="@+id/alText"
-            android:orientation="vertical"
-            >
-        <!--List of Items for Current List-->
-            <ListView
-                android:id="@+id/lvMainScreen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:dividerHeight="0dp"
-                android:smoothScrollbar="true"
-                android:textSize="12dp"/>
-        </LinearLayout>
-    <!-- Text box for Archived List-->
-        <TextView
-            android:id="@id/alText"
-            android:layout_width="match_parent"
+            android:id="@+id/clText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:padding="8dp"
-            android:layout_centerInParent="true"
-            android:background="#42A5F5"
-            android:layout_below="@id/lvMainScreen" />
-        <LinearLayout
-            android:layout_width="fill_parent"
+            android:background="#42A5F5" />
+
+            <Button
+            android:id="@+id/btnNew_MA"
             android:layout_height="wrap_content"
-            android:layout_below="@id/alText"
-            android:orientation="vertical">
-        <!--  List of Items for Archived List    -->
-            <ListView
-                android:id="@+id/lvMainScreenLower"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="0dp"
-                android:smoothScrollbar="true"
-                />
+            android:layout_width="wrap_content"
+            android:text="+"
+            android:textStyle="bold"
+            android:background="#42A5F5"
+            android:textColor="#2962FF"
+            android:textSize="25sp" />
+          </LinearLayout>
+          <!--List of Items for Current List-->
+          <ListView
+              android:id="@+id/lvMainScreen"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="8dp"
+              android:dividerHeight="0dp"
+              android:smoothScrollbar="true" />
         </LinearLayout>
-    </RelativeLayout>
-<!-- The left navigation drawer -->
+      <!-- End Layout for Current List -->
+
+
+          <!-- Layout for Archived List-->
+          <LinearLayout
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="2"
+            android:background="#FFFFFF"
+            android:orientation="vertical">
+       
+                    <TextView
+                    android:id="@+id/alText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:padding="8dp"
+                    android:background="#42A5F5" />
+              <!--  List of Items for Archived List    -->
+                  <ListView
+                      android:id="@+id/lvMainScreenLower"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="8dp"
+                      android:dividerHeight="0dp"
+                      android:smoothScrollbar="true"  />
+        </LinearLayout>
+        <!-- End Layout for Archived List-->
+      
+    </LinearLayout>
+  
+  
+  <!-- The left navigation drawer (this should be after a relative or linear layout)-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:clickable="true"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
         <ListView
             android:id="@+id/leftListView"
             android:layout_width="240dp"
@@ -94,7 +100,7 @@
             android:layout_weight="1"
             android:layout_gravity="left"
             android:choiceMode="singleChoice"
-            android:divider="#64B5F6"           
+            android:divider="#64B5F6"
             android:dividerHeight="2dp"
             android:background="#42A5F5" />
         <Button
