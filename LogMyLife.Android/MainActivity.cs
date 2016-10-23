@@ -17,7 +17,7 @@ using System.Linq;
 
 namespace LogMyLife.Android
 {
-	[Activity (ScreenOrientation = a.Content.PM.ScreenOrientation.Portrait, Label = "Log My Life", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/CustomActionBarTheme")]
+	[Activity (ScreenOrientation = a.Content.PM.ScreenOrientation.Portrait, Label = "Log My Life", MainLauncher = true, Icon = "@drawable/LauncherIcon4", Theme = "@style/CustomActionBarTheme")]
 	public class MainActivity : Activity
 	{
 		DrawerLayout mDrawerLayout;
