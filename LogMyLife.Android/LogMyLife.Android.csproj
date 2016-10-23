@@ -137,4 +137,10 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\LauncherIcon4.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\trash2.png" />
+  </ItemGroup>
 </Project>

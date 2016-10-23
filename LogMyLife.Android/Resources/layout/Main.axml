@@ -24,8 +24,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:padding="16dp"
+                android:textSize="20sp"
+                android:padding="8dp"
                 android:background="#42A5F5" />
             <Button
                 android:id="@+id/btnNew_MA"
@@ -42,13 +42,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/loCurrentListHeader"
             android:layout_above="@+id/alText"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
         <!--List of Items for Current List-->
             <ListView
                 android:id="@+id/lvMainScreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:padding="8dp"
                 android:smoothScrollbar="true" />
         </LinearLayout>
     <!-- Text box for Archived List-->
@@ -56,8 +57,8 @@
             android:id="@id/alText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:padding="16dp"
+            android:textSize="20sp"
+            android:padding="8dp"
             android:layout_centerInParent="true"
             android:background="#42A5F5"
             android:layout_below="@id/lvMainScreen" />
@@ -71,8 +72,9 @@
                 android:id="@+id/lvMainScreenLower"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:smoothScrollbar="true" />
+                android:padding="0dp"
+                android:smoothScrollbar="true"
+                />
         </LinearLayout>
     </RelativeLayout>
 <!-- The left navigation drawer -->
