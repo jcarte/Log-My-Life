@@ -22,18 +22,20 @@ namespace LogMyLife.Domain
 
         private static void CreateDefaultTables(bool createCols = true,bool createRecs = true)
         {
-            var musicCat = CreateCategory("Music", CategoryType.Music);
+            var appCat = CreateCategory("Apps", CategoryType.Apps);
             var bookCat = CreateCategory("Books", CategoryType.Book);
             var filmCat = CreateCategory("Films", CategoryType.Film);
-            var wineCat = CreateCategory("Wine", CategoryType.Wine);
-            var tvCat = CreateCategory("TV", CategoryType.TV);
-            var restaurantCat = CreateCategory("Restaurants", CategoryType.Restaurant);
-            var websiteCat = CreateCategory("Websites", CategoryType.Website);
-            var appCat = CreateCategory("Apps", CategoryType.Apps);
-            var productCat = CreateCategory("Products", CategoryType.Product);
-            var placesCat = CreateCategory("Places", CategoryType.Place);
-            var shopCat = CreateCategory("Shops", CategoryType.Shop);
             var gadgetCat = CreateCategory("Gadgets", CategoryType.Gadget);
+            var musicCat = CreateCategory("Music", CategoryType.Music);
+            var placesCat = CreateCategory("Places", CategoryType.Place);
+            var presCat = CreateCategory("Present Ideas", CategoryType.UserCreated);
+            var productCat = CreateCategory("Products", CategoryType.Product);
+            var restaurantCat = CreateCategory("Restaurants", CategoryType.Restaurant);
+            var shopCat = CreateCategory("Shops", CategoryType.Shop);
+            var todoCat = CreateCategory("To Do", CategoryType.UserCreated);
+            var tvCat = CreateCategory("TV", CategoryType.TV);
+            var websiteCat = CreateCategory("Websites", CategoryType.Website);
+            var wineCat = CreateCategory("Wine", CategoryType.Wine);
             var youtubeCat = CreateCategory("YouTube", CategoryType.YouTube);
             var otherCat = CreateCategory("Other", CategoryType.Other);
 
@@ -119,6 +121,18 @@ namespace LogMyLife.Domain
                 CreateColumn("Name", productCat.CategoryID, Model.Column.ColumnType.Title);
                 CreateColumn("Star Rating", productCat.CategoryID, m.Column.ColumnType.Review);
                 CreateColumn("Comment", productCat.CategoryID, m.Column.ColumnType.Review);
+
+                //Presents
+                CreateColumn("Item", presCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Recipient", presCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", presCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", presCat.CategoryID, m.Column.ColumnType.Review);
+
+                //TO DO
+                CreateColumn("Title", todoCat.CategoryID, Model.Column.ColumnType.Title);
+                CreateColumn("Star Rating", todoCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Comment", todoCat.CategoryID, m.Column.ColumnType.Review);
+                CreateColumn("Deadline", todoCat.CategoryID, Model.Column.ColumnType.Normal);
             }
 
             if (createRecs)
