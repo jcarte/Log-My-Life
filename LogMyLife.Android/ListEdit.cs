@@ -43,9 +43,10 @@ namespace LogMyLife.Android
 
             //Define listList ListView to be the list in ListEdit.axml (editListList)
             listList = FindViewById<ListView>(Resource.Id.editListsList);
+            listList.ChoiceMode = a.Widget.ChoiceMode.Multiple;
 
             //Create an adapter to translate what's in mItems into listList
-            ArrayAdapter mAdapter = new ArrayAdapter(this, a.Resource.Layout.SimpleListItemMultipleChoice, mItems);
+            ArrayAdapter mAdapter = new ArrayAdapter<string>(this, a.Resource.Layout.SimpleListItemMultipleChoice, mItems);
 
             //Put the adapter into the listview           
             listList.Adapter = mAdapter;
@@ -57,6 +58,7 @@ namespace LogMyLife.Android
             btnEdit.Click += BtnEdit_Click;
             btnDelete.Click += BtnDelete_Click;
         }
+
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
