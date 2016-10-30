@@ -70,6 +70,7 @@
     <Compile Include="EntryEditActivity.cs" />
     <Compile Include="EditEntryAdapter.cs" />
     <Compile Include="EntryViewActivity.cs" />
+    <Compile Include="ListEdit.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +93,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\editrow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListEdit.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

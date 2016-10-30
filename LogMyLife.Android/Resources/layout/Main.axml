@@ -102,14 +102,31 @@
             android:choiceMode="singleChoice"
             android:divider="#64B5F6"
             android:dividerHeight="2dp"
-            android:background="#42A5F5" />
+            android:background="#42A5F5"
+            />
+      <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
         <Button
             android:id="@+id/btnAbout"
-            android:layout_width="240dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="left"
             android:text="About"
             android:textColor="#FFFFFF"
             android:background="#42A5F5" />
+      <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Edit"
+            android:textColor="#FFFFFF"
+            android:background="#42A5F5" />
+      </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

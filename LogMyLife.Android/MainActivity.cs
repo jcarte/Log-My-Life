@@ -52,7 +52,7 @@ namespace LogMyLife.Android
             {
                 mLeftItems.Add(i.Name);
             }
-            //mLeftItems.Add("+");
+            
 
             mDrawerToggle = new MyActionBarDrawerToggle (this, mDrawerLayout, Resource.Drawable.ic_navigation_drawer, Resource.String.open_drawer, Resource.String.close_drawer);
 			mLeftAdapter = new ArrayAdapter (this, a.Resource.Layout.SimpleListItem1, mLeftItems);
@@ -75,9 +75,20 @@ namespace LogMyLife.Android
             Button about = FindViewById<Button>(Resource.Id.btnAbout);
             about.Click += About_Click;
 
+            //Edit button
+            Button edit = FindViewById<Button>(Resource.Id.btnEdit);
+            edit.Click += Edit_Click;
+
             //Add New Entry
             Button addNew = FindViewById<Button>(Resource.Id.btnNew_MA);
             addNew.Click += AddNewEntryClicked;
+        }
+
+        private void Edit_Click(object sender, EventArgs e)
+        {
+            //got to ListEdit.axml
+            Intent i = new Intent(this, typeof(ListEdit));//Start a detail activity, push the entry ID into it
+            StartActivity(i);
         }
 
         private void About_Click(object sender, EventArgs e)
