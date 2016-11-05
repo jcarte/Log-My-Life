@@ -29,7 +29,7 @@
         android:paddingLeft="15sp"
         android:paddingRight="14dp"
         android:textColor="#0D47A1"
-        android:textColorHint="#42A5F5" 
+        android:textColorHint="#42A5F5"
         android:inputType="text"
         android:imeOptions="actionDone" />
     <LinearLayout
@@ -87,11 +87,8 @@
             android:id="@+id/btnDelete_EV"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"  
+            android:layout_weight="1"
             android:background="#2962FF"
-            android:src="@drawable/trash2"
-           />
+            android:src="@drawable/trash2" />
     </LinearLayout>
-
-
 </LinearLayout>

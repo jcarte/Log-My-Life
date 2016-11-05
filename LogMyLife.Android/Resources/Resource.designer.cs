@@ -83,11 +83,11 @@ namespace LogMyLife.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070013
-			public const int alText = 2131165203;
+			// aapt resource value: 0x7f070014
+			public const int alText = 2131165204;
 			
-			// aapt resource value: 0x7f070016
-			public const int btnAbout = 2131165206;
+			// aapt resource value: 0x7f070017
+			public const int btnAbout = 2131165207;
 			
 			// aapt resource value: 0x7f070009
 			public const int btnArchive_EV = 2131165193;
@@ -98,53 +98,56 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f07000a
 			public const int btnDelete_EV = 2131165194;
 			
-			// aapt resource value: 0x7f07000d
-			public const int btnDelete_LE = 2131165197;
+			// aapt resource value: 0x7f07000e
+			public const int btnDelete_LE = 2131165198;
 			
-			// aapt resource value: 0x7f070017
-			public const int btnEdit = 2131165207;
+			// aapt resource value: 0x7f070018
+			public const int btnEdit = 2131165208;
 			
 			// aapt resource value: 0x7f070008
 			public const int btnEdit_EV = 2131165192;
 			
-			// aapt resource value: 0x7f07000c
-			public const int btnEdit_LE = 2131165196;
+			// aapt resource value: 0x7f07000d
+			public const int btnEdit_LE = 2131165197;
 			
-			// aapt resource value: 0x7f070011
-			public const int btnNew_MA = 2131165201;
+			// aapt resource value: 0x7f07000c
+			public const int btnNew_LE = 2131165196;
+			
+			// aapt resource value: 0x7f070012
+			public const int btnNew_MA = 2131165202;
 			
 			// aapt resource value: 0x7f070004
 			public const int btnSave_EE = 2131165188;
 			
-			// aapt resource value: 0x7f070010
-			public const int clText = 2131165200;
+			// aapt resource value: 0x7f070011
+			public const int clText = 2131165201;
 			
-			// aapt resource value: 0x7f07001a
-			public const int downloads = 2131165210;
+			// aapt resource value: 0x7f07001b
+			public const int downloads = 2131165211;
 			
 			// aapt resource value: 0x7f07000b
 			public const int editListsList = 2131165195;
 			
-			// aapt resource value: 0x7f070018
-			public const int left = 2131165208;
+			// aapt resource value: 0x7f070019
+			public const int left = 2131165209;
 			
-			// aapt resource value: 0x7f070015
-			public const int leftListView = 2131165205;
+			// aapt resource value: 0x7f070016
+			public const int leftListView = 2131165206;
 			
 			// aapt resource value: 0x7f070000
 			public const int left_ER = 2131165184;
 			
+			// aapt resource value: 0x7f070010
+			public const int loCurrentListHeader = 2131165200;
+			
+			// aapt resource value: 0x7f070013
+			public const int lvMainScreen = 2131165203;
+			
+			// aapt resource value: 0x7f070015
+			public const int lvMainScreenLower = 2131165205;
+			
 			// aapt resource value: 0x7f07000f
-			public const int loCurrentListHeader = 2131165199;
-			
-			// aapt resource value: 0x7f070012
-			public const int lvMainScreen = 2131165202;
-			
-			// aapt resource value: 0x7f070014
-			public const int lvMainScreenLower = 2131165204;
-			
-			// aapt resource value: 0x7f07000e
-			public const int myDrawer = 2131165198;
+			public const int myDrawer = 2131165199;
 			
 			// aapt resource value: 0x7f070003
 			public const int otherFieldList = 2131165187;
@@ -152,8 +155,8 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070007
 			public const int ratingRBar = 2131165191;
 			
-			// aapt resource value: 0x7f070019
-			public const int right = 2131165209;
+			// aapt resource value: 0x7f07001a
+			public const int right = 2131165210;
 			
 			// aapt resource value: 0x7f070001
 			public const int right_ER = 2131165185;
@@ -178,22 +181,25 @@ namespace LogMyLife.Android
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int editrow = 2130903040;
+			public const int EditListItems = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int EntryEdit = 2130903041;
+			public const int editrow = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int EntryView = 2130903042;
+			public const int EntryEdit = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int ListEdit = 2130903043;
+			public const int EntryView = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int Main = 2130903044;
+			public const int ListEdit = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int row = 2130903045;
+			public const int Main = 2130903045;
+			
+			// aapt resource value: 0x7f030006
+			public const int row = 2130903046;
 			
 			static Layout()
 			{
