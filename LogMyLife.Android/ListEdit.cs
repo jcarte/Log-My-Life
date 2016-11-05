@@ -43,10 +43,10 @@ namespace LogMyLife.Android
 
             //Define listList ListView to be the list in ListEdit.axml (editListList)
             listList = FindViewById<ListView>(Resource.Id.editListsList);
-            listList.ChoiceMode = a.Widget.ChoiceMode.Multiple;
+            listList.ChoiceMode = a.Widget.ChoiceMode.Single;
 
             //Create an adapter to translate what's in mItems into listList
-            ArrayAdapter mAdapter = new ArrayAdapter<string>(this, a.Resource.Layout.SimpleListItemMultipleChoice, mItems);
+            ArrayAdapter mAdapter = new ArrayAdapter<string>(this, a.Resource.Layout.SimpleListItemSingleChoice, mItems);
 
             //Put the adapter into the listview           
             listList.Adapter = mAdapter;
@@ -54,9 +54,11 @@ namespace LogMyLife.Android
             //Link up buttons
             Button btnEdit = FindViewById<Button>(Resource.Id.btnEdit_LE);
             Button btnDelete = FindViewById<Button>(Resource.Id.btnDelete_LE);
+            Button btnNew = FindViewById<Button>(Resource.Id.btnNew_LE);
 
             btnEdit.Click += BtnEdit_Click;
             btnDelete.Click += BtnDelete_Click;
+            btnNew.Click += BtnNew_Click;
         }
 
 
@@ -69,6 +71,11 @@ namespace LogMyLife.Android
         {
             //TODO: Go to Edit page for first selected item (need to do error handling if more than one list selected, 
             //or stop multiple selection above - annnoying for delete)
+        }
+
+        private void BtnNew_Click(object sender, EventArgs e)
+        {
+            //TODO: Go to Edit page but have all blank fields
         }
     }
 }
