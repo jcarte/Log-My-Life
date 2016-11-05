@@ -407,7 +407,7 @@ namespace LogMyLife.Domain
             rec.IsArchived = false;//entrys are not archived when newly created
             Create(rec);
 
-            var cols = d.DatabaseController.GetColumns(catID).ToList();//get existing cols for category
+            var cols = d.DatabaseController.GetColumns(catID).OrderBy(c=>c.Order).ToList();//get existing cols for category
 
             var cells = new List<d.Cell>();
 

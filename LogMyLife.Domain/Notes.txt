@@ -1,9 +1,20 @@
-﻿Need to create a ColumnModel? (optional as not MVP? Needed for entry?)
+﻿Add Entry then Update Column
+	Name
+	Order
+	Type
+	IsHidden
 
---------------------
+Add Entry then Delete Column
 
-Test Database controller, what happens when selected id which doesn't exist?
+Add Entry then Create Column
 
 
 
+Add Column and Update Category
+	Name
+	Type
+
+Add Column and Delete Category
+
+Add Entry and Delete Category
 
