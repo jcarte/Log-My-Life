@@ -71,6 +71,7 @@
     <Compile Include="EditEntryAdapter.cs" />
     <Compile Include="EntryViewActivity.cs" />
     <Compile Include="ListEdit.cs" />
+    <Compile Include="ListEditAdd.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,6 +100,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\EditListItems.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\editrowsingle.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -149,5 +153,8 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\trash2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\info.png" />
   </ItemGroup>
 </Project>

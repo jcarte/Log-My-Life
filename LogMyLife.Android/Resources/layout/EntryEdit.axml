@@ -17,35 +17,6 @@
         android:dividerHeight="0dp"
         android:divider="@null"
         android:scrollbars="none" />
-<!--<EditText
-        android:id="@+id/commentTBox_EE"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#C8E6C9"
-        android:layout_marginBottom="4dp"
-        android:hint="Enter your comment..."
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp"
-        android:textColor="#1B5E20"
-        android:textColorHint="#66BB6A"
-        android:inputType="text"
-        android:imeOptions="actionDone" />
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:background="#C8E6C9"
-        android:paddingTop="12dp">
-        <RatingBar
-            android:id="@+id/ratingRBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="0.5" />
-    </LinearLayout>-->
     <ListView
         android:id="@+id/otherFieldList"
         android:layout_width="match_parent"

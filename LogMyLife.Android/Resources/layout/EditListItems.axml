@@ -2,4 +2,110 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:background="#90CAF9">
+  
+  <!--Text box to edit title-->
+  <EditText
+        android:id="@+id/listTitleEdit"
+        android:layout_height="wrap_content"
+        android:layout_width="0px"
+        android:layout_weight="1"
+        android:hint="Click here to add title"
+        android:textSize="15sp"
+        android:focusableInTouchMode="true"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:textColor="#1565C0" />
+  
+  <!--Title and info box -->
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="0px"
+        android:layout_weight="1"
+        android:text="Summary Headings"
+    />
+    <ImageButton
+            android:id="@+id/btnInfo_ELI"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#2962FF"
+            android:src="@drawable/info" />
+  </LinearLayout>
+
+  <!--Editable list for title fields -->
+  <ListView
+      android:id="@+id/titleFieldListEdit"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#BBDEFB"
+      android:layout_marginBottom="0dp"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      android:paddingLeft="14dp"
+      android:paddingRight="14dp"
+      android:dividerHeight="0dp"
+      android:divider="@null"
+      android:scrollbars="none" />
+
+  <TextView
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:text="Other Headings"
+   />
+  <!--Editable list for non-title fields -->
+  <ListView
+      android:id="@+id/otherFieldListEdit"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#BBDEFB"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      android:paddingLeft="14dp"
+      android:paddingRight="14dp"
+      android:dividerHeight="0dp"
+      android:divider="@null" />
+
+
+  <!--Button controls-->
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="bottom">
+    <Button
+        android:id="@+id/btnSave_EL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Save"
+        android:textStyle="bold"
+        android:background="#0D47A1"
+        android:textColor="#BBDEFB"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/btnAddCol_EL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="New Heading"
+        android:textStyle="bold"
+        android:background="#0D47A1"
+        android:textColor="#BBDEFB"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/btnCancel_EL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Cancel"
+        android:textStyle="bold"
+        android:background="#0D47A1"
+        android:textColor="#BBDEFB"
+        android:textSize="20sp" />
+  </LinearLayout>
+</LinearLayout>

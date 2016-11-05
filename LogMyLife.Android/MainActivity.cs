@@ -21,7 +21,7 @@ namespace LogMyLife.Android
 	public class MainActivity : Activity
 	{
 		DrawerLayout mDrawerLayout;
-		List<string> mLeftItems = new List<string>();
+		
 		ArrayAdapter mLeftAdapter;
 		ListView mLeftDrawer;
 		ActionBarDrawerToggle mDrawerToggle;
@@ -46,18 +46,10 @@ namespace LogMyLife.Android
             mDrawerLayout = FindViewById<DrawerLayout> (Resource.Id.myDrawer);
 			mLeftDrawer = FindViewById<ListView> (Resource.Id.leftListView);
 			mLeftDrawer.Tag = 0;
-
-            //Populates the items in the menu bar
-            foreach (var i in cats)
-            {
-                mLeftItems.Add(i.Name);
-            }
-            
+       
 
             mDrawerToggle = new MyActionBarDrawerToggle (this, mDrawerLayout, Resource.Drawable.ic_navigation_drawer, Resource.String.open_drawer, Resource.String.close_drawer);
-			mLeftAdapter = new ArrayAdapter (this, a.Resource.Layout.SimpleListItem1, mLeftItems);
-			mLeftDrawer.Adapter = mLeftAdapter;
-            mLeftDrawer.ItemClick += MLeftDrawer_ItemClick;
+			            mLeftDrawer.ItemClick += MLeftDrawer_ItemClick;
 			mDrawerLayout.SetDrawerListener (mDrawerToggle);
 			ActionBar.SetDisplayHomeAsUpEnabled (true);
 			ActionBar.SetHomeButtonEnabled (true);	
@@ -179,7 +171,21 @@ namespace LogMyLife.Android
         protected override void OnResume()
         {
             base.OnResume();
+            List<string> mLeftItems = new List<string>();
+            cats = MainController.GetCategories();
+            //Populates the items in the menu bar
+            foreach (var i in cats)
+            {
+                mLeftItems.Add(i.Name);
+            }
+            
+            mLeftAdapter = new ArrayAdapter(this, a.Resource.Layout.SimpleListItem1, mLeftItems);
+            mLeftDrawer.Adapter = mLeftAdapter;
 
+            if (!cats.Any(c=> c.CategoryID == currCat.CategoryID) )
+            {
+                currCat = cats[0];
+            }
             //Set mainscreen content based on first menu item for inital load
             PopulateListScreen(currCat);
         }
