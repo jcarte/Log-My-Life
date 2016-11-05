@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Logging.cs" />
     <Compile Include="ModelTests\CategoryTest.cs" />
+    <Compile Include="ModelTests\ColumnTest.cs" />
     <Compile Include="ModelTests\EntryTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

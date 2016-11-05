@@ -37,8 +37,8 @@ namespace LogMyLife.Domain.Data
         //static DatabaseController()
         public static void Init()
         {
-            //TODO remove for testing only
-            //File.Delete(dbPath);
+            //TODO ******************remove for testing only
+            File.Delete(dbPath);
 
             //TODO setup for multi threading https://developer.xamarin.com/guides/cross-platform/application_fundamentals/data/part_3_using_sqlite_orm/ (bottom of page)
             //TODO need to install  Install-Package sqlite-net-pcl  to front end (better way)??
@@ -158,7 +158,23 @@ namespace LogMyLife.Domain.Data
 
 
 
-        internal static IEnumerable<Cell> GetCells(int recordID)
+        internal static IEnumerable<Cell> GetCellsForCategory(int catID)
+        {
+            var recIds = db.Table<Record>().Where(r => r.CategoryID == catID).Select(re => re.RecordID);
+            return db.Table<Cell>().Where(c => recIds.Contains(c.RecordID) );//.ToList();
+
+            //Get record ids from all records in cat and get all cells for all records
+            //TableQuery<Cell> ie = db.Table<Cell>().Join(db.Table<Record>().Where(r => r.CategoryID == catID),
+            //    ce => ce.RecordID, r => r.RecordID, (ce, r) => ce);
+            //return ie.AsEnumerable();
+        }
+
+        internal static IEnumerable<Cell> GetCellsForColumn(int columnID)
+        {
+            return db.Table<Cell>().Where(c => c.ColumnID == columnID);//.ToList();
+        }
+
+        internal static IEnumerable<Cell> GetCellsForRecord(int recordID)
         {
             return db.Table<Cell>().Where(c => c.RecordID == recordID);//.ToList();
         }

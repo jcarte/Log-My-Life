@@ -16,6 +16,7 @@ namespace LogMyLife.Domain
         static MainController()
         {
             d.DatabaseController.Init();
+
             if (!d.DatabaseController.HasRecords)//have the default records been created yet?
                 CreateDefaultTables(true,true);
         }
@@ -353,7 +354,7 @@ namespace LogMyLife.Domain
             //Manual cascading delete
             DeleteRange(d.DatabaseController.GetRecords(catID));
             DeleteRange(d.DatabaseController.GetColumns(catID));
-            DeleteRange(d.DatabaseController.GetCells(catID));
+            DeleteRange(d.DatabaseController.GetCellsForCategory(catID));
             Delete(c);
         }
 
@@ -441,7 +442,7 @@ namespace LogMyLife.Domain
                 return null;
 
             List<d.Column> cols = d.DatabaseController.GetColumns(rec.CategoryID).ToList();//get columns in category
-            List<d.Cell> cells = d.DatabaseController.GetCells(rec.RecordID).ToList();
+            List<d.Cell> cells = d.DatabaseController.GetCellsForRecord(rec.RecordID).ToList();
             m.Entry e = ConvertEntryToModel(rec, cols, cells);
             return e;
         }
@@ -484,7 +485,7 @@ namespace LogMyLife.Domain
 
             foreach (d.Record rec in recs)//for all records returned, get all of their cells and convert the lot to a entry model, add to running list
             {
-                List<d.Cell> cells = d.DatabaseController.GetCells(rec.RecordID).ToList();
+                List<d.Cell> cells = d.DatabaseController.GetCellsForRecord(rec.RecordID).ToList();
                 m.Entry e = ConvertEntryToModel(rec, cols, cells);
                 lis.Add(e);
             }
@@ -506,7 +507,7 @@ namespace LogMyLife.Domain
                 throw new Exception($"Can't update Entry {ent.EntryID} because it doesn't exist");
             
             var cols = d.DatabaseController.GetColumns(ent.CategoryID);
-            var cells = d.DatabaseController.GetCells(ent.EntryID);
+            var cells = d.DatabaseController.GetCellsForRecord(ent.EntryID);
 
             rec.IsArchived = ent.IsArchived;
             Update(rec);//update modified date
@@ -548,7 +549,7 @@ namespace LogMyLife.Domain
                 throw new Exception($"Can't delete Entry {entID} because it doesn't exist");
             
             //Manual Cascading Delete
-            DeleteRange(d.DatabaseController.GetCells(entID));
+            DeleteRange(d.DatabaseController.GetCellsForRecord(entID));
             Delete(d.DatabaseController.GetRecord(entID));
         }
 
@@ -585,16 +586,26 @@ namespace LogMyLife.Domain
 
 
 
-
-        //TODO complete Column CRUD operations
-        //public static List<m.Column> GetAllColumns(int catID)
-        //{
-
-        //}
-        //public static List<m.Column> GetVisibleColumns(int catID)
-        //{
-
-        //}
+        /// <summary>
+        /// Gets all columns for a category
+        /// </summary>
+        /// <param name="catID">Unique ID for category</param>
+        /// <returns>list of column models</returns>
+        public static List<m.Column> GetAllColumns(int catID)
+        {
+            List<m.Column> lis = new List<Model.Column>();
+            d.DatabaseController.GetColumns(catID).ToList().ForEach(c => lis.Add(ConvertColumnToModel(c)));
+            return lis;
+        }
+        
+        /// <summary>
+        /// Create a column for an existing category
+        /// </summary>
+        /// <param name="name">Column Name</param>
+        /// <param name="catID">Category ID to place the column in</param>
+        /// <param name="type">What type of column is it, what sort of info is held in it</param>
+        /// <param name="isHidden">Is the column visible</param>
+        /// <returns>Newly created column</returns>
         public static m.Column CreateColumn(string name, int catID, m.Column.ColumnType type, bool isHidden = false)
         {
             d.Column dCol = new Data.Column();
@@ -633,8 +644,22 @@ namespace LogMyLife.Domain
 
             Create(dCol);
 
+            foreach (var rec in d.DatabaseController.GetRecords(catID))//create a blank cell for each record
+            {
+                d.Cell cell = new d.Cell();
+                cell.ColumnID = dCol.ColumnID;
+                cell.Data = string.Empty;
+                cell.RecordID = rec.RecordID;
+                Create(cell);
+            }
+
             return ConvertColumnToModel(dCol);
         }
+
+        /// <summary>
+        /// Updates column in db
+        /// </summary>
+        /// <param name="col">updated column model</param>
         public static void UpdateColumn(m.Column col)
         {
             if (col == null)
@@ -667,15 +692,33 @@ namespace LogMyLife.Domain
 
             Update(dCol);
         }
-        //public static void DeleteColumn(int colID)
-        //{
 
-        //}
-        //public static void DeleteColumn(m.Column col)
-        //{
+        /// <summary>
+        /// Remove column
+        /// </summary>
+        /// <param name="col">Column Model</param>
+        public static void DeleteColumn(m.Column col)
+        {
+            if (col == null)
+                throw new Exception($"Can't delete a null column");
+            DeleteColumn(col.ColumnID);
+        }
 
-        //}
+        /// <summary>
+        /// Remove Column
+        /// </summary>
+        /// <param name="colID">Column ID</param>
+        public static void DeleteColumn(int colID)
+        {
+            var r = d.DatabaseController.GetColumn(colID);
+            if (r == null)
+                throw new Exception($"Can't delete Entry {colID} because it doesn't exist");
 
+            //Manual Cascading Delete
+            DeleteRange(d.DatabaseController.GetCellsForColumn(colID));//delete cells for that column
+            Delete(d.DatabaseController.GetColumn(colID));
+        }
+        
         private static m.Column ConvertColumnToModel(d.Column dCol)
         {
             m.Column mCol = new m.Column();

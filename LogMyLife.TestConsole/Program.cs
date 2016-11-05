@@ -13,7 +13,8 @@ namespace LogMyLife.TestConsole
         static void Main(string[] args)
         {
             //CategoryTest.RunTest();
-            EntryTest.RunTest();
+            //EntryTest.RunTest();
+            ColumnTest.RunTest();
             Console.WriteLine("Done");
             Console.Read();
         }
