@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+  <EditText
+      android:id="@+id/rowEdit"
+      android:layout_height="wrap_content"
+      android:layout_width="0px"
+      android:layout_weight="1"
+      android:textSize="15sp"
+      android:focusableInTouchMode="true"
+      android:inputType="text"
+      android:imeOptions="actionDone"
+      android:textColor="#1565C0" />
+  <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#2962FF"
+        android:src="@drawable/trash2" />
+</LinearLayout>
