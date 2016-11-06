@@ -312,6 +312,22 @@ namespace LogMyLife.Domain
         }
 
         /// <summary>
+        /// Gets a category from db
+        /// </summary>
+        /// <param name="catID">Category ID</param>
+        /// <returns>Category if exists, null otherwise</returns>
+        public static m.Category GetCategory(int catID)
+        {
+            d.Category dCat = d.DatabaseController.GetCategory(catID);
+
+            if (dCat == null)
+                return null;
+
+            return ConvertCategoryToModel(dCat);
+        }
+
+
+        /// <summary>
         /// Update a category
         /// </summary>
         /// <param name="cat">The category to be updated complete with updated values</param>
@@ -584,7 +600,21 @@ namespace LogMyLife.Domain
 
 
 
+        /// <summary>
+        /// Gets a Column from db
+        /// </summary>
+        /// <param name="colID">Column ID</param>
+        /// <returns>Column if exists, null otherwise</returns>
+        public static m.Column GetColumn(int colID)
+        {
+            d.Column dCol = d.DatabaseController.GetColumn(colID);
 
+            if (dCol == null)
+                return null;
+
+            return ConvertColumnToModel(dCol);
+        }
+         
 
         /// <summary>
         /// Gets all columns for a category
