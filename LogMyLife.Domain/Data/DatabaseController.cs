@@ -37,9 +37,9 @@ namespace LogMyLife.Domain.Data
         //static DatabaseController()
         public static void Init()
         {
-            //TODO ******************remove for testing only
+#if DEBUG//Delete db if in debug
             File.Delete(dbPath);
-
+#endif
             //TODO setup for multi threading https://developer.xamarin.com/guides/cross-platform/application_fundamentals/data/part_3_using_sqlite_orm/ (bottom of page)
             //TODO need to install  Install-Package sqlite-net-pcl  to front end (better way)??
             db = new SQLiteConnection(dbPath);//TODO put in folder
