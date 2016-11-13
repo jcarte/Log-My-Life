@@ -85,7 +85,7 @@ namespace LogMyLife.Android
             //Information button on headers
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle("What is a Summary Heading?");
-            alert.SetMessage("There are two types of names you can add to your lists.  Summary headings are what you'll see on the main screen.  The other headings you will only see once you click into the item.  Summary headings should be the most important informaiton to you. For example band name and albumn title would make great summary headings.");
+            alert.SetMessage("There are two types of names you can add to your lists.  \n\nSummary headings are what you'll see on the main screen.  The other headings you will only see once you click into the item.  \n\nSummary headings should be the most important informaiton to you. For example band name and albumn title would make great summary headings.");
             alert.SetNeutralButton("OK", (s, a) => { });
             Dialog dialog = alert.Create();
             dialog.Show();
