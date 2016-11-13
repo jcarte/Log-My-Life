@@ -3,12 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#90CAF9">
+    android:background="#FFFFFF">
     <ListView
         android:id="@+id/titleFieldList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#BBDEFB"
+        android:background="#FFFFFF"
         android:layout_marginBottom="0dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
@@ -21,7 +21,7 @@
         android:id="@+id/otherFieldList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#BBDEFB"
+        android:background="#FFFFFF"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:paddingLeft="14dp"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#90CAF9" />
+        android:background="#FFFFFF" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

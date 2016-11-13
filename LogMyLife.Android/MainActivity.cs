@@ -87,7 +87,7 @@ namespace LogMyLife.Android
         {
             //set alert for executing the task
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle("About Log my Life v0.1");
+            alert.SetTitle("About Log my Life");
             alert.SetMessage("Log my Life is a Jicola Production.  Version 0.3 is our new version and there will be many great, new features coming soon, including sharing lists with your friends!");
 
             alert.SetNegativeButton("Ok", (senderAlert, args) =>
