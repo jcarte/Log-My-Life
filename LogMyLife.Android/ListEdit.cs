@@ -90,8 +90,14 @@ namespace LogMyLife.Android
         
         private void BtnEdit_Click(object sender, EventArgs e)
         {
-            //TODO: Go to Edit page for first selected item (need to do error handling if more than one list selected, 
-            //or stop multiple selection above - annnoying for delete)
+            //TODO: Go to Edit page for selected item 
+            //make category object of list to be edited
+            int toEditID = cats.ElementAt(listList.CheckedItemPosition).CategoryID;
+
+            //Start a detail activity, push the entry ID into it
+            Intent i = new Intent(this, typeof(ListEditAdd));
+            i.PutExtra("Category", toEditID);
+            StartActivity(i);
         }
 
         private void BtnNew_Click(object sender, EventArgs e)
@@ -107,8 +113,15 @@ namespace LogMyLife.Android
             
             //User confirmation
             alert.SetPositiveButton("Ok", (senderAlert, args) => {
-                MainController.CreateCategory(input.Text, Category.CategoryType.UserCreated);            
-                OnResume();
+                Category newCat = MainController.CreateCategory(input.Text, Category.CategoryType.UserCreated);
+                //TODO - need to make it go to new page        
+                //OnResume();
+
+                //Start a detail activity, push the entry ID into it
+                Intent i = new Intent(this, typeof(ListEditAdd));
+                i.PutExtra("Category", newCat.CategoryID);
+                StartActivity(i);
+
                 Toast.MakeText(this, "New List Created!", ToastLength.Short).Show();
             });
             alert.SetNegativeButton("Cancel", (s, a) => { });

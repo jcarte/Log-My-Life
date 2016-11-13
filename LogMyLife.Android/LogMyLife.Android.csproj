@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColumnEditAdapter.cs" />
     <Compile Include="EntryEditActivity.cs" />
     <Compile Include="EditEntryAdapter.cs" />
     <Compile Include="EntryViewActivity.cs" />
