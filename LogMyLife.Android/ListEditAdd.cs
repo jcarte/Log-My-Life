@@ -201,13 +201,13 @@ namespace LogMyLife.Android
             EditText input = new EditText(this);
             alert.SetView(input);
             //User confirmation
-            alert.SetPositiveButton("Add as Summary Heading", (senderAlert, args) => {
+            alert.SetPositiveButton("Summary Heading", (senderAlert, args) => {
                 AddColumn(input.Text, Column.ColumnType.Title);
             });
-            alert.SetNeutralButton("Add as Other", (senderAlert, args) => {
+            alert.SetNeutralButton("Other Heading", (senderAlert, args) => {
                 AddColumn(input.Text, Column.ColumnType.Normal);
             });
-            alert.SetPositiveButton("Cancel", (s, a) => { });
+            alert.SetNegativeButton("Cancel", (s, a) => { });
             alert.Create().Show();
         }
 
