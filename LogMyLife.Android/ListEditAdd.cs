@@ -29,7 +29,7 @@ namespace LogMyLife.Android
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.EditListItems);
 
-            //2 - populate EditText id = "@+id/listTitleEdit with list name
+            //populate EditText id = "@+id/listTitleEdit with list name
             int catID = Intent.GetIntExtra("Category", -1);//get entryid from intent
             cat = MainController.GetCategory(catID);//get entry from DB
             if (cat == null)//check that entry returned
@@ -42,19 +42,19 @@ namespace LogMyLife.Android
             otherColumns = FindViewById<ListView>(Resource.Id.otherFieldListEdit);
             PopulateLists();
 
-            //5 - hook up making pop-up for text entry if Button id = "@+id/btnAddCol_EL is pressed (TODO)
+            //hook up making pop-up for text entry if Button id = "@+id/btnAddCol_EL is pressed (TODO)
             Button btnAddColName = FindViewById<Button>(Resource.Id.btnAddCol_EL);
             btnAddColName.Click += BtnAddColName_Click;
 
-            //6 - make info pannel to explain header rows when ImageButton @+id/btnInfo_ELI is pressed
+            //make info pannel to explain header rows when ImageButton @+id/btnInfo_ELI is pressed
             ImageButton btnInfo = FindViewById<ImageButton>(Resource.Id.btnInfo_ELI);
             btnInfo.Click += BtnInfo_Click;
 
-            //8 - save button (TODO)
+            //save button
             Button btnSave = FindViewById<Button>(Resource.Id.btnSave_EL);
             btnSave.Click += BtnSave_Click;
 
-            //9 - cancel button
+            //cancel button
             Button btnCancel = FindViewById<Button>(Resource.Id.btnCancel_EL);
             btnCancel.Click += BtnCancel_Click;
 
@@ -68,12 +68,12 @@ namespace LogMyLife.Android
             List<Column> titleCols = cols.Where(c => c.Type == Column.ColumnType.Title).ToList();
             List<Column> otherCols = cols.Where(c => c.Type == Column.ColumnType.Normal).ToList();
 
-            //3 - populate ListView id = "@+id/titleFieldListEdit with the header column names (use editrowsingle to make editable)
+            //populate ListView id = "@+id/titleFieldListEdit with the header column names (use editrowsingle to make editable)
             ColumnEditAdapter adpaterTH = new ColumnEditAdapter(this, titleCols);
             headerColumns.Adapter = adpaterTH;
             adpaterTH.ColumnDeleted += ColumnDeleted;
 
-            //4 - populate ListView id = "@+id/otherFieldListEdit with non-header column names (use editrowsingle to make editable)
+            //populate ListView id = "@+id/otherFieldListEdit with non-header column names (use editrowsingle to make editable)
             ColumnEditAdapter adpaterOH = new ColumnEditAdapter(this, otherCols);
             otherColumns.Adapter = adpaterOH;
             adpaterOH.ColumnDeleted += ColumnDeleted;
@@ -181,7 +181,6 @@ namespace LogMyLife.Android
             dialog.Show();
         }
 
-        //TODO only add add columns at the moment
         private void BtnAddColName_Click(object sender, EventArgs e)//Add column to list
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -192,20 +191,35 @@ namespace LogMyLife.Android
             alert.SetView(input);
             //User confirmation
             alert.SetPositiveButton("Add as Summary Heading", (senderAlert, args) => {
-                Column newCol = MainController.CreateColumn(input.Text,cat.CategoryID,Column.ColumnType.Title);
-                PopulateLists();
-                Toast.MakeText(this, "New Heading Created!", ToastLength.Short).Show();
+                AddColumn(input.Text, Column.ColumnType.Title);
             });
             alert.SetNeutralButton("Add as Other Heading", (senderAlert, args) => {
-                Column newCol = MainController.CreateColumn(input.Text, cat.CategoryID, Column.ColumnType.Normal);
-                PopulateLists();
-                Toast.MakeText(this, "New Column Created!", ToastLength.Short).Show();
+                AddColumn(input.Text, Column.ColumnType.Normal);
             });
             alert.SetNegativeButton("Cancel", (s, a) => { });
             alert.Create().Show();
         }
 
-      
+        private void AddColumn(string name, Column.ColumnType type)
+        {
+            if (name == "")
+            {
+                Toast.MakeText(this, "Heading Must Have a Name", ToastLength.Short).Show();
+                return;
+            }
+
+            List<Column> allCols = ((ColumnEditAdapter)headerColumns.Adapter).Items.Union(((ColumnEditAdapter)otherColumns.Adapter).Items).ToList();
+            if (allCols.Any(c=>c.Name == name))
+            {
+                Toast.MakeText(this, $"A Heading For {name} Already Exists", ToastLength.Short).Show();
+                return;
+            }
+
+            MainController.CreateColumn(name, cat.CategoryID, type);
+            PopulateLists();
+            Toast.MakeText(this, "New Column Created!", ToastLength.Short).Show();
+        }
+
 
     }
 }
