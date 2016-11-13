@@ -85,7 +85,7 @@ namespace LogMyLife.Android
             {
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Delete Failed");
-                alert.SetMessage($"Cannot delete '{e.Name}' because it is the only Summary Heading.  /nYou must always have at least one Summary Heading.");
+                alert.SetMessage($"Cannot delete '{e.Name}' because it is the only Summary Heading.  \nYou must always have at least one Summary Heading.");
                 alert.SetNeutralButton("OK", (s, a) => { });
                 alert.Create().Show();
             }
