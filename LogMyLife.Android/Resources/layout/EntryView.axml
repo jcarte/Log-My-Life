@@ -89,6 +89,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#2962FF"
-            android:src="@drawable/trash2" />
+            android:src="@drawable/trash3" />
     </LinearLayout>
 </LinearLayout>
