@@ -20,6 +20,9 @@ namespace LogMyLife.Android
     {
         Category cat;
 
+        ListView otherColumns;
+        ListView headerColumns;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -33,18 +36,10 @@ namespace LogMyLife.Android
             EditText catTitle = FindViewById<EditText>(Resource.Id.listTitleEdit);
             catTitle.Text = cat.Name;
 
-            //3 - populate ListView id = "@+id/titleFieldListEdit with the header column names (use editrowsingle to make editable)
-            List<Column> cols = MainController.GetAllColumns(catID);
-            List<Column> titleCols = cols.Where(c => c.Type == Column.ColumnType.Title).ToList();
-            List<Column> otherCols = cols.Where(c => c.Type == Column.ColumnType.Normal).ToList();
-            ListView headerColumns = FindViewById<ListView>(Resource.Id.titleFieldListEdit);
-            ColumnEditAdapter adpaterTH = new ColumnEditAdapter(this,titleCols);
-            headerColumns.Adapter = adpaterTH;
-
-            //4 - populate ListView id = "@+id/otherFieldListEdit with non-header column names (use editrowsingle to make editable)
-            ListView otherColumns = FindViewById<ListView>(Resource.Id.otherFieldListEdit);
-            ColumnEditAdapter adpaterOH = new ColumnEditAdapter(this, otherCols);
-            otherColumns.Adapter = adpaterOH;
+            //Get list views
+            headerColumns = FindViewById<ListView>(Resource.Id.titleFieldListEdit);
+            otherColumns = FindViewById<ListView>(Resource.Id.otherFieldListEdit);
+            PopulateLists();
 
             //5 - hook up making pop-up for text entry if Button id = "@+id/btnAddCol_EL is pressed (TODO)
             Button btnAddColName = FindViewById<Button>(Resource.Id.btnAddCol_EL);
@@ -65,6 +60,38 @@ namespace LogMyLife.Android
 
         }
 
+        private void PopulateLists()
+        {
+            //get columns for category from database
+            List<Column> cols = MainController.GetAllColumns(cat.CategoryID);
+            List<Column> titleCols = cols.Where(c => c.Type == Column.ColumnType.Title).ToList();
+            List<Column> otherCols = cols.Where(c => c.Type == Column.ColumnType.Normal).ToList();
+
+            //3 - populate ListView id = "@+id/titleFieldListEdit with the header column names (use editrowsingle to make editable)
+            ColumnEditAdapter adpaterTH = new ColumnEditAdapter(this, titleCols);
+            headerColumns.Adapter = adpaterTH;
+            adpaterTH.ColumnDeleted += ColumnDeleted;
+
+            //4 - populate ListView id = "@+id/otherFieldListEdit with non-header column names (use editrowsingle to make editable)
+            ColumnEditAdapter adpaterOH = new ColumnEditAdapter(this, otherCols);
+            otherColumns.Adapter = adpaterOH;
+            adpaterOH.ColumnDeleted += ColumnDeleted;
+        }
+
+        private void ColumnDeleted(object sender, Column e)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Delete");
+            alert.SetMessage($"Are you sure you want to delete column '{e.Name}' and all data stored in it?");
+            alert.SetPositiveButton("Yes", (s, a) => 
+            { 
+                MainController.DeleteColumn(e);
+                PopulateLists();//refresh lists
+            });
+            alert.SetNegativeButton("No", (s, a) => {});
+            alert.Create().Show();
+        }
+
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             base.OnBackPressed();
@@ -72,11 +99,53 @@ namespace LogMyLife.Android
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-            //Check for blank fields
-            //Check for saved fields
-            //Check if any of the columns have moved position
-            //Check if duplicate col names & message
+            List<Column> dbCols = MainController.GetAllColumns(cat.CategoryID);
+            List<Column> newCols = new List<Column>();
+            newCols.AddRange(((ColumnEditAdapter)headerColumns.Adapter).Items);
+            newCols.AddRange(((ColumnEditAdapter)otherColumns.Adapter).Items);
+
+            //Error if any duplicates
+            foreach (Column col in newCols)
+            {
+                if(newCols.Count(c => c.Name == col.Name)>1)
+                {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.SetTitle("Duplicate Names");
+                    alert.SetMessage($"The column '{col.Name}' appears multiple times, please remove one and try again.");
+                    alert.SetNeutralButton("OK", (s, a) => { });
+                    alert.Create().Show();
+                    break;
+                }
+            }
+
+            //Delete blank fields
+            //newCols.Where(c => c.Name == "").ToList().ForEach(col => 
+            //{ 
+            //    MainController.DeleteColumn(col.ColumnID);//remove form db
+            //    dbCols.Remove(dbCols.FirstOrDefault(dc => dc.ColumnID == col.ColumnID));//remove from list representing db
+            //});
+
+            int updateCount = 0;
+
+            foreach (Column newCol in newCols)
+            {
+                Column dbCol = dbCols.FirstOrDefault(db => db.ColumnID == newCol.ColumnID);
+                if (dbCol == null)//new col doesn't exist in db
+                    throw new Exception("Column not yet added to db!");
+
+                if (dbCol.Name != newCol.Name || dbCol.Order != newCol.Order)//update order and column name in db
+                {
+                    MainController.UpdateColumn(newCol);
+                    updateCount++;
+                }
+            }
+
+            if (updateCount > 1)
+                Toast.MakeText(this, $"{updateCount} Columns Updated", ToastLength.Short).Show();
+            else if (updateCount == 1)
+                Toast.MakeText(this, $"Column Updated", ToastLength.Short).Show();
+
+            base.OnBackPressed();
         }
 
         private void BtnInfo_Click(object sender, EventArgs e)

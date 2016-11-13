@@ -21,7 +21,7 @@ namespace LogMyLife.Android
         private List<Column> _items;
         private readonly Context _context;
 
-
+        public event EventHandler<Column> ColumnDeleted;
         public List<Column> Items { get { return _items; }  }
 
         public ColumnEditAdapter(Context context, List<Column> items)
@@ -74,7 +74,8 @@ namespace LogMyLife.Android
             ImageButton dlt = sender as ImageButton;
             EditText et = ((View)dlt.Parent).FindViewById<EditText>(Resource.Id.rowEdit);
             //Column col = _items[(int)et.GetTag(1)];
-            et.Text = string.Empty;
+            ColumnDeleted?.Invoke(this,((ColumnHolder)et.Tag).Column);
+            //et.Text = string.Empty;
         }
 
         private void OnTextChange(object sender, global::Android.Text.TextChangedEventArgs e)
