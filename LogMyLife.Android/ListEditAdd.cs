@@ -160,11 +160,24 @@ namespace LogMyLife.Android
             dialog.Show();
         }
 
-        private void BtnAddColName_Click(object sender, EventArgs e)
+        //TODO only add add columns at the moment
+        private void BtnAddColName_Click(object sender, EventArgs e)//Add column to list
         {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("New Column");
+            alert.SetMessage("Enter the name of your new column:");
+            // Set an EditText view to get user input  
+            EditText input = new EditText(this);
+            alert.SetView(input);
 
-            //Needs to generate user input alertdialogue
-      
+            //User confirmation
+            alert.SetPositiveButton("Ok", (senderAlert, args) => {
+                Column newCol = MainController.CreateColumn(input.Text,cat.CategoryID,Column.ColumnType.Normal);
+                PopulateLists();
+                Toast.MakeText(this, "New Column Created!", ToastLength.Short).Show();
+            });
+            alert.SetNegativeButton("Cancel", (s, a) => { });
+            alert.Create().Show();
         }
 
       
