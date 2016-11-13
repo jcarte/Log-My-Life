@@ -142,6 +142,12 @@ namespace LogMyLife.Android
 
         private void EditClicked(object sender, EventArgs e)
         {
+            if(entry.Comment != comment.Text)
+            {
+                entry.Comment = comment.Text;
+                MainController.UpdateEntry(entry);
+            }
+            
             Intent i = new Intent(this, typeof(EntryEditActivity));//Start a detail activity, push the entry ID into it
             i.PutExtra("EntryID", entry.EntryID);
             StartActivity(i);
@@ -149,6 +155,8 @@ namespace LogMyLife.Android
 
         private void ArchiveClicked(object sender, EventArgs e)
         {
+            entry.Comment = comment.Text;
+            
             entry.IsArchived = !entry.IsArchived;//swap archived state
             MainController.UpdateEntry(entry);
             string tstmsg = "Entry " + (entry.IsArchived ? "Archived" : "Unarchived");

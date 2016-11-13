@@ -68,36 +68,39 @@ namespace LogMyLife.Android
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            //make category object of list to be deleted
-            Category todelete = cats.ElementAt(listList.CheckedItemPosition);
-            
-            
-            //set alert for executing the task
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle("Delete");
-            alert.SetMessage("Are you sure you want to delete this list?");
-            alert.SetPositiveButton("Delete", (senderAlert, args) => {
-                //Delete selected lists selected
-                MainController.DeleteCategory(todelete);
-                OnResume();
-                Toast.MakeText(this, "Deleted!", ToastLength.Short).Show();
-            });
-            alert.SetNegativeButton("Cancel", (s, a) => {});
-            Dialog dialog = alert.Create();
-            dialog.Show();
-            
+            if (listList.CheckedItemPosition > -1)//something selected
+            {
+                Category todelete = cats.ElementAt(listList.CheckedItemPosition);//make category object of list to be deleted
+
+                //set alert for executing the task
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.SetTitle("Delete");
+                alert.SetMessage("Are you sure you want to delete this list?");
+                alert.SetPositiveButton("Delete", (senderAlert, args) =>
+                {
+                    //Delete selected lists selected
+                    MainController.DeleteCategory(todelete);
+                    OnResume();
+                    Toast.MakeText(this, "Deleted!", ToastLength.Short).Show();
+                });
+                alert.SetNegativeButton("Cancel", (s, a) => { });
+                Dialog dialog = alert.Create();
+                dialog.Show();
+            }
         }
         
         private void BtnEdit_Click(object sender, EventArgs e)
         {
-            //TODO: Go to Edit page for selected item 
             //make category object of list to be edited
-            int toEditID = cats.ElementAt(listList.CheckedItemPosition).CategoryID;
+            if (listList.CheckedItemPosition > -1)//something selected
+            {
+                int toEditID = cats.ElementAt(listList.CheckedItemPosition).CategoryID;
 
-            //Start a detail activity, push the entry ID into it
-            Intent i = new Intent(this, typeof(ListEditAdd));
-            i.PutExtra("Category", toEditID);
-            StartActivity(i);
+                //Start a detail activity, push the entry ID into it
+                Intent i = new Intent(this, typeof(ListEditAdd));
+                i.PutExtra("Category", toEditID);
+                StartActivity(i);
+            }
         }
 
         private void BtnNew_Click(object sender, EventArgs e)

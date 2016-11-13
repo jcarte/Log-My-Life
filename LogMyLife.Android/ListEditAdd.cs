@@ -22,6 +22,7 @@ namespace LogMyLife.Android
 
         ListView otherColumns;
         ListView headerColumns;
+        EditText catTitle;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,7 +34,7 @@ namespace LogMyLife.Android
             cat = MainController.GetCategory(catID);//get entry from DB
             if (cat == null)//check that entry returned
                 throw new Exception($"Category not found for catID = {catID}");
-            EditText catTitle = FindViewById<EditText>(Resource.Id.listTitleEdit);
+            catTitle = FindViewById<EditText>(Resource.Id.listTitleEdit);
             catTitle.Text = cat.Name;
 
             //Get list views
@@ -80,16 +81,27 @@ namespace LogMyLife.Android
 
         private void ColumnDeleted(object sender, Column e)
         {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle("Delete");
-            alert.SetMessage($"Are you sure you want to delete column '{e.Name}' and all data stored in it?");
-            alert.SetPositiveButton("Yes", (s, a) => 
-            { 
-                MainController.DeleteColumn(e);
-                PopulateLists();//refresh lists
-            });
-            alert.SetNegativeButton("No", (s, a) => {});
-            alert.Create().Show();
+            if (((ColumnEditAdapter)headerColumns.Adapter).Items.Count == 1 && e.Type == Column.ColumnType.Title)
+            {
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.SetTitle("Delete Failed");
+                alert.SetMessage($"Cannot delete column '{e.Name}' because it is the only heading column, you must always have at least one heading.");
+                alert.SetNeutralButton("OK", (s, a) => { });
+                alert.Create().Show();
+            }
+            else
+            {
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.SetTitle("Delete");
+                alert.SetMessage($"Are you sure you want to delete column '{e.Name}' and all data stored in it?");
+                alert.SetPositiveButton("Yes", (s, a) =>
+                {
+                    MainController.DeleteColumn(e);
+                    PopulateLists();//refresh lists
+                });
+                alert.SetNegativeButton("No", (s, a) => { });
+                alert.Create().Show();
+            }
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -140,6 +152,15 @@ namespace LogMyLife.Android
                 }
             }
 
+
+            //Update list name if changed
+            if (catTitle.Text != cat.Name)
+            {
+                cat.Name = catTitle.Text;
+                MainController.UpdateCategory(cat);
+            }
+
+
             if (updateCount > 1)
                 Toast.MakeText(this, $"{updateCount} Columns Updated", ToastLength.Short).Show();
             else if (updateCount == 1)
@@ -169,10 +190,14 @@ namespace LogMyLife.Android
             // Set an EditText view to get user input  
             EditText input = new EditText(this);
             alert.SetView(input);
-
             //User confirmation
-            alert.SetPositiveButton("Ok", (senderAlert, args) => {
-                Column newCol = MainController.CreateColumn(input.Text,cat.CategoryID,Column.ColumnType.Normal);
+            alert.SetPositiveButton("Summary Heading", (senderAlert, args) => {
+                Column newCol = MainController.CreateColumn(input.Text,cat.CategoryID,Column.ColumnType.Title);
+                PopulateLists();
+                Toast.MakeText(this, "New Column Created!", ToastLength.Short).Show();
+            });
+            alert.SetNeutralButton("Other Heading", (senderAlert, args) => {
+                Column newCol = MainController.CreateColumn(input.Text, cat.CategoryID, Column.ColumnType.Normal);
                 PopulateLists();
                 Toast.MakeText(this, "New Column Created!", ToastLength.Short).Show();
             });
