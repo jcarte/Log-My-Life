@@ -67,7 +67,16 @@ namespace LogMyLife.Android
         }
 
         
+        protected override void OnPause()
+        {
+            base.OnPause();
 
+            if (entry.Comment != comment.Text)
+            {
+                entry.Comment = comment.Text;
+                MainController.UpdateEntry(entry);
+            }
+        }
         protected override void OnResume()
         {
             base.OnResume();
