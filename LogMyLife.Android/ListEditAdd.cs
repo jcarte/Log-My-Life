@@ -94,12 +94,12 @@ namespace LogMyLife.Android
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Delete");
                 alert.SetMessage($"Are you sure you want to delete '{e.Name}' and all data stored in it?");
-                alert.SetPositiveButton("Yes", (s, a) =>
+                alert.SetNegativeButton("Yes", (s, a) =>
                 {
                     MainController.DeleteColumn(e);
                     PopulateLists();//refresh lists
                 });
-                alert.SetNegativeButton("No", (s, a) => { });
+                alert.SetPositiveButton("No", (s, a) => { });
                 alert.Create().Show();
             }
         }
@@ -126,7 +126,7 @@ namespace LogMyLife.Android
                     alert.SetMessage($"'{col.Name}' appears multiple times, please remove one and try again.");
                     alert.SetNeutralButton("OK", (s, a) => { });
                     alert.Create().Show();
-                    break;
+                    return;
                 }
             }
 
@@ -156,6 +156,17 @@ namespace LogMyLife.Android
             //Update list name if changed
             if (catTitle.Text != cat.Name)
             {
+                if (catTitle.Text == "")
+                {
+                    //Information button on headers
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.SetTitle("List Name Blank");
+                    alert.SetMessage("Please enter a name for your list.");
+                    alert.SetNeutralButton("OK", (s, a) => { });
+                    Dialog dialog = alert.Create();
+                    dialog.Show();
+                    return;
+                }
                 cat.Name = catTitle.Text;
                 MainController.UpdateCategory(cat);
             }
@@ -191,17 +202,17 @@ namespace LogMyLife.Android
             EditText input = new EditText(this);
             alert.SetView(input);
             //User confirmation
-            alert.SetPositiveButton("Add as Summary Heading", (senderAlert, args) => {
+            alert.SetNegativeButton("Add as Summary Heading", (senderAlert, args) => {
                 Column newCol = MainController.CreateColumn(input.Text,cat.CategoryID,Column.ColumnType.Title);
                 PopulateLists();
                 Toast.MakeText(this, "New Heading Created!", ToastLength.Short).Show();
             });
-            alert.SetNeutralButton("Add as Other Heading", (senderAlert, args) => {
+            alert.SetNeutralButton("Add as Other", (senderAlert, args) => {
                 Column newCol = MainController.CreateColumn(input.Text, cat.CategoryID, Column.ColumnType.Normal);
                 PopulateLists();
-                Toast.MakeText(this, "New Column Created!", ToastLength.Short).Show();
+                Toast.MakeText(this, "New Heading Created!", ToastLength.Short).Show();
             });
-            alert.SetNegativeButton("Cancel", (s, a) => { });
+            alert.SetPositiveButton("Cancel", (s, a) => { });
             alert.Create().Show();
         }
 
