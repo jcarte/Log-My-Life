@@ -85,7 +85,7 @@ namespace LogMyLife.Android
             {
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Delete Failed");
-                alert.SetMessage($"Cannot delete column '{e.Name}' because it is the only heading column, you must always have at least one heading.");
+                alert.SetMessage($"Cannot delete '{e.Name}' because it is the only Summary Heading.  /nYou must always have at least one Summary Heading.");
                 alert.SetNeutralButton("OK", (s, a) => { });
                 alert.Create().Show();
             }
@@ -93,7 +93,7 @@ namespace LogMyLife.Android
             {
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Delete");
-                alert.SetMessage($"Are you sure you want to delete column '{e.Name}' and all data stored in it?");
+                alert.SetMessage($"Are you sure you want to delete '{e.Name}' and all data stored in it?");
                 alert.SetPositiveButton("Yes", (s, a) =>
                 {
                     MainController.DeleteColumn(e);
@@ -123,7 +123,7 @@ namespace LogMyLife.Android
                 {
                     AlertDialog.Builder alert = new AlertDialog.Builder(this);
                     alert.SetTitle("Duplicate Names");
-                    alert.SetMessage($"The column '{col.Name}' appears multiple times, please remove one and try again.");
+                    alert.SetMessage($"'{col.Name}' appears multiple times, please remove one and try again.");
                     alert.SetNeutralButton("OK", (s, a) => { });
                     alert.Create().Show();
                     break;
@@ -162,9 +162,9 @@ namespace LogMyLife.Android
 
 
             if (updateCount > 1)
-                Toast.MakeText(this, $"{updateCount} Columns Updated", ToastLength.Short).Show();
+                Toast.MakeText(this, $"{updateCount} Headings Updated", ToastLength.Short).Show();
             else if (updateCount == 1)
-                Toast.MakeText(this, $"Column Updated", ToastLength.Short).Show();
+                Toast.MakeText(this, $"Heading Updated", ToastLength.Short).Show();
 
             base.OnBackPressed();
         }
@@ -185,18 +185,18 @@ namespace LogMyLife.Android
         private void BtnAddColName_Click(object sender, EventArgs e)//Add column to list
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle("New Column");
-            alert.SetMessage("Enter the name of your new column:");
+            alert.SetTitle("New Heading");
+            alert.SetMessage("Enter the name of your new heading:");
             // Set an EditText view to get user input  
             EditText input = new EditText(this);
             alert.SetView(input);
             //User confirmation
-            alert.SetPositiveButton("Summary Heading", (senderAlert, args) => {
+            alert.SetPositiveButton("Add as Summary Heading", (senderAlert, args) => {
                 Column newCol = MainController.CreateColumn(input.Text,cat.CategoryID,Column.ColumnType.Title);
                 PopulateLists();
-                Toast.MakeText(this, "New Column Created!", ToastLength.Short).Show();
+                Toast.MakeText(this, "New Heading Created!", ToastLength.Short).Show();
             });
-            alert.SetNeutralButton("Other Heading", (senderAlert, args) => {
+            alert.SetNeutralButton("Add as Other Heading", (senderAlert, args) => {
                 Column newCol = MainController.CreateColumn(input.Text, cat.CategoryID, Column.ColumnType.Normal);
                 PopulateLists();
                 Toast.MakeText(this, "New Column Created!", ToastLength.Short).Show();
