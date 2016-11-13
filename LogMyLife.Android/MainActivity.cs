@@ -88,7 +88,7 @@ namespace LogMyLife.Android
             //set alert for executing the task
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.SetTitle("About Log my Life v0.1");
-            alert.SetMessage("Log my Life is a Jicola Production.  Version 0.1 is a beta version and there will be many great, new features coming soon, including customisable lists to give you control over your categories!");
+            alert.SetMessage("Log my Life is a Jicola Production.  Version 0.3 is our new version and there will be many great, new features coming soon, including sharing lists with your friends!");
 
             alert.SetNegativeButton("Ok", (senderAlert, args) =>
             {
@@ -206,14 +206,14 @@ namespace LogMyLife.Android
             //Top half of screen - current items
             TextView mainScreenTop;
             mainScreenTop = FindViewById<TextView>(Resource.Id.clText);
-            mainScreenTop.Text = "NEW " + cat.Name.ToUpper();
+            mainScreenTop.Text = "New " + cat.Name;
             ArrayAdapter<string> adpater = new ArrayAdapter<string>(this, a.Resource.Layout.TestListItem, cItems);
             lvMainScreen.Adapter = adpater;
 
             //Lower half of screen - archived items
             TextView mainScreenLower;
             mainScreenLower = FindViewById<TextView>(Resource.Id.alText);
-            mainScreenLower.Text = "COMPLETED " + cat.Name.ToUpper();
+            mainScreenLower.Text = "Archived " + cat.Name;
             ArrayAdapter<string> adpaterL = new ArrayAdapter<string>(this, a.Resource.Layout.TestListItem, aItems);
             lvMainScreenLower.Adapter = adpaterL;
         } 

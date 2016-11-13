@@ -68,10 +68,10 @@ namespace LogMyLife.Android
 			public const int LauncherIcon4 = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int trash = 2130837511;
+			public const int trash2 = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int trash2 = 2130837512;
+			public const int trash3 = 2130837512;
 			
 			static Drawable()
 			{

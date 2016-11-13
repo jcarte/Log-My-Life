@@ -76,14 +76,14 @@ namespace LogMyLife.Android
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Delete");
                 alert.SetMessage("Are you sure you want to delete this list?");
-                alert.SetPositiveButton("Delete", (senderAlert, args) =>
+                alert.SetNegativeButton("Delete", (senderAlert, args) =>
                 {
                     //Delete selected lists selected
                     MainController.DeleteCategory(todelete);
                     OnResume();
                     Toast.MakeText(this, "Deleted!", ToastLength.Short).Show();
                 });
-                alert.SetNegativeButton("Cancel", (s, a) => { });
+                alert.SetPositiveButton("Cancel", (s, a) => { });
                 Dialog dialog = alert.Create();
                 dialog.Show();
             }
@@ -115,7 +115,7 @@ namespace LogMyLife.Android
             alert.SetView(input);
             
             //User confirmation
-            alert.SetPositiveButton("Ok", (senderAlert, args) => {
+            alert.SetNegativeButton("OK", (senderAlert, args) => {
                 Category newCat = MainController.CreateCategory(input.Text, Category.CategoryType.UserCreated);
                 //TODO - need to make it go to new page        
                 //OnResume();
@@ -127,7 +127,7 @@ namespace LogMyLife.Android
 
                 Toast.MakeText(this, "New List Created!", ToastLength.Short).Show();
             });
-            alert.SetNegativeButton("Cancel", (s, a) => { });
+            alert.SetPositiveButton("Cancel", (s, a) => { });
             Dialog dialog = alert.Create();
             dialog.Show();
 

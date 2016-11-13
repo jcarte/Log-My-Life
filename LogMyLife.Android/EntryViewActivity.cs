@@ -166,9 +166,23 @@ namespace LogMyLife.Android
 
         private void DeleteClicked(object sender, EventArgs e)
         {
-            MainController.DeleteEntry(entry);
-            base.OnBackPressed();
-            Toast.MakeText(this, "Deleted", ToastLength.Short).Show();
+            //set alert for executing the task
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Delete");
+            alert.SetMessage("Are you sure you want to delete this list?");
+            alert.SetNegativeButton("Delete", (senderAlert, args) =>
+            {
+                //Delete selected lists selected
+                MainController.DeleteEntry(entry);
+                base.OnBackPressed();
+                Toast.MakeText(this, "Deleted", ToastLength.Short).Show();
+
+            });
+            alert.SetPositiveButton("Cancel", (s, a) => { });
+            Dialog dialog = alert.Create();
+            dialog.Show();
+
+            
         }
     }
 }
