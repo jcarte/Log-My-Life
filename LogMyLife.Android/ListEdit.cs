@@ -59,12 +59,20 @@ namespace LogMyLife.Android
             Button btnEdit = FindViewById<Button>(Resource.Id.btnEdit_LE);
             Button btnDelete = FindViewById<Button>(Resource.Id.btnDelete_LE);
             Button btnNew = FindViewById<Button>(Resource.Id.btnNew_LE);
+            ImageButton btnBack = FindViewById<ImageButton>(Resource.Id.btnDBack_LE);
 
             btnEdit.Click += BtnEdit_Click;
             btnDelete.Click += BtnDelete_Click;
             btnNew.Click += BtnNew_Click;
+            btnBack.Click += BtnBack_Click;
         }
 
+        private void BtnBack_Click(object sender, EventArgs e)
+        {
+            //Forget changes and go back to main screen
+            Intent i = new Intent(this, typeof(MainActivity));
+            StartActivity(i);
+        }
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {

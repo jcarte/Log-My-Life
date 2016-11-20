@@ -47,31 +47,34 @@ namespace LogMyLife.Android
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int ic_action_download = 2130837504;
+			public const int back = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int ic_navigation_drawer = 2130837505;
+			public const int ic_action_download = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int ic_navigation_drawer_lg = 2130837506;
+			public const int ic_navigation_drawer = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int ic_navigation_drawer_old = 2130837507;
+			public const int ic_navigation_drawer_lg = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int Icon = 2130837508;
+			public const int ic_navigation_drawer_old = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int info = 2130837509;
+			public const int Icon = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int LauncherIcon4 = 2130837510;
+			public const int info = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int trash2 = 2130837511;
+			public const int LauncherIcon4 = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int trash3 = 2130837512;
+			public const int trash2 = 2130837512;
+			
+			// aapt resource value: 0x7f020009
+			public const int trash3 = 2130837513;
 			
 			static Drawable()
 			{
@@ -86,11 +89,11 @@ namespace LogMyLife.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f07001d
-			public const int alText = 2131165213;
+			// aapt resource value: 0x7f07001f
+			public const int alText = 2131165215;
 			
-			// aapt resource value: 0x7f070020
-			public const int btnAbout = 2131165216;
+			// aapt resource value: 0x7f070022
+			public const int btnAbout = 2131165218;
 			
 			// aapt resource value: 0x7f070005
 			public const int btnAddCol_EL = 2131165189;
@@ -98,38 +101,44 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070012
 			public const int btnArchive_EV = 2131165202;
 			
+			// aapt resource value: 0x7f070013
+			public const int btnB_EV = 2131165203;
+			
 			// aapt resource value: 0x7f07000e
 			public const int btnCancel_EE = 2131165198;
 			
 			// aapt resource value: 0x7f070006
 			public const int btnCancel_EL = 2131165190;
 			
+			// aapt resource value: 0x7f070019
+			public const int btnDBack_LE = 2131165209;
+			
 			// aapt resource value: 0x7f07000a
 			public const int btnDelete = 2131165194;
 			
-			// aapt resource value: 0x7f070013
-			public const int btnDelete_EV = 2131165203;
+			// aapt resource value: 0x7f070014
+			public const int btnDelete_EV = 2131165204;
 			
-			// aapt resource value: 0x7f070017
-			public const int btnDelete_LE = 2131165207;
+			// aapt resource value: 0x7f070018
+			public const int btnDelete_LE = 2131165208;
 			
-			// aapt resource value: 0x7f070021
-			public const int btnEdit = 2131165217;
+			// aapt resource value: 0x7f070023
+			public const int btnEdit = 2131165219;
 			
 			// aapt resource value: 0x7f070011
 			public const int btnEdit_EV = 2131165201;
 			
-			// aapt resource value: 0x7f070016
-			public const int btnEdit_LE = 2131165206;
+			// aapt resource value: 0x7f070017
+			public const int btnEdit_LE = 2131165207;
 			
 			// aapt resource value: 0x7f070001
 			public const int btnInfo_ELI = 2131165185;
 			
-			// aapt resource value: 0x7f070015
-			public const int btnNew_LE = 2131165205;
+			// aapt resource value: 0x7f070016
+			public const int btnNew_LE = 2131165206;
 			
-			// aapt resource value: 0x7f07001b
-			public const int btnNew_MA = 2131165211;
+			// aapt resource value: 0x7f07001d
+			public const int btnNew_MA = 2131165213;
 			
 			// aapt resource value: 0x7f07000d
 			public const int btnSave_EE = 2131165197;
@@ -137,20 +146,20 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070004
 			public const int btnSave_EL = 2131165188;
 			
-			// aapt resource value: 0x7f07001a
-			public const int clText = 2131165210;
+			// aapt resource value: 0x7f07001c
+			public const int clText = 2131165212;
+			
+			// aapt resource value: 0x7f070026
+			public const int downloads = 2131165222;
+			
+			// aapt resource value: 0x7f070015
+			public const int editListsList = 2131165205;
 			
 			// aapt resource value: 0x7f070024
-			public const int downloads = 2131165220;
+			public const int left = 2131165220;
 			
-			// aapt resource value: 0x7f070014
-			public const int editListsList = 2131165204;
-			
-			// aapt resource value: 0x7f070022
-			public const int left = 2131165218;
-			
-			// aapt resource value: 0x7f07001f
-			public const int leftListView = 2131165215;
+			// aapt resource value: 0x7f070021
+			public const int leftListView = 2131165217;
 			
 			// aapt resource value: 0x7f070007
 			public const int left_ER = 2131165191;
@@ -158,17 +167,17 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070000
 			public const int listTitleEdit = 2131165184;
 			
-			// aapt resource value: 0x7f070019
-			public const int loCurrentListHeader = 2131165209;
-			
-			// aapt resource value: 0x7f07001c
-			public const int lvMainScreen = 2131165212;
+			// aapt resource value: 0x7f07001b
+			public const int loCurrentListHeader = 2131165211;
 			
 			// aapt resource value: 0x7f07001e
-			public const int lvMainScreenLower = 2131165214;
+			public const int lvMainScreen = 2131165214;
 			
-			// aapt resource value: 0x7f070018
-			public const int myDrawer = 2131165208;
+			// aapt resource value: 0x7f070020
+			public const int lvMainScreenLower = 2131165216;
+			
+			// aapt resource value: 0x7f07001a
+			public const int myDrawer = 2131165210;
 			
 			// aapt resource value: 0x7f07000c
 			public const int otherFieldList = 2131165196;
@@ -179,8 +188,8 @@ namespace LogMyLife.Android
 			// aapt resource value: 0x7f070010
 			public const int ratingRBar = 2131165200;
 			
-			// aapt resource value: 0x7f070023
-			public const int right = 2131165219;
+			// aapt resource value: 0x7f070025
+			public const int right = 2131165221;
 			
 			// aapt resource value: 0x7f070008
 			public const int right_ER = 2131165192;
