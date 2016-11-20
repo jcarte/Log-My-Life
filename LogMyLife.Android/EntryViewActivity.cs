@@ -30,6 +30,7 @@ namespace LogMyLife.Android
         ListView otherFieldList;
         Button btnEdit;
         Button btnArchive;
+        Button btnBack;
         ImageButton btnDelete;
 
         bool isLoading = false;//so that on resume doesn't trigger updates
@@ -60,13 +61,19 @@ namespace LogMyLife.Android
             btnEdit = FindViewById<Button>(Resource.Id.btnEdit_EV);
             btnArchive = FindViewById<Button>(Resource.Id.btnArchive_EV);
             btnDelete = FindViewById<ImageButton>(Resource.Id.btnDelete_EV);
+            btnBack = FindViewById<Button>(Resource.Id.btnB_EV);
             btnEdit.Click += EditClicked;
             btnArchive.Click += ArchiveClicked;
             btnDelete.Click += DeleteClicked;
+            btnBack.Click += BtnBack_Click;
             
         }
 
-        
+        private void BtnBack_Click(object sender, EventArgs e)
+        {
+            base.OnBackPressed();
+        }
+
         protected override void OnPause()
         {
             base.OnPause();
