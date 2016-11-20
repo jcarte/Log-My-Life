@@ -60,10 +60,12 @@ namespace LogMyLife.Android
                 value = view.FindViewById<EditText>(Resource.Id.rowEdit);
 
             value.Tag = new ColumnHolder(item);
-            value.Text = item.Name;
+            //Console.WriteLine(item.Name);
+            if(item.Name != value.Text)
+                value.Text = item.Name;
             
             //value.SetTag(1, position);
-            value.FocusableInTouchMode = true;
+            //value.FocusableInTouchMode = true;
             
             return view;
         }

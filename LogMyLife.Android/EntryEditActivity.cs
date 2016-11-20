@@ -24,11 +24,6 @@ namespace LogMyLife.Android
         ListView titleFieldList;
         ListView otherFieldList;
 
-        //TODO taked out comment and rating so that all fields fit on screen, if so many fields that they fall
-        //below the keyboard then it doesn't work, don't know why
-
-        //EditText comment;
-        //RatingBar rating;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -44,20 +39,7 @@ namespace LogMyLife.Android
             titleFieldList = FindViewById<ListView>(Resource.Id.titleFieldList);
             EditFieldAdapter adpaterFL = new EditFieldAdapter(this, entry.TitleData, true);
             titleFieldList.Adapter = adpaterFL;
-            //adpaterFL.ItemUpdated += AdpaterItemUpdated;
 
-            ////Set Comment Box Value
-            //comment = FindViewById<EditText>(Resource.Id.commentTBox_EE);
-            //comment.SetHorizontallyScrolling(false);
-            //comment.SetLines(3);
-            //comment.Text = entry.Comment;
-            //comment.EditorAction += CommentFinishedEditing; ;
-
-            ////Set Rating bar star value
-            //float d = entry.StarRating;
-            //rating = FindViewById<RatingBar>(Resource.Id.ratingRBar);
-            //rating.Rating = d;
-            //rating.RatingBarChange += RatingClicked;
 
             //populate otherFieldList
             otherFieldList = FindViewById<ListView>(Resource.Id.otherFieldList);//TODO EditText fields aren't showing right,
@@ -73,34 +55,6 @@ namespace LogMyLife.Android
 
         }
 
-        //private void AdpaterItemUpdated(KeyValuePair<string, string> kvp)
-        //{
-            
-        //    //InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
-        //    //inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
-
-        //    entry.EditColumnData(kvp.Key, kvp.Value);
-
-        //    Toast.MakeText(this, kvp.Key + ": " + kvp.Value, ToastLength.Short).Show();
-        //}
-
-        //private void RatingClicked(object sender, RatingBar.RatingBarChangeEventArgs e)
-        //{
-        //    entry.StarRating = rating.Rating;
-        //    Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
-        //}
-
-        //private void CommentFinishedEditing(object sender, TextView.EditorActionEventArgs e)
-        //{
-        //    if (e.ActionId == ImeAction.Done)
-        //    {
-        //        InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
-        //        inputManager.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
-
-        //        entry.Comment = comment.Text;
-        //        Toast.MakeText(this, "Comment Updated", ToastLength.Short).Show();
-        //    }
-        //}
 
         private void CancelClicked(object sender, EventArgs e)
         {
@@ -111,6 +65,14 @@ namespace LogMyLife.Android
         {
             //TODO if start editing field then click save, doesn't update changes, below doesn't work because adapter doesn't update list
             ////Check title fields are up to date
+
+            //Have they entered anything in the title? cancel if not
+            if(((EditFieldAdapter)titleFieldList.Adapter).Items.Sum(i=>i.Value.Length) == 0)
+            {
+                Toast.MakeText(this, "Enter a value in the summary heading", ToastLength.Long).Show();
+                return;
+            }
+
             foreach (var item in ((EditFieldAdapter)titleFieldList.Adapter).Items)
             {
                 string val;
