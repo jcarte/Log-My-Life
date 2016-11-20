@@ -158,4 +158,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\trash3.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\back.png" />
+  </ItemGroup>
 </Project>
