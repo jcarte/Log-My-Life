@@ -25,7 +25,7 @@ namespace LogMyLife.Android
 		ArrayAdapter mLeftAdapter;
 		ListView mLeftDrawer;
 		ActionBarDrawerToggle mDrawerToggle;
-        List<Category> cats = MainController.GetCategories();
+        List<Category> cats;
 
         private List<string> cItems;
         private List<string> aItems;
@@ -37,6 +37,8 @@ namespace LogMyLife.Android
         protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
+
+            cats = MainController.GetCategories().OrderBy(c => c.Name).ToList();
 
             currCat = cats[0];
 
@@ -172,7 +174,7 @@ namespace LogMyLife.Android
         {
             base.OnResume();
             List<string> mLeftItems = new List<string>();
-            cats = MainController.GetCategories();
+            cats = MainController.GetCategories().OrderBy(c => c.Name).ToList();
             //Populates the items in the menu bar
             foreach (var i in cats)
             {

@@ -30,7 +30,7 @@ namespace LogMyLife.Android
             //Blank list to put the string of the name in the objects in cats
             List<string> mItems = new List<string>();
             //The call to get all the info on the categories ready to put into the list
-            cats = MainController.GetCategories();
+            cats = MainController.GetCategories().OrderBy(c=>c.Name).ToList();
             //Puts the name from each iteration in GetCategories into mItems
             foreach (var i in cats)
             {
@@ -117,8 +117,11 @@ namespace LogMyLife.Android
             //User confirmation
             alert.SetNegativeButton("OK", (senderAlert, args) => {
                 Category newCat = MainController.CreateCategory(input.Text, Category.CategoryType.UserCreated);
-                //TODO - need to make it go to new page        
-                //OnResume();
+                Column comment = MainController.CreateColumn("Comment", newCat.CategoryID, Column.ColumnType.Review);
+                Column starRating = MainController.CreateColumn("Star Rating", newCat.CategoryID, Column.ColumnType.Review);
+
+                Column heading1 = MainController.CreateColumn("Heading 1", newCat.CategoryID, Column.ColumnType.Title);
+                Column heading2 = MainController.CreateColumn("Heading 2", newCat.CategoryID, Column.ColumnType.Normal);
 
                 //Start a detail activity, push the entry ID into it
                 Intent i = new Intent(this, typeof(ListEditAdd));
